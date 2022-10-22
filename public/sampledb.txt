@@ -1,0 +1,35 @@
+"PROJECT-OWNERNAME": {
+    "1": {
+        "floor": "name1",
+        "area": "area",
+        "element": "element",
+        "defectDesc":"defectDesc",
+        "defectRemark":"defectRemark",
+
+    },
+    "2": {
+        "floor": "name1",
+        "area": "area",
+        "element": "element",
+        "defectDesc":"defectDesc",
+        "defectRemark":"defectRemark",
+
+    },
+    "3": {
+        "floor": "name1",
+        "area": "area",
+        "element": "element",
+        "defectDesc":"defectDesc",
+        "defectRemark":"defectRemark",
+
+    },
+    "4": {
+        "floor": "name1",
+        "area": "area",
+        "element": "element",
+        "defectDesc":"defectDesc",
+        "defectRemark":"defectRemark",
+
+    }
+}
+

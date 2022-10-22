@@ -4,20 +4,39 @@ import './index.css';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import { GeneralProvider } from './context/generalcontext.component';
+import { BrowserRouter } from 'react-router-dom';
+import { UserProvider } from './context/user.context';
 
+// import { render } from 'react-dom';
+//for react18
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <GeneralProvider>
+        <UserProvider>
+          <App />
+        </UserProvider>
+      </GeneralProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://cra.link/PWA
-serviceWorkerRegistration.unregister();
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+// const root = document.getElementById('root'); // <- This is the //correct method call for React version 17
+
+// render(
+
+//   <React.StrictMode>
+//     <BrowserRouter>
+//       <GeneralProvider>
+//         <App />
+//       </GeneralProvider>
+//     </BrowserRouter>
+//   </React.StrictMode>,
+//   root
+// );
+
+serviceWorkerRegistration.unregister();
 reportWebVitals();
