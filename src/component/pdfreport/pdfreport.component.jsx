@@ -7,6 +7,7 @@ import { NAVBARCOLOR, BUTTONCOLOR, LABELCOLOR, LABELHOVERCOLOR } from '../../uti
 import { Select, Option, Input, Textarea } from "@material-tailwind/react";
 import { retrievePDFSummary, getUserNameAddress } from '../../utils/firebase/firebase.utils';
 import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 import pin from '../../assets/img/pin-red.svg';
 import spinner from '../../assets/img/spinner.svg';
 import { UserContext } from '../../context/user.context';
@@ -107,6 +108,7 @@ const PdfReport = () => {
         setEle([]);
         setRowCount(0);
         setIsLoading('');
+        setProjectList([]);
 
     };
 
@@ -115,9 +117,47 @@ const PdfReport = () => {
         setRowCount(0);
     };
 
-    const pdf = async () => {
-        setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-red-700 items-center bg-red-100 w-72  drop-shadow-md shadow-md'>Generating pdf file <img src={spinner} alt='' /></div>);
+    const getHighestCount = (sortedObject) => {
+        let obj = sortedObject
+        let highestCount = '';
+        let highestKey = '';
 
+        Object.keys(obj).map((key) => {
+            if (obj[key] > highestCount) {
+                highestKey = key;
+                highestCount = obj[key];
+            }
+        });
+        // console.log(highestKey, highestCount);
+
+        return { highestKey, highestCount };
+    }
+
+    const getPercentage = (sortedObject, totalCount, status, str) => {
+
+        let obj = sortedObject;
+        let desc = '';
+        if (status === 'floor') {
+            desc += `There are total of ${totalCount} defects on this inspected property.`
+        }
+        if (status === 'area') {
+            desc += `The total of ${totalCount} defects are divided by area, and each area will have their individual defect count as well.As defect count grouped into area,`
+        }
+        if (status === 'ele') {
+            desc += `Defects can also be grouped into each different type of element defect as well. From the total of ${totalCount} defects,`
+        }
+
+        Object.keys(obj).map((key) => {
+            desc += ` ${(obj[key] / totalCount * 100).toFixed(2)}% of defects are ${str} ${key}, which are total of ${obj[key]} defects.`
+        });
+
+        return desc;
+
+    }
+    
+
+    const pdf = async () => {
+        
         if (ownerName && propertyAdd) {
 
             const doc = new jsPDF('landscape');
@@ -133,13 +173,13 @@ const PdfReport = () => {
             // let arrResult = await getUserNameAddress(curProject, currentUser);
 
             let floorChart = document.getElementById('floorChart');
-            let floorChartImg = floorChart.lastElementChild.firstChild.toDataURL("image/png", 1.0);
+            let floorChartImg = floorChart.lastElementChild.firstChild.toDataURL("image/png", 0.3);
 
             let areaChart = document.getElementById('areaChart');
-            let areaChartImg = areaChart.lastElementChild.firstChild.toDataURL("image/png", 1.0);
+            let areaChartImg = areaChart.lastElementChild.firstChild.toDataURL("image/png", 0.3);
 
             let elementChart = document.getElementById('elementChart');
-            let elementChartImg = elementChart.lastElementChild.firstChild.toDataURL("image/png", 1.0);
+            let elementChartImg = elementChart.lastElementChild.firstChild.toDataURL("image/png", 0.3);
 
 
             doc.setFontSize(22);
@@ -191,13 +231,121 @@ const PdfReport = () => {
             doc.line(120, 170, 180, 170);
             doc.line(200, 170, 250, 170);
 
+
+            let flrcounts = [];
+            ele.forEach((record) => {
+                flrcounts[record.floor] = (flrcounts[record.floor] || 0) + 1;
+            });
+         
+            let areacounts = [];
+            ele.forEach((record) => {
+                areacounts[record.area] = (areacounts[record.area] || 0) + 1;
+            })
+        
+            let elecounts = [];
+            ele.forEach((record) => {
+                elecounts[record.element] = (elecounts[record.element] || 0) + 1;
+            });
+        
             doc.addPage();
             doc.setFontSize(22);
-            doc.text('DEFECT COUNT SUMMARY CHART', 150, 20, { align: 'center' });
+            doc.text('DEFECT SUMMARY CHART BY FLOOR', 150, 20, { align: 'center' });
             doc.line(50, 25, 250, 25);
-            doc.addImage(floorChartImg, 'JPEG', 20, 35, 110, 70, undefined, 'FAST');
-            doc.addImage(areaChartImg, 'JPEG', 160, 35, 110, 70, undefined, 'FAST');
-            doc.addImage(elementChartImg, 'JPEG', 80, 120, 140, 70, undefined, 'FAST');
+            doc.addImage(floorChartImg, 'JPEG', 100, 35, 110, 70, undefined, 'FAST');
+            doc.setFontSize(10);
+
+            let desc = getPercentage(flrcounts, ele.length, 'floor', 'at');
+            if (desc.length > 160) {
+                doc.text(desc.substring(0, 160), 20, 110, { align: 'left' })
+                doc.text(desc.substring(160,320), 20, 115, { align: 'left' })
+                doc.text(desc.substring(320,480), 20, 120, { align: 'left' })
+                doc.text(desc.substring(480,640), 20, 125, { align: 'left' })
+                doc.text(desc.substring(640,800), 20, 130, { align: 'left' })
+                doc.text(desc.substring(800,960), 20, 135, { align: 'left' })
+                doc.text(desc.substring(960,1120), 20, 140, { align: 'left' })
+                doc.text(desc.substring(1120,1280), 20, 145, { align: 'left' })
+                doc.text(desc.substring(1280,1440), 20, 150, { align: 'left' })
+                doc.text(desc.substring(1440,1600), 20, 155, { align: 'left' })
+                doc.text(desc.substring(1600,1760), 20, 160, { align: 'left' })
+                doc.text(desc.substring(1760,1920), 20, 165, { align: 'left' })
+                doc.text(desc.substring(1920,2080), 20, 170, { align: 'left' })
+                doc.text(desc.substring(2080,2240), 20, 175, { align: 'left' })
+                doc.text(desc.substring(2240,2400), 20, 180, { align: 'left' })
+                doc.text(desc.substring(2400,2560), 20, 185, { align: 'left' })
+                doc.text(desc.substring(2560,2720), 20, 190, { align: 'left' })
+                doc.text(desc.substring(2720,2880), 20, 195, { align: 'left' })
+                doc.text(desc.substring(2880,3040), 20, 200, { align: 'left' })                
+            } else {
+                doc.text(desc, 20, 110, { align: 'left' });
+            }          
+
+
+            doc.addPage();
+            doc.setFontSize(22);
+            doc.text('DEFECT SUMMARY CHART BY AREA', 150, 20, { align: 'center' });
+            doc.line(50, 25, 250, 25);
+            doc.addImage(areaChartImg, 'JPEG', 100, 35, 110, 70, undefined, 'FAST');  
+            doc.setFontSize(10);          
+         
+
+            desc = getPercentage(areacounts, ele.length,'area','from');
+            if (desc.length > 160) {
+                doc.text(desc.substring(0, 160), 20, 110, { align: 'left' })
+                doc.text(desc.substring(160,320), 20, 115, { align: 'left' })
+                doc.text(desc.substring(320,480), 20, 120, { align: 'left' })
+                doc.text(desc.substring(480,640), 20, 125, { align: 'left' })
+                doc.text(desc.substring(640,800), 20, 130, { align: 'left' })
+                doc.text(desc.substring(800,960), 20, 135, { align: 'left' })
+                doc.text(desc.substring(960,1120), 20, 140, { align: 'left' })
+                doc.text(desc.substring(1120,1280), 20, 145, { align: 'left' })
+                doc.text(desc.substring(1280,1440), 20, 150, { align: 'left' })
+                doc.text(desc.substring(1440,1600), 20, 155, { align: 'left' })
+                doc.text(desc.substring(1600,1760), 20, 160, { align: 'left' })
+                doc.text(desc.substring(1760,1920), 20, 165, { align: 'left' })
+                doc.text(desc.substring(1920,2080), 20, 170, { align: 'left' })
+                doc.text(desc.substring(2080,2240), 20, 175, { align: 'left' })
+                doc.text(desc.substring(2240,2400), 20, 180, { align: 'left' })
+                doc.text(desc.substring(2400,2560), 20, 185, { align: 'left' })
+                doc.text(desc.substring(2560,2720), 20, 190, { align: 'left' })
+                doc.text(desc.substring(2720,2880), 20, 195, { align: 'left' })
+                doc.text(desc.substring(2880,3040), 20, 200, { align: 'left' })
+            } else {
+                doc.text(desc, 20, 110, { align: 'left' });
+            }          
+ 
+
+            doc.addPage();
+            doc.setFontSize(22);
+            doc.text('DEFECT SUMMARY CHART BY ELEMENT', 150, 20, { align: 'center' });
+            doc.line(50, 25, 250, 25);
+            doc.addImage(elementChartImg, 'JPEG', 100, 35, 110, 70, undefined, 'FAST');      
+            doc.setFontSize(10);      
+      
+            desc = getPercentage(elecounts, ele.length,'ele','on');
+            if (desc.length > 160) {
+                doc.text(desc.substring(0, 160), 20, 110, { align: 'left' })
+                doc.text(desc.substring(160,320), 20, 115, { align: 'left' })
+                doc.text(desc.substring(320,480), 20, 120, { align: 'left' })
+                doc.text(desc.substring(480,640), 20, 125, { align: 'left' })
+                doc.text(desc.substring(640,800), 20, 130, { align: 'left' })
+                doc.text(desc.substring(800,960), 20, 135, { align: 'left' })
+                doc.text(desc.substring(960,1120), 20, 140, { align: 'left' })
+                doc.text(desc.substring(1120,1280), 20, 145, { align: 'left' })
+                doc.text(desc.substring(1280,1440), 20, 150, { align: 'left' })
+                doc.text(desc.substring(1440,1600), 20, 155, { align: 'left' })
+                doc.text(desc.substring(1600,1760), 20, 160, { align: 'left' })
+                doc.text(desc.substring(1760,1920), 20, 165, { align: 'left' })
+                doc.text(desc.substring(1920,2080), 20, 170, { align: 'left' })
+                doc.text(desc.substring(2080,2240), 20, 175, { align: 'left' })
+                doc.text(desc.substring(2240,2400), 20, 180, { align: 'left' })
+                doc.text(desc.substring(2400,2560), 20, 185, { align: 'left' })
+                doc.text(desc.substring(2560,2720), 20, 190, { align: 'left' })
+                doc.text(desc.substring(2720,2880), 20, 195, { align: 'left' })
+                doc.text(desc.substring(2880,3040), 20, 200, { align: 'left' })
+            } else {
+                doc.text(desc, 20, 110, { align: 'left' });
+            }          
+   
 
 
             doc.addPage();
@@ -223,7 +371,7 @@ const PdfReport = () => {
                     } else {
 
 
-                        if ((ele[arrRow] != undefined)) {
+                        if ((ele[arrRow] !== undefined)) {
                             if (data.column.index === 3 && data.cell.section === 'body') {
                                 if (count === 3) {
                                     var td = data.cell.raw;
@@ -362,7 +510,7 @@ const PdfReport = () => {
             <Header headerText={{ title: 'PDF SUMMARY' }} />
 
             <div className='w-80 flex justify-center p-2  my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-50'>
-                <Select id='projectDD' label="SELECT PROJECT [*required]" onChange={handlePDD} >
+                <Select id='projectDD' label="SELECT PROJECT [*required]" onChange={handlePDD} onClick={generateDropDown}>
                     {projectList.map((item) => (<Option key={item} value={item}>{item}</Option>))}
                 </Select>
             </div>
@@ -383,7 +531,7 @@ const PdfReport = () => {
             <Dialog open={open} handler={handleOpen} size='xl' className='flex justify-center flex-col items-center'>
                 <DialogHeader className='flex justify-center text-green-200 '>EXPORT TO PDF FILE</DialogHeader>
                 <DialogBody className='text-gray-800 flex flex-col justify-center items-center w-72 '>
-                    <div className="w-64 flex justify-center">Information below will be display in pdf report.</div>
+                    <div className="w-64 flex justify-center">Information below will be displayed in pdf report.</div>
                     <div className="w-64 flex justify-center p-2 my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100">
                         <Input label="OWNER NAME*" value={ownerName} onChange={handleOwnerNameChange} />
                     </div>
@@ -393,8 +541,7 @@ const PdfReport = () => {
                     <div className="w-64 flex justify-center p-2 my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100">
                         <Textarea label="PROPERTY ADDRESS*" value={propertyAdd} onChange={handlePropertyAddChange} />
                     </div>
-
-                    {isLoading}
+             
                 </DialogBody>
                 <DialogFooter className='flex justify-center'>
                     <Button

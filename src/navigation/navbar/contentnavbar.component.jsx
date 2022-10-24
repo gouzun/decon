@@ -4,12 +4,7 @@ import LOGO from '../../assets/img/DECON.svg';
 import { CONTENTNAVBARCOLOR, NAVBARTEXT, NAVBARTEXTHOVER } from '../../utils/theme';
 
 const ContentNavBar = () => {
-    const navigate = useNavigate();
-    const handleSignIn = () => {
-        navigate('/signin');
-
-    }
-
+  
     return (
         <Fragment>
             <div className={`flex flex-row items-center w-full h-16 drop-shadow-lg shadow-lg ${CONTENTNAVBARCOLOR} overflow-x-auto gap-5 pr-8 fixed z-50 `} >

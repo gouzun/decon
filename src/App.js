@@ -44,6 +44,7 @@ const App = () => {
       setLogged(<Routes>
         <Route path='/' element={<ContentNavBar />}>
           <Route index element={<Content />} />
+          <Route path='/menu' element={<MainMenu />} />
           <Route path='/signin' element={<SignInForm />} />
           <Route path='/signup' element={<SignUpForm />} />
           <Route path='/app' element={<Content />} />

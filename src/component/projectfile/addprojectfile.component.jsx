@@ -11,13 +11,12 @@ import { useNavigate } from 'react-router-dom';
 const AddProjectFile = () => {
 
     const { propertyName, setPropertyName,
-        ownerName, setOwnerName, imgLayoutDisplay, setImgLayoutDisplay, contact, setContact,
+        ownerName, setOwnerName,
         propertyAdd, setPropertyAdd, setProjectList } = useContext(GeneralContext);
 
     const [isLoading, setIsLoading] = useState(null);
     const [rowCount, setRowCount] = useState(0);
     const [ele, setEle] = useState([]);
-    const [imgLayout, setImgLayout] = useState(layout);
     let RowBgStyle = '';
     let row = 0;
     const { currentUser, setCurrentUser } = useContext(UserContext);
@@ -44,17 +43,13 @@ const AddProjectFile = () => {
     }
 
     const fieldreset = () => {
-
         setPropertyName('');
         setOwnerName('');
         setPropertyAdd('');
-        // setEle([]);
         setIsLoading('');
-        // setRowCount(0);
     }
 
     const handlePropertyNameChange = (event) => {
-
         setPropertyName(event.target.value.toUpperCase());
     };
 
@@ -68,33 +63,39 @@ const AddProjectFile = () => {
 
     const handleAddProject = async (e) => {
         e.preventDefault();
+        try {
+            //to check if input are empty or only space, if all no empty only proceed to create
+            if (!onlySpaces(propertyName) && !onlySpaces(ownerName) && !onlySpaces(propertyAdd)) {
 
-        //to check if input are empty or only space, if all no empty only proceed to create
-        if (!onlySpaces(propertyName) && !onlySpaces(ownerName) && !onlySpaces(propertyAdd)) {
+                setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-red-700 items-center bg-red-100 w-72  drop-shadow-md shadow-md'>Record updating...</div>);
+                await addProject(propertyName, ownerName, propertyAdd, currentUser)
+                    .then(
+                        setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-green-700 items-center bg-green-100 w-72  drop-shadow-md shadow-md'>Record Added/Updated.</div>)
+                    ).then(gridAfterAdd());
+            } else {
 
-            setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-red-700 items-center bg-red-100 w-72  drop-shadow-md shadow-md'>Record updating...</div>);
-            await addProject(propertyName, ownerName, propertyAdd, currentUser)
-                .then(
-                    setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-green-700 items-center bg-green-100 w-72  drop-shadow-md shadow-md'>Record Added/Updated.</div>)
-                ).then(gridAfterAdd());
-        } else {
+                setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-red-700 items-center bg-red-100 w-72 drop-shadow-md shadow-md'>Please input all required fields.</div>);
 
-            setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-red-700 items-center bg-red-100 w-72 drop-shadow-md shadow-md'>Please input all required fields.</div>);
-
+            }
+        } catch (e) {
+            alert(e.message);
         }
 
     }
 
     const gridAfterAdd = async () => {
-        let arrResult = await generateProjectList(currentUser);
-        let arrProject = [];
-        setRowCount(arrResult.length);
-        setEle(arrResult);
-        arrResult.forEach((project) => {
-            arrProject.push(project.propertyName + '-' + project.ownerName);
-        })
-        setProjectList(arrProject);
-
+        try {
+            let arrResult = await generateProjectList(currentUser);
+            let arrProject = [];
+            setRowCount(arrResult.length);
+            setEle(arrResult);
+            arrResult.forEach((project) => {
+                arrProject.push(project.propertyName + '-' + project.ownerName);
+            })
+            setProjectList(arrProject);
+        } catch (e) {
+            alert(e.message);
+        }
     }
 
     const gridHandler = async () => {
@@ -105,6 +106,7 @@ const AddProjectFile = () => {
             setEle(arrResult);
         } catch (e) {
             console.log(e);
+            alert(e.message);
         }
 
     }

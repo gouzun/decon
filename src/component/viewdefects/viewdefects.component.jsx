@@ -66,6 +66,10 @@ const ViewDefects = () => {
             navigate('/');
         }
 
+        if(curProject){
+
+        }
+
         generateDropDown();
     }, []);
 
@@ -113,6 +117,7 @@ const ViewDefects = () => {
         setRowCount(0);
         setIsLoading('');
         setGetImg('');
+        setProjectList([]);
     };
 
     const handleInitWithoutLoading = () => {
@@ -168,6 +173,7 @@ const ViewDefects = () => {
         const floorDD = document.getElementById('flr');
         projectDD.style.zIndex = '100';
         floorDD.style.zIndex = '10';
+        generateDropDown();
     }
     const handleFloorIndex = () => {
 
@@ -186,14 +192,14 @@ const ViewDefects = () => {
         generateDropDown();
     }, [currentUser]);
 
-
+    
     return (
         <div className='grid grid-flow-row auto-rows-max w-full h-full place-items-center items-center bg-gray-300 place-items-center' >
             <div className='grid place-items-center items-center bg-gray-300 place-items-center w-full flex overflow-x-auto'>
                 <Header headerText={{ title: 'VIEW DEFECTS SUMMARY' }} />
 
                 <div id='projectDD' className='w-80 flex justify-center p-2  my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100'>
-                    <Select label="SELECT PROJECT [*required]" onChange={handlePDD} onClick={handleProjectIndex}>
+                    <Select label="SELECT PROJECT [*required]" onChange={handlePDD} onClick={handleProjectIndex} >
                         {projectList.map((item) => (<Option key={item} value={item}>{item}</Option>))}
                     </Select>
                 </div>

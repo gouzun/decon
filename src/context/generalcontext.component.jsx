@@ -42,6 +42,10 @@ export const GeneralContext = createContext({
     setRender: () => { },
     contact: '',
     setContact: () => { },
+    projectDisplay:'', 
+    setProjectDisplay:()=>{},
+    defects:'', 
+    setDefects:()=>{},
 });
 
 
@@ -71,6 +75,10 @@ export const GeneralProvider = ({ children }) => {
     const [userLoggedOut, setUserLoggedOut] = useState(false);
     const [render, setRender] = useState('');
     const [contact, setContact] = useState('');
+
+    const [defects, setDefects] = useState([]);
+    const [projectDisplay, setProjectDisplay] = useState('');
+
     const value = {
         xpos, setXpos, ypos, setYpos,
         propertyName, setPropertyName,
@@ -89,7 +97,8 @@ export const GeneralProvider = ({ children }) => {
         imgLayoutDisplay, setImgLayoutDisplay,
         imgDefectDisplay, setImgDefectDisplay,
         userLoggedOut, setUserLoggedOut,
-        render, setRender, contact, setContact
+        render, setRender, contact, setContact,projectDisplay, setProjectDisplay,
+        defects, setDefects
     };
 
     return (<GeneralContext.Provider value={value}>{children}</GeneralContext.Provider >)

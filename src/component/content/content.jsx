@@ -45,9 +45,9 @@ const Content = () => {
         </div>
 
         <div className='flex justify-around justify-between flex-wrap'>
-            <div className='h-72 md:h-screen w-2/4 flex justify-center items-center pl-8 md:p-0'><img className='shadow-lg drop-shadow-2xl' src={TABLE} alt='' height='800' width='800' /></div>
+            <div className='h-52 md:h-screen w-2/4 flex justify-center items-center pl-8 md:pl-10'><img className='shadow-lg drop-shadow-2xl' src={TABLE} alt='' height='800' width='800' /></div>
 
-            <div className='h-96 md:h-screen w-2/4 flex justify-left items-left flex-col p-10 md:p-20 flex-nowrap'>
+            <div className='h-64 md:h-screen w-2/4 flex justify-left items-left flex-col pl-4 md:p-20 flex-nowrap'>
                 <div className='h-0 md:h-60'> </div>
                 <div></div>
                 <div className=' py-4 pr-4 md:text-3xl text-lg font-bold flex justify-end'>DEFECT SUMMARY VIEW</div>
