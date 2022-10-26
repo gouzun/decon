@@ -44,7 +44,7 @@ const ElementChart = (ele) => {
       x: {
         ticks: {
           font: {
-            size: 8,
+            size: 9,
           }
         }
       },

@@ -63,9 +63,9 @@ const AreaChart = (ele) => {
 
   let xsize = 0;
   if (labels.length > 6) {
-    xsize = 5;
-  } else {
     xsize = 10;
+  } else {
+    xsize = 12;
   }
 
   const options = {

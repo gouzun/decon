@@ -46,7 +46,7 @@ const FloorCountChart = (ele) => {
       x: {
         ticks: {
           font: {
-            size: 10,
+            size: 12,
           }
         }
       },
