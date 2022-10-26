@@ -29,7 +29,7 @@ const PdfMobile = (result) => {
             {result.ele.map((item) => {
                 row++;
                 return (<>
-                    <Card id={item["rowcount"]} className="bg-gradient-to-r from-teal-100 to-cyan-200 w-80 drop-shadow-lg shadow-lg flex-none my-2 mb-8 mx-4">
+                    <Card key={item["rowcount"]} className="bg-gradient-to-r from-teal-100 to-cyan-200 w-80 drop-shadow-lg shadow-lg flex-none my-2 mb-8 mx-4">
                         <CardHeader floated={false} className="h-100">
                             <div className='flex justify-center bg-gradient-to-r from-teal-300 to-cyan-500'>{row}/{result.ele.length}</div>
                             <img src={item["url"]} alt="" />
@@ -49,7 +49,7 @@ const PdfMobile = (result) => {
                 )
             })}
         </div>
-        <div className="flex justify-center w-screen" style={{display:"none"}} >
+        <div className="flex justify-center w-screen" style={{ display: "none" }} >
             <table id='print' className="w-full table-auto rounded-lg text-left text-gray-500 dark:text-gray-400 text-xs">
                 <thead className={`rounded-lg text-xs text-gray-700 uppercase ${NAVBARCOLOR} ${LABELCOLOR}`}>
                     <tr>
@@ -129,7 +129,7 @@ const PdfMobile = (result) => {
                         )
                     })}
 
-                    
+
                 </tbody>
             </table></div>
     </>)

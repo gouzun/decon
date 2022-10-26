@@ -34,7 +34,7 @@ const CreateDefectPage1 = () => {
         curDefectDesc, setCurDefectDesc,
         imgLayoutDisplay, setImgLayoutDisplay,
         imgDefectDisplay, setImgDefectDisplay,
-        projectDisplay, setProjectDisplay
+
     } = useContext(GeneralContext);
     const [marker, setMarker] = useState('');
     const { currentUser, setCurrentUser } = useContext(UserContext);
@@ -250,7 +250,6 @@ const CreateDefectPage1 = () => {
     const handlePDD = async (value) => {
 
         setCurProject(value);
-        setProjectDisplay(value => value);
         handleGetCurDefList(value, currentUser);
         try {
             if (curFloor) {
@@ -359,13 +358,13 @@ const CreateDefectPage1 = () => {
                     }}>{1 + curDefectList.length}</div></div ></div>);
         }
         window.addEventListener('resize', updateSize);
-
+        return () => window.removeEventListener('resize', updateSize);
     }, [xpos, ypos]);
 
     useEffect(() => {
-        if (curProject) {
-            setProjectDisplay(curProject);
-        }
+        // if (curProject) {
+        //     setProjectDisplay(curProject);
+        // }
     }, [])
 
     return (
@@ -376,7 +375,7 @@ const CreateDefectPage1 = () => {
                 <Header headerText={{ title: 'CREATE NEW DEFECT ITEM' }} />
 
                 <div id='pdd' className='w-80 flex justify-center p-2  my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-20'>
-                    <Select id='projectDD' label="SELECT PROJECT [*required]" onChange={handlePDD} onClick={handlePDDIndex} value={projectDisplay} >
+                    <Select id='projectDD' label="SELECT PROJECT [*required]" onChange={handlePDD} onClick={handlePDDIndex} value={curProject}>
                         {projectList.map((item) => {
                             return (<Option key={item} value={item}>{item}</Option>);
                         })}

@@ -93,6 +93,7 @@ const AddProjectFile = () => {
                 arrProject.push(project.propertyName + '-' + project.ownerName);
             })
             setProjectList(arrProject);
+            fieldreset();
         } catch (e) {
             alert(e.message);
         }

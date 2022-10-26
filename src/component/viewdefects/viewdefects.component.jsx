@@ -66,10 +66,6 @@ const ViewDefects = () => {
             navigate('/');
         }
 
-        if(curProject){
-
-        }
-
         generateDropDown();
     }, []);
 
@@ -93,10 +89,10 @@ const ViewDefects = () => {
                     setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-green-700 items-center bg-green-100 w-72  drop-shadow-md shadow-md'>Summary generated.</div>)
 
                 });
-            } 
-            else {
-                setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-red-700 items-center bg-red-100 w-72  drop-shadow-md shadow-md'>Please select a project.</div>);
             }
+            // else {
+            //     setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-red-700 items-center bg-red-100 w-72  drop-shadow-md shadow-md'>Please select a project.</div>);
+            // }
         }
         catch (error) {
             console.log(`Error :${error.code},${error.message}`);
@@ -184,22 +180,28 @@ const ViewDefects = () => {
     }
 
     //to force rerender after performed delete in child component.
+
+
+    useEffect(() => {
+        generateDropDown();
+
+    }, [currentUser]);
+
     useEffect(() => {
         handleSearch();
     }, [render]);
 
-    useEffect(() => {
-        generateDropDown();
-    }, [currentUser]);
 
-    
+
+
+
     return (
         <div className='grid grid-flow-row auto-rows-max w-full h-full place-items-center items-center bg-gray-300 place-items-center' >
             <div className='grid place-items-center items-center bg-gray-300 place-items-center w-full flex overflow-x-auto'>
                 <Header headerText={{ title: 'VIEW DEFECTS SUMMARY' }} />
 
                 <div id='projectDD' className='w-80 flex justify-center p-2  my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100'>
-                    <Select label="SELECT PROJECT [*required]" onChange={handlePDD} onClick={handleProjectIndex} >
+                    <Select label="SELECT PROJECT [*required]" onChange={handlePDD} onClick={handleProjectIndex} value={curProject}>
                         {projectList.map((item) => (<Option key={item} value={item}>{item}</Option>))}
                     </Select>
                 </div>
