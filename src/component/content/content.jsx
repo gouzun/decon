@@ -11,6 +11,7 @@ import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import Footer from '../footer/footer.component';
 import DANDM from '../../assets/img/desktopandmobile.png'
+import PhoneTurn from './phoneturn.component';
 
 const Content = () => {
     const navigate = useNavigate();
@@ -22,12 +23,12 @@ const Content = () => {
 
     return (<div className={`font-sans text-base ${BGCOLOR} md:text-xl w-screen`} >
         <div className='flex justify-around justify-between flex-wrap pt-20'>
-            <div className='h-fit w-2/4 flex justify-center items-center'>
-                <div className='h-96 md:h-60'> </div>
-                <div><img src={MOBILE} alt='' height='400' width='400' /></div>
+            <div className='md:h-screen w-2/4 flex justify-center items-center'>
+                <div className='h-96 md:h-screen md:w-screen flex justify-center items-center'><PhoneTurn /></div>
+               
             </div>
-            <div className='h-fit w-2/4 flex justify-left items-left flex-col pt-10 pl-5 flex-wrap'>
-                <div className='md:h-48'> </div>
+            <div className='md:h-screen w-2/4 flex justify-left items-left flex-col pt-10 pl-5 flex-wrap'>
+                <div className='md:h-48'></div>
                 <div><img className='' src={LOGO} alt='' height='150' width='150' /></div>
                 <div className=' py-4 pr-8 md:text-3xl text-lg font-bold flex flex-wrap'>DECON,THE WEB BASED DEFECT INSPECTION TOOL.</div>
                 <div>Allowing you to carry out your defect inspection process with ease! </div>
@@ -102,7 +103,8 @@ const Content = () => {
                 <div className='pl-8 md:pl-0 py-4 font-bold'>SIGN UP FOR FREE AND TRY OUT DECON NOW!</div>
                 <div className='py-4 pl-8 md:pl-0'><Button color='green' className='animate-pulse rounded text-lg shadow-lg drop-shadow-2xl' onClick={handleRegister}>FREE REGISTRATION!</Button></div>
             </div>
-            <div className='h-96 w-2/4 flex justify-center items-center'><img src={LOGO} alt='' height='100' width='100' /></div>
+            <div className='h-96 w-1/3 md:w-2/4 flex justify-center items-center'>
+            <img src={MOBILE} alt='' height='200' width='200' /></div>
 
         </div>
         <Footer />
