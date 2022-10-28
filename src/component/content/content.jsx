@@ -13,6 +13,7 @@ import Footer from '../footer/footer.component';
 import DANDM from '../../assets/img/desktopandmobile.png'
 import PhoneTurn from './phoneturn.component';
 
+import { useMediaQuery } from 'react-responsive';
 const Content = () => {
     const navigate = useNavigate();
 
@@ -20,12 +21,14 @@ const Content = () => {
         navigate('/signup');
     }
 
+    const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
 
     return (<div className={`font-sans text-base ${BGCOLOR} md:text-xl w-screen`} >
         <div className='flex justify-around justify-between flex-wrap pt-20'>
             <div className='md:h-screen w-2/4 flex justify-center items-center'>
-                <div className='h-96 md:h-screen md:w-screen flex justify-center items-center'><PhoneTurn /></div>
-               
+                <div className='h-96 md:h-screen md:w-screen flex justify-center items-center'>
+                    {isMobile ? <img className='pt-10' src={MOBILE} alt='' height='300' width='300' /> : <PhoneTurn />}</div>
+
             </div>
             <div className='md:h-screen w-2/4 flex justify-left items-left flex-col pt-10 pl-5 flex-wrap'>
                 <div className='md:h-48'></div>
@@ -104,7 +107,7 @@ const Content = () => {
                 <div className='py-4 pl-8 md:pl-0'><Button color='green' className='animate-pulse rounded text-lg shadow-lg drop-shadow-2xl' onClick={handleRegister}>FREE REGISTRATION!</Button></div>
             </div>
             <div className='h-96 w-1/3 md:w-2/4 flex justify-center items-center'>
-            <img src={MOBILE} alt='' height='200' width='200' /></div>
+                <img src={MOBILE} alt='' height='200' width='200' /></div>
 
         </div>
         <Footer />
