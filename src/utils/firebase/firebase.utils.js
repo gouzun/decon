@@ -142,39 +142,46 @@ export async function addDefect(project, floor, area, element, defectCount, defe
 }
 
 export const generateProjectList = async (user) => {
-
-    const dbPL = db;
-
-    //get records for projectlist and generate select option
-    const dbProjectList = collection(dbPL, 'ProjectList');
-    const q = query(dbProjectList, where("user", "==", user));
-    const dbProjectDocs = await getDocs(q);
-
     let result = [];
     let rowcount = 1;
+    try {
+        const dbPL = db;
+        //get records for projectlist and generate select option
+        const dbProjectList = collection(dbPL, 'ProjectList');
+        const q = query(dbProjectList, where("user", "==", user));
+        const dbProjectDocs = await getDocs(q);
 
-    dbProjectDocs.docs.map((doc) => {
-        let record = {
-            rowcount: rowcount,
-            propertyName: doc.get('propertyName'),
-            ownerName: doc.get('ownerName'),
-            propertyAddress: doc.get('propertyAddress'),
-            defectlist: doc.get('defectlist'),
-        }
-        rowcount++;
-        return result.push(record);
 
-    });
 
-    return result;
+        dbProjectDocs.docs.map((doc) => {
+            let record = {
+                rowcount: rowcount,
+                propertyName: doc.get('propertyName'),
+                ownerName: doc.get('ownerName'),
+                propertyAddress: doc.get('propertyAddress'),
+                defectlist: doc.get('defectlist'),
+            }
+            rowcount++;
+            return result.push(record);
+
+        });
+    } catch (error) {
+        console.log(`Error :${error.code},${error.message}`);
+    } finally {
+        return result;
+    }
 }
 
 export const retrieveDefectListForProject = async (project, user) => {
 
-    const docRef = doc(db, "ProjectList", project + '-' + user);
-    const docSnap = await getDoc(docRef);
+    try {
+        const docRef = doc(db, "ProjectList", project + '-' + user);
+        const docSnap = await getDoc(docRef);
 
-    return docSnap.data().defectlist;
+        return docSnap.data().defectlist;
+    } catch (error) {
+        console.log(`Error :${error.code},${error.message}`);
+    }
 }
 
 export const updateDefectListForProject = async (project, count, user) => {
@@ -217,43 +224,50 @@ export const storeImg = async (file, filename) => {
 }
 
 export const addProjectFlrUrl = async (project, floor, url, user) => {
-    const docRef = doc(db, "ProjectList", project + '-' + user);
-    let data = '';
-    if (floor === 'GROUND FLOOR') {
-        data = {
-            grdfloor: url
+    try {
+        const docRef = doc(db, "ProjectList", project + '-' + user);
+        let data = '';
+        if (floor === 'GROUND FLOOR') {
+            data = {
+                grdfloor: url
+            }
         }
-    }
-    if (floor === 'FIRST FLOOR') {
-        data = {
-            firstfloor: url
+        if (floor === 'FIRST FLOOR') {
+            data = {
+                firstfloor: url
+            }
         }
-    }
-    if (floor === 'SECOND FLOOR') {
-        data = {
-            secondfloor: url
+        if (floor === 'SECOND FLOOR') {
+            data = {
+                secondfloor: url
+            }
         }
-    }
-    if (floor === 'THIRD FLOOR') {
-        data = {
-            thirdfloor: url
+        if (floor === 'THIRD FLOOR') {
+            data = {
+                thirdfloor: url
+            }
         }
-    }
-    if (floor === 'ROOF') {
-        data = {
-            rooffloor: url
+        if (floor === 'ROOF') {
+            data = {
+                rooffloor: url
+            }
         }
-    }
-    //put javascrip switch case ehre
+        //put javascrip switch case ehre
 
-    await updateDoc(docRef, data);
+        await updateDoc(docRef, data);
+    } catch (error) {
+        console.log(`Error :${error.code},${error.message}`);
+    }
 }
 
 export const retrieveLayoutImg = async (project) => {
-
-    const storage = getStorage();
-    const url = await getDownloadURL(ref(storage, project));
-    return url;
+    try {
+        const storage = getStorage();
+        const url = await getDownloadURL(ref(storage, project));
+        return url;
+    } catch (error) {
+        console.log(`Error :${error.code},${error.message}`);
+    }
 }
 
 export const retrieveDefectSummary = async (project, flr, user) => {
@@ -265,41 +279,44 @@ export const retrieveDefectSummary = async (project, flr, user) => {
     const newArrDefects = [];
     let rowcount = 0;
     let q = '';
+    try {
+        if (flr) {
+            q = query(collection(db, `${project}`), where("floor", "==", flr));
+        } else {
+            q = collection(db, `${project}`);
+        }
 
-    if (flr) {
-        q = query(collection(db, `${project}`), where("floor", "==", flr));
-    } else {
-        q = collection(db, `${project}`);
+        const querySnapshot = await getDocs(q);
+
+        arrDefects.forEach(async (docitem) => {
+            rowcount++;
+            querySnapshot.forEach((doc) => {
+
+                if (docitem === doc.id) {
+                    const data = {
+                        rowcount: rowcount,
+                        project: doc.get('project'),
+                        defectName: doc.get('defectName'),
+                        area: doc.get('area'),
+                        defectDesc: doc.get('defectDesc'),
+                        defectNo: doc.get('defectNo'),
+                        defectRemark: doc.get('defectRemark'),
+                        defectxpos: doc.get('defectxpos'),
+                        defectypos: doc.get('defectypos'),
+                        element: doc.get('element'),
+                        floor: doc.get('floor'),
+                        url: doc.get('url')
+                    };
+                    newArrDefects.push(data);
+
+                }
+            })
+        });
+
+        return newArrDefects;
+    } catch (error) {
+        console.log(`Error :${error.code},${error.message}`);
     }
-
-    const querySnapshot = await getDocs(q);
-
-    arrDefects.forEach(async (docitem) => {
-        rowcount++;
-        querySnapshot.forEach((doc) => {
-
-            if (docitem === doc.id) {
-                const data = {
-                    rowcount: rowcount,
-                    project: doc.get('project'),
-                    defectName: doc.get('defectName'),
-                    area: doc.get('area'),
-                    defectDesc: doc.get('defectDesc'),
-                    defectNo: doc.get('defectNo'),
-                    defectRemark: doc.get('defectRemark'),
-                    defectxpos: doc.get('defectxpos'),
-                    defectypos: doc.get('defectypos'),
-                    element: doc.get('element'),
-                    floor: doc.get('floor'),
-                    url: doc.get('url')
-                };
-                newArrDefects.push(data);
-
-            }
-        })
-    });
-
-    return newArrDefects;
 }
 
 export const retrievePDFSummary = async (project, user) => {
@@ -316,58 +333,57 @@ export const retrievePDFSummary = async (project, user) => {
     const newArrDefects = [];
     let rowcount = 0;
     let q = '';
+    try {
+        q = collection(db, `${project}`);
 
-    // if (flr) {
-    //     q = query(collection(db, `${project}`), where("floor", "==", flr));
-    // } else {
-    q = collection(db, `${project}`);
-    // }
+        const querySnapshot = await getDocs(q);
+        arrDefects.forEach(async (docitem) => {
+            rowcount++;
+            querySnapshot.forEach((doc) => {
 
-    const querySnapshot = await getDocs(q);
-    arrDefects.forEach(async (docitem) => {
-        rowcount++;
-        querySnapshot.forEach((doc) => {
+                if (docitem === doc.id) {
 
-            if (docitem === doc.id) {
+                    let layouturl = '';
+                    if (doc.get('floor') === 'GROUND FLOOR') {
+                        layouturl = grdlayout;
+                    }
+                    if (doc.get('floor') === 'FIRST FLOOR') {
+                        layouturl = firstlayout;
+                    }
+                    if (doc.get('floor') === 'SECOND FLOOR') {
+                        layouturl = secondlayout;
+                    }
+                    if (doc.get('floor') === 'THIRD FLOOR') {
+                        layouturl = thirdlayout;
+                    }
+                    if (doc.get('floor') === 'ROOF') {
+                        layouturl = rooflayout;
+                    }
 
-                let layouturl = '';
-                if (doc.get('floor') === 'GROUND FLOOR') {
-                    layouturl = grdlayout;
+
+                    const data = {
+                        rowcount: rowcount,
+                        area: doc.get('area'),
+                        defectDesc: doc.get('defectDesc'),
+                        // defectNo: doc.get('defectNo'),
+                        // defectRemark: doc.get('defectRemark'),
+                        defectxpos: doc.get('defectxpos'),
+                        defectypos: doc.get('defectypos'),
+                        element: doc.get('element'),
+                        floor: doc.get('floor'),
+                        url: doc.get('url'),
+                        layouturl: layouturl
+                    };
+                    newArrDefects.push(data);
+
                 }
-                if (doc.get('floor') === 'FIRST FLOOR') {
-                    layouturl = firstlayout;
-                }
-                if (doc.get('floor') === 'SECOND FLOOR') {
-                    layouturl = secondlayout;
-                }
-                if (doc.get('floor') === 'THIRD FLOOR') {
-                    layouturl = thirdlayout;
-                }
-                if (doc.get('floor') === 'ROOF') {
-                    layouturl = rooflayout;
-                }
+            })
+        });
 
-
-                const data = {
-                    rowcount: rowcount,
-                    area: doc.get('area'),
-                    defectDesc: doc.get('defectDesc'),
-                    // defectNo: doc.get('defectNo'),
-                    // defectRemark: doc.get('defectRemark'),
-                    defectxpos: doc.get('defectxpos'),
-                    defectypos: doc.get('defectypos'),
-                    element: doc.get('element'),
-                    floor: doc.get('floor'),
-                    url: doc.get('url'),
-                    layouturl: layouturl
-                };
-                newArrDefects.push(data);
-
-            }
-        })
-    });
-
-    return newArrDefects;
+        return newArrDefects;
+    } catch (error) {
+        console.log(`Error :${error.code},${error.message}`);
+    }
 }
 
 export async function deleteDefect(project, defectName, user) {
@@ -408,18 +424,21 @@ export const getUserNameAddress = async (project, user) => {
 
     let result = [];
     let rowcount = 1;
-
-    dbProjectDocs.docs.map((doc) => {
-        if ((doc.get('propertyName') + '-' + doc.get('ownerName')) === project) {
-            let record = {
-                ownerName: doc.get('ownerName'),
-                propertyAddress: doc.get('propertyAddress'),
+    try {
+        dbProjectDocs.docs.map((doc) => {
+            if ((doc.get('propertyName') + '-' + doc.get('ownerName')) === project) {
+                let record = {
+                    ownerName: doc.get('ownerName'),
+                    propertyAddress: doc.get('propertyAddress'),
+                }
+                rowcount++;
+                return result.push(record);
             }
-            rowcount++;
-            return result.push(record);
-        }
 
-    });
+        });
 
-    return result;
+        return result;
+    } catch (error) {
+        console.log(`Error :${error.code},${error.message}`);
+    }
 }

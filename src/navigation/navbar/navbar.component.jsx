@@ -1,7 +1,7 @@
 import { Fragment, useContext, useRef, useState, useEffect } from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import logo from '../../assets/img/DECON.svg';
-import { NAVBARCOLOR, LABELCOLOR, LABELHOVERCOLOR } from '../../utils/theme';
+import { NAVBARCOLOR, LABELCOLOR, LABELHOVERCOLOR, NAVBARLINK } from '../../utils/theme';
 import pdf from '../../assets/img/pdf.png';
 import menu from '../../assets/img/menu2.png';
 import project from '../../assets/img/project.png';
@@ -32,14 +32,14 @@ const NavBar = () => {
     return (
         <Fragment>
             <div className={`flex ${LABELCOLOR}font-bold text-xs uppercase items-center w-full h-16 drop-shadow-lg shadow-lg ${NAVBARCOLOR} overflow-x-auto`} style={{ pointerEvents: disableNavBar }}>
-                <Link className={`basis-auto ${LABELHOVERCOLOR} pr-3 shrink-0 flex justify-center items-center flex-col`} to='/menu'><img alt='' className='w-18 h-8 pl-3' src={logo} /></Link>
-                <Link className={`basis-auto ${LABELHOVERCOLOR} pr-3 shrink-0 flex justify-center items-center flex-col`} to='/menu'><img alt='' className='w-15 h-8 ' src={menu} /><div>MAIN MENU</div></Link>
-                <Link className={`basis-auto ${LABELHOVERCOLOR} pr-3 shrink-0 flex justify-center items-center flex-col`} to='/addprojectfile'><img alt='' className='w-15 h-8 ' src={project} /><div>ADD PROJECT</div></Link>
-                <Link className={`basis-auto ${LABELHOVERCOLOR} pr-3 shrink-0 flex justify-center items-center flex-col`} to='/adddefect'><img alt='' className='w-15 h-8 ' src={defect} /><div>ADD DEFECT</div></Link>
-                <Link className={`basis-auto ${LABELHOVERCOLOR} pr-3 shrink-0 flex justify-center items-center flex-col`} to='/viewdefects'><img alt='' className='w-15 h-8 ' src={summary} /><div>VIEW DEFECTS</div></Link>
-                <Link className={`basis-auto ${LABELHOVERCOLOR} pr-3 shrink-0 flex justify-center items-center flex-col`} to='/pdf'><img alt='' className='w-15 h-8 px-3' src={pdf} /><div>PDF</div></Link>
-                <Link className={`basis-auto ${LABELHOVERCOLOR} pr-3 shrink-0 flex justify-center items-center flex-col`} to='/info'><img alt='' className='w-15 h-8 px-3' src={manual} /><div>INFORMATION</div></Link>
-                <Link className={`basis-auto ${LABELHOVERCOLOR} pr-3 shrink-0 flex justify-center items-center flex-col`} to='/logout'><img alt='' className='w-15 h-8 px-4' src={logout} /><div>LOG OUT</div></Link>
+                <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/menu'><img alt='' className='w-18 h-8 pl-3' src={logo} /></Link>
+                <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/menu'><img alt='' className='w-15 h-8 ' src={menu} /><div>MAIN MENU</div></Link>
+                <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/addprojectfile'><img alt='' className='w-15 h-8 ' src={project} /><div>ADD PROJECT</div></Link>
+                <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/adddefect'><img alt='' className='w-15 h-8 ' src={defect} /><div>ADD DEFECT</div></Link>
+                <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/viewdefects'><img alt='' className='w-15 h-8 ' src={summary} /><div>VIEW DEFECTS</div></Link>
+                <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/pdf'><img alt='' className='w-15 h-8 px-3' src={pdf} /><div>PDF</div></Link>
+                <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/info'><img alt='' className='w-15 h-8 px-3' src={manual} /><div>INFORMATION</div></Link>
+                <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/logout'><img alt='' className='w-15 h-8 px-4' src={logout} /><div>LOG OUT</div></Link>
 
             </div>
             <Outlet />

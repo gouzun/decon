@@ -34,6 +34,7 @@ const CreateDefectPage1 = () => {
         curDefectDesc, setCurDefectDesc,
         imgLayoutDisplay, setImgLayoutDisplay,
         imgDefectDisplay, setImgDefectDisplay,
+        projectDisplay, setProjectDisplay
 
     } = useContext(GeneralContext);
     const [marker, setMarker] = useState('');
@@ -51,7 +52,7 @@ const CreateDefectPage1 = () => {
         setImgDefect(defect);
         setCurDefectDesc('');
         setCurElement('');
-
+        setProjectDisplay('');
         setDefectDisplay('');
         setDefects([]);
     }
@@ -250,6 +251,7 @@ const CreateDefectPage1 = () => {
     const handlePDD = async (value) => {
 
         setCurProject(value);
+        setProjectDisplay(value => value);
         handleGetCurDefList(value, currentUser);
         try {
             if (curFloor) {
@@ -282,6 +284,7 @@ const CreateDefectPage1 = () => {
 
     useEffect(() => {
         generateDropDown();
+        setProjectDisplay(curProject);
     }, [currentUser]);
 
 
@@ -375,14 +378,13 @@ const CreateDefectPage1 = () => {
                 <Header headerText={{ title: 'CREATE NEW DEFECT ITEM' }} />
 
                 <div id='pdd' className='w-80 flex justify-center p-2  my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-20'>
-                    <Select id='projectDD' label="SELECT PROJECT [*required]" onChange={handlePDD} onClick={handlePDDIndex} value={curProject}>
+                    <Select id='projectDD' label="SELECT PROJECT [*required]" onChange={handlePDD} onClick={handlePDDIndex} value={projectDisplay}>
                         {projectList.map((item) => {
                             return (<Option key={item} value={item}>{item}</Option>);
                         })}
                     </Select>
 
                 </div>
-
                 <div id='fdd' className="w-80 flex justify-center p-2  my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-10">
                     <Select label="FLOOR [*required]" onChange={handleFloorDD} value={curFloor} onClick={handleFDDIndex}>
 

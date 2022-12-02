@@ -30,7 +30,8 @@ const ViewDefects = () => {
     const {
         projectList, setProjectList,
         curFloor, setCurFloor,
-        curProject, setCurProject, render, setRender
+        curProject, setCurProject, render, setRender,
+        projectDisplay, setProjectDisplay
     } = useContext(GeneralContext);
     const [marker, setMarker] = useState('');
     const [isLoading, setIsLoading] = useState(null);
@@ -41,6 +42,7 @@ const ViewDefects = () => {
 
     const handlePDD = (value) => {
         setCurProject(value);
+        setProjectDisplay(value => value);
 
     };
 
@@ -114,6 +116,7 @@ const ViewDefects = () => {
         setIsLoading('');
         setGetImg('');
         setProjectList([]);
+        setProjectDisplay('');
     };
 
     const handleInitWithoutLoading = () => {
@@ -201,7 +204,7 @@ const ViewDefects = () => {
                 <Header headerText={{ title: 'VIEW DEFECTS SUMMARY' }} />
 
                 <div id='projectDD' className='w-80 flex justify-center p-2  my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100'>
-                    <Select label="SELECT PROJECT [*required]" onChange={handlePDD} onClick={handleProjectIndex} value={curProject}>
+                    <Select label="SELECT PROJECT [*required]" onChange={handlePDD} onClick={handleProjectIndex} value={projectDisplay}>
                         {projectList.map((item) => (<Option key={item} value={item}>{item}</Option>))}
                     </Select>
                 </div>

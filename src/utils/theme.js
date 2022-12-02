@@ -3,6 +3,9 @@ export const BUTTONCOLOR = ' bg-gradient-to-r from-teal-200 to-cyan-300';
 export const LABELCOLOR = ' text-gray-100';
 export const LABELHOVERCOLOR = ' hover:text-gray-800';
 export const BGCOLOR = 'bg-gradient-to-tr from-cyan-200 via-purple-100 to-blue-300';
+export const NAVBARLINK = 'basis-auto pr-3 shrink-0 flex justify-center items-center flex-col';
+export const MAINMENU = 'flex justify-center p-1 my-2';
+export const MAINMENUBTN = 'drop-shadow-lg shadow-lg w-72 ';
 
 export const CONTENTNAVBARCOLOR = 'bg-gradient-to-r from-cyan-200 to-blue-300';
 export const NAVBARTEXT = 'font-bold text-xs uppercase ';
