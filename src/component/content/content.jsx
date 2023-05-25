@@ -1,4 +1,4 @@
-import LOGO from '../../assets/img/DECON.svg';
+import LOGO from '../../assets/img/INSPECTMY.png';
 import { BGCOLOR } from '../../utils/theme';
 import { Button } from '@material-tailwind/react';
 import MOBILE from '../../assets/img/mobile.png';
@@ -33,7 +33,7 @@ const Content = () => {
             <div className='md:h-screen w-2/4 flex justify-left items-left flex-col pt-10 pl-5 flex-wrap'>
                 <div className='md:h-48'></div>
                 <div><img className='' src={LOGO} alt='' height='150' width='150' /></div>
-                <div className=' py-4 pr-8 md:text-3xl text-lg font-bold flex flex-wrap'>DECON,THE WEB BASED DEFECT INSPECTION TOOL.</div>
+                <div className=' py-4 pr-8 md:text-3xl text-lg font-bold flex flex-wrap'>INSPECTMY - THE WEB BASED DEFECT INSPECTION TOOL.</div>
                 <div>Allowing you to carry out your defect inspection process with ease! </div>
             </div>
         </div>
@@ -87,7 +87,7 @@ const Content = () => {
                 <div className='h-60'> </div>
                 <div></div>
                 <div className=' py-4 pr-4 md:text-3xl text-lg font-bold flex justify-center'>ACCESSIBLE ACROSS MULTIPLE PLATFORM</div>
-                <div>DECON can be accessed thru desktop PC, tablet and mobile phone. No installation needed!</div>
+                <div>INSPECTMY can be accessed thru desktop PC, tablet and mobile phone. No installation needed!</div>
                 <div className='h-60'> </div>
             </div><div className='h-96 w-2/4  flex justify-center items-center p-2 md:p-0'><img className='pr-4 md:p-0' src={DANDM} alt='' height='500' width='500' /></div>
 
@@ -103,7 +103,7 @@ const Content = () => {
         </div>
         <div className='flex justify-around justify-between flex-wrap'>
             <div className='h-96 w-2/4 flex flex-col justify-center items-center '>
-                <div className='pl-8 md:pl-0 py-4 font-bold'>SIGN UP FOR FREE AND TRY OUT DECON NOW!</div>
+                <div className='pl-8 md:pl-0 py-4 font-bold'>SIGN UP FOR FREE AND TRY OUT INSPECTMY NOW!</div>
                 <div className='py-4 pl-8 md:pl-0'><Button color='green' className='animate-pulse rounded text-lg shadow-lg drop-shadow-2xl' onClick={handleRegister}>FREE REGISTRATION!</Button></div>
             </div>
             <div className='h-96 w-1/3 md:w-2/4 flex justify-center items-center'>
@@ -113,6 +113,6 @@ const Content = () => {
         <Footer />
 
 
-    </div>)
+    </div >)
 }
 export default Content;

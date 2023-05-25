@@ -64,7 +64,7 @@ const SignOut = () => {
         }
     }, []);
 
-    return (<div className='flex flex-col justify-center bg-gray-300 h-full'>
+    return (<div className='flex flex-col justify-center bg-gray-300 min-h-screen'>
         <Header headerText={{ title: 'CLICK BUTTON TO SIGN OUT.' }} />
 
         <div className="flex justify-center items-center mx-2 py-3 gap-2">
@@ -78,8 +78,6 @@ const SignOut = () => {
         <div className="flex justify-center items-center mx-2 py-3 gap-2 text-xs">
             webapp version : 1.0 Beta Version.
         </div>
-
-        <ContactUs screen={'small'} />
 
     </div>)
 }

@@ -154,10 +154,10 @@ const PdfReport = () => {
         return desc;
 
     }
-    
+
 
     const pdf = async () => {
-        
+
         if (ownerName && propertyAdd) {
 
             const doc = new jsPDF('landscape');
@@ -236,17 +236,17 @@ const PdfReport = () => {
             ele.forEach((record) => {
                 flrcounts[record.floor] = (flrcounts[record.floor] || 0) + 1;
             });
-         
+
             let areacounts = [];
             ele.forEach((record) => {
                 areacounts[record.area] = (areacounts[record.area] || 0) + 1;
             })
-        
+
             let elecounts = [];
             ele.forEach((record) => {
                 elecounts[record.element] = (elecounts[record.element] || 0) + 1;
             });
-        
+
             doc.addPage();
             doc.setFontSize(22);
             doc.text('DEFECT SUMMARY CHART BY FLOOR', 150, 20, { align: 'center' });
@@ -257,95 +257,95 @@ const PdfReport = () => {
             let desc = getPercentage(flrcounts, ele.length, 'floor', 'at');
             if (desc.length > 160) {
                 doc.text(desc.substring(0, 160), 20, 110, { align: 'left' })
-                doc.text(desc.substring(160,320), 20, 115, { align: 'left' })
-                doc.text(desc.substring(320,480), 20, 120, { align: 'left' })
-                doc.text(desc.substring(480,640), 20, 125, { align: 'left' })
-                doc.text(desc.substring(640,800), 20, 130, { align: 'left' })
-                doc.text(desc.substring(800,960), 20, 135, { align: 'left' })
-                doc.text(desc.substring(960,1120), 20, 140, { align: 'left' })
-                doc.text(desc.substring(1120,1280), 20, 145, { align: 'left' })
-                doc.text(desc.substring(1280,1440), 20, 150, { align: 'left' })
-                doc.text(desc.substring(1440,1600), 20, 155, { align: 'left' })
-                doc.text(desc.substring(1600,1760), 20, 160, { align: 'left' })
-                doc.text(desc.substring(1760,1920), 20, 165, { align: 'left' })
-                doc.text(desc.substring(1920,2080), 20, 170, { align: 'left' })
-                doc.text(desc.substring(2080,2240), 20, 175, { align: 'left' })
-                doc.text(desc.substring(2240,2400), 20, 180, { align: 'left' })
-                doc.text(desc.substring(2400,2560), 20, 185, { align: 'left' })
-                doc.text(desc.substring(2560,2720), 20, 190, { align: 'left' })
-                doc.text(desc.substring(2720,2880), 20, 195, { align: 'left' })
-                doc.text(desc.substring(2880,3040), 20, 200, { align: 'left' })                
+                doc.text(desc.substring(160, 320), 20, 115, { align: 'left' })
+                doc.text(desc.substring(320, 480), 20, 120, { align: 'left' })
+                doc.text(desc.substring(480, 640), 20, 125, { align: 'left' })
+                doc.text(desc.substring(640, 800), 20, 130, { align: 'left' })
+                doc.text(desc.substring(800, 960), 20, 135, { align: 'left' })
+                doc.text(desc.substring(960, 1120), 20, 140, { align: 'left' })
+                doc.text(desc.substring(1120, 1280), 20, 145, { align: 'left' })
+                doc.text(desc.substring(1280, 1440), 20, 150, { align: 'left' })
+                doc.text(desc.substring(1440, 1600), 20, 155, { align: 'left' })
+                doc.text(desc.substring(1600, 1760), 20, 160, { align: 'left' })
+                doc.text(desc.substring(1760, 1920), 20, 165, { align: 'left' })
+                doc.text(desc.substring(1920, 2080), 20, 170, { align: 'left' })
+                doc.text(desc.substring(2080, 2240), 20, 175, { align: 'left' })
+                doc.text(desc.substring(2240, 2400), 20, 180, { align: 'left' })
+                doc.text(desc.substring(2400, 2560), 20, 185, { align: 'left' })
+                doc.text(desc.substring(2560, 2720), 20, 190, { align: 'left' })
+                doc.text(desc.substring(2720, 2880), 20, 195, { align: 'left' })
+                doc.text(desc.substring(2880, 3040), 20, 200, { align: 'left' })
             } else {
                 doc.text(desc, 20, 110, { align: 'left' });
-            }          
+            }
 
 
             doc.addPage();
             doc.setFontSize(22);
             doc.text('DEFECT SUMMARY CHART BY AREA', 150, 20, { align: 'center' });
             doc.line(50, 25, 250, 25);
-            doc.addImage(areaChartImg, 'JPEG', 100, 35, 110, 70, undefined, 'FAST');  
-            doc.setFontSize(10);          
-         
+            doc.addImage(areaChartImg, 'JPEG', 100, 35, 110, 70, undefined, 'FAST');
+            doc.setFontSize(10);
 
-            desc = getPercentage(areacounts, ele.length,'area','from');
+
+            desc = getPercentage(areacounts, ele.length, 'area', 'from');
             if (desc.length > 160) {
                 doc.text(desc.substring(0, 160), 20, 110, { align: 'left' })
-                doc.text(desc.substring(160,320), 20, 115, { align: 'left' })
-                doc.text(desc.substring(320,480), 20, 120, { align: 'left' })
-                doc.text(desc.substring(480,640), 20, 125, { align: 'left' })
-                doc.text(desc.substring(640,800), 20, 130, { align: 'left' })
-                doc.text(desc.substring(800,960), 20, 135, { align: 'left' })
-                doc.text(desc.substring(960,1120), 20, 140, { align: 'left' })
-                doc.text(desc.substring(1120,1280), 20, 145, { align: 'left' })
-                doc.text(desc.substring(1280,1440), 20, 150, { align: 'left' })
-                doc.text(desc.substring(1440,1600), 20, 155, { align: 'left' })
-                doc.text(desc.substring(1600,1760), 20, 160, { align: 'left' })
-                doc.text(desc.substring(1760,1920), 20, 165, { align: 'left' })
-                doc.text(desc.substring(1920,2080), 20, 170, { align: 'left' })
-                doc.text(desc.substring(2080,2240), 20, 175, { align: 'left' })
-                doc.text(desc.substring(2240,2400), 20, 180, { align: 'left' })
-                doc.text(desc.substring(2400,2560), 20, 185, { align: 'left' })
-                doc.text(desc.substring(2560,2720), 20, 190, { align: 'left' })
-                doc.text(desc.substring(2720,2880), 20, 195, { align: 'left' })
-                doc.text(desc.substring(2880,3040), 20, 200, { align: 'left' })
+                doc.text(desc.substring(160, 320), 20, 115, { align: 'left' })
+                doc.text(desc.substring(320, 480), 20, 120, { align: 'left' })
+                doc.text(desc.substring(480, 640), 20, 125, { align: 'left' })
+                doc.text(desc.substring(640, 800), 20, 130, { align: 'left' })
+                doc.text(desc.substring(800, 960), 20, 135, { align: 'left' })
+                doc.text(desc.substring(960, 1120), 20, 140, { align: 'left' })
+                doc.text(desc.substring(1120, 1280), 20, 145, { align: 'left' })
+                doc.text(desc.substring(1280, 1440), 20, 150, { align: 'left' })
+                doc.text(desc.substring(1440, 1600), 20, 155, { align: 'left' })
+                doc.text(desc.substring(1600, 1760), 20, 160, { align: 'left' })
+                doc.text(desc.substring(1760, 1920), 20, 165, { align: 'left' })
+                doc.text(desc.substring(1920, 2080), 20, 170, { align: 'left' })
+                doc.text(desc.substring(2080, 2240), 20, 175, { align: 'left' })
+                doc.text(desc.substring(2240, 2400), 20, 180, { align: 'left' })
+                doc.text(desc.substring(2400, 2560), 20, 185, { align: 'left' })
+                doc.text(desc.substring(2560, 2720), 20, 190, { align: 'left' })
+                doc.text(desc.substring(2720, 2880), 20, 195, { align: 'left' })
+                doc.text(desc.substring(2880, 3040), 20, 200, { align: 'left' })
             } else {
                 doc.text(desc, 20, 110, { align: 'left' });
-            }          
- 
+            }
+
 
             doc.addPage();
             doc.setFontSize(22);
             doc.text('DEFECT SUMMARY CHART BY ELEMENT', 150, 20, { align: 'center' });
             doc.line(50, 25, 250, 25);
-            doc.addImage(elementChartImg, 'JPEG', 100, 35, 110, 70, undefined, 'FAST');      
-            doc.setFontSize(10);      
-      
-            desc = getPercentage(elecounts, ele.length,'ele','on');
+            doc.addImage(elementChartImg, 'JPEG', 100, 35, 110, 70, undefined, 'FAST');
+            doc.setFontSize(10);
+
+            desc = getPercentage(elecounts, ele.length, 'ele', 'on');
             if (desc.length > 160) {
                 doc.text(desc.substring(0, 160), 20, 110, { align: 'left' })
-                doc.text(desc.substring(160,320), 20, 115, { align: 'left' })
-                doc.text(desc.substring(320,480), 20, 120, { align: 'left' })
-                doc.text(desc.substring(480,640), 20, 125, { align: 'left' })
-                doc.text(desc.substring(640,800), 20, 130, { align: 'left' })
-                doc.text(desc.substring(800,960), 20, 135, { align: 'left' })
-                doc.text(desc.substring(960,1120), 20, 140, { align: 'left' })
-                doc.text(desc.substring(1120,1280), 20, 145, { align: 'left' })
-                doc.text(desc.substring(1280,1440), 20, 150, { align: 'left' })
-                doc.text(desc.substring(1440,1600), 20, 155, { align: 'left' })
-                doc.text(desc.substring(1600,1760), 20, 160, { align: 'left' })
-                doc.text(desc.substring(1760,1920), 20, 165, { align: 'left' })
-                doc.text(desc.substring(1920,2080), 20, 170, { align: 'left' })
-                doc.text(desc.substring(2080,2240), 20, 175, { align: 'left' })
-                doc.text(desc.substring(2240,2400), 20, 180, { align: 'left' })
-                doc.text(desc.substring(2400,2560), 20, 185, { align: 'left' })
-                doc.text(desc.substring(2560,2720), 20, 190, { align: 'left' })
-                doc.text(desc.substring(2720,2880), 20, 195, { align: 'left' })
-                doc.text(desc.substring(2880,3040), 20, 200, { align: 'left' })
+                doc.text(desc.substring(160, 320), 20, 115, { align: 'left' })
+                doc.text(desc.substring(320, 480), 20, 120, { align: 'left' })
+                doc.text(desc.substring(480, 640), 20, 125, { align: 'left' })
+                doc.text(desc.substring(640, 800), 20, 130, { align: 'left' })
+                doc.text(desc.substring(800, 960), 20, 135, { align: 'left' })
+                doc.text(desc.substring(960, 1120), 20, 140, { align: 'left' })
+                doc.text(desc.substring(1120, 1280), 20, 145, { align: 'left' })
+                doc.text(desc.substring(1280, 1440), 20, 150, { align: 'left' })
+                doc.text(desc.substring(1440, 1600), 20, 155, { align: 'left' })
+                doc.text(desc.substring(1600, 1760), 20, 160, { align: 'left' })
+                doc.text(desc.substring(1760, 1920), 20, 165, { align: 'left' })
+                doc.text(desc.substring(1920, 2080), 20, 170, { align: 'left' })
+                doc.text(desc.substring(2080, 2240), 20, 175, { align: 'left' })
+                doc.text(desc.substring(2240, 2400), 20, 180, { align: 'left' })
+                doc.text(desc.substring(2400, 2560), 20, 185, { align: 'left' })
+                doc.text(desc.substring(2560, 2720), 20, 190, { align: 'left' })
+                doc.text(desc.substring(2720, 2880), 20, 195, { align: 'left' })
+                doc.text(desc.substring(2880, 3040), 20, 200, { align: 'left' })
             } else {
                 doc.text(desc, 20, 110, { align: 'left' });
-            }          
-   
+            }
+
 
 
             doc.addPage();
@@ -506,7 +506,7 @@ const PdfReport = () => {
 
     return (
 
-        <div className='flex flex-col justify-center place-items-center items-center bg-gray-300 w-full h-full'>
+        <div className='flex flex-col justify-center place-items-center items-center bg-gray-300 w-full min-h-screen'>
             <Header headerText={{ title: 'PDF SUMMARY' }} />
 
             <div className='w-80 flex justify-center p-2  my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-50'>
@@ -541,7 +541,7 @@ const PdfReport = () => {
                     <div className="w-64 flex justify-center p-2 my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100">
                         <Textarea label="PROPERTY ADDRESS*" value={propertyAdd} onChange={handlePropertyAddChange} />
                     </div>
-             
+
                 </DialogBody>
                 <DialogFooter className='flex justify-center'>
                     <Button

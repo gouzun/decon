@@ -28,7 +28,7 @@ const MainMenu = () => {
 
 
     return (<Fragment>
-        <div className='flex justify-center w-full h-full bg-gray-300' >
+        <div className='flex justify-center w-full min-h-screen flex-col bg-gray-300' >
             <div className='grid grid-flow-row auto-rows-max items-center'>
                 <Header headerText={{ title: 'MAIN MENU' }} />
                 <div className={`${MAINMENU}`}><Link to='/addprojectfile'><Button className={`${MAINMENUBTN} ${BUTTONCOLOR} ${LABELHOVERCOLOR} `} variant="gradient">ADD PROJECT FILE</Button></Link></div>

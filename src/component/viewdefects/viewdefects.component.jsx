@@ -199,7 +199,7 @@ const ViewDefects = () => {
 
 
     return (
-        <div className='grid grid-flow-row auto-rows-max w-full h-full place-items-center items-center bg-gray-300 place-items-center' >
+        <div className='grid grid-flow-row auto-rows-max w-full min-h-screen flex flex-col place-items-center items-center bg-gray-300 place-items-center' >
             <div className='grid place-items-center items-center bg-gray-300 place-items-center w-full flex overflow-x-auto'>
                 <Header headerText={{ title: 'VIEW DEFECTS SUMMARY' }} />
 

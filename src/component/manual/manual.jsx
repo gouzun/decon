@@ -7,7 +7,7 @@ import summary from '../../assets/img/summary.png';
 import defect from '../../assets/img/defect2.png';
 import manual from '../../assets/img/manual.png';
 import logout from '../../assets/img/signout.png';
-import logo from '../../assets/img/DECON.svg';
+import logo from '../../assets/img/INSPECTMY.png';
 
 import { useEffect, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
@@ -30,26 +30,24 @@ const Manual = () => {
         <Header headerText={{ title: 'INFORMATION' }} />
 
 
-        <div className='w-80 md:w-screen flex justify-center text-base py-4 '><div><img alt='' className='w-28 h-18 px-2' src={logo} /></div></div>
-        <div className='w-80 flex justify-center text-base py-4'><div>INTRODUCTION</div></div>
-        <div className='w-80 md:w-screen text-sm py-4 px-0 md:px-8'>DECON is a defect inspection web app.'<span style={{ color: '#ffde59', fontWeight: 'bold' }}>DE</span>' stands for defects and '<span style={{ color: '#7ed957', fontWeight: 'bold' }}>CON</span>' stands for control. Our main purpose is
-            to help user to perform defect detection and defect information gathering/recording in a less time consuming and more effective way.<br></br><br></br>
-            Traditional way of defect rising is always causing pain to users where information are all scatter around.
-            Users first will have to identify physical detect and
-            Users always facing hard time trying to manipulate all information such as defect location, defect types,
-            images of defects, numbering of defects to match with defect images and etc while generating defect report. <br></br><br></br>
-            Besides, inaccurate defect reports will cause misunderstanding and complication to user, developer and contractors as well.
-            All these will then lead to timeline delay in defect repairing schedule, and directly affecting move in schedule as well. <br></br><br></br>
-            With DECON, user can easily raise defect by providing defect location, defect description , defect image,and generating defect report within a few clicks, and most importantly,all can be done by just using mobile phone.
-            This will directly help users to save a lot of time consuming works in data organizing for report generating.<br></br><br></br>
-            DECON is suitable for all type of residential property including single storey unit, double storey unit, superlink, semi detached,bungalow, condo/service apartment ,SOHO, studio and many more. DECON can also be used for commercial property such as shoplot,office,factory and others.<br></br><br></br>
-            DECON is developed by refering QLASSIC CONSTRUCTION INDUSTRY STANDARD (CIS 7:2021) as a <span className='font-bold'>reference</span> in <span className='font-bold'>assessment of defect description</span>.
-            It should be noted that the use of this standard is voluntary and compliance with this Construction Industry Standard does not of itself confer immunity from legal obligations.
-            The standard is solely for building workmanship rating purpose and is not intended to be used as specification or compliance’s requirement.
+        <div className='w-80 md:w-screen flex justify-center text-base py-1'><div><img alt='' className='w-100 h-70' src={logo} /></div></div>
+
+        <div className='w-80 md:w-screen text-sm py-4 px-0 md:px-8'>
+            InspectMY is a web application designed for defect inspection.Our primary objective is to enhance the efficiency of defect detection and information gathering/recording, reducing time consumption and increasing effectiveness.
+            <br /><br />
+            The conventional method of defect identification is burdensome for users, as information is scattered and difficult to manage. Users encounter challenges when dealing with various defect attributes such as defect location, defect types, defect images, and numbering of defects for report generation.
+            <br /><br />
+            Moreover, inaccurate defect reports can lead to misunderstandings and complications for users, developers, and contractors. This can result in delays in defect repair timelines and directly impact move-in schedules.
+            <br /><br />
+            With InspectMY, users can easily raise defects by providing accurate defect information, including defect location, description, and images, all within a few simple clicks. Importantly, these tasks can be accomplished using just a mobile phone. InspectMY significantly reduces the time-consuming process of organizing data for report generation.
+            <br /><br />
+            InspectMY caters to a wide range of residential property types, including single-storey units, double-storey units, superlinks, semi-detached houses, bungalows, condos/service apartments, SOHOs, studios, and more. Additionally, InspectMY can be utilized for commercial properties such as shoplots, offices, factories, and others.
+            <br /><br />
+            InspectMY's development is based on the QLASSIC CONSTRUCTION INDUSTRY STANDARD (CIS 7:2021) as a recognized reference for assessing defect descriptions. It is important to note that the use of this standard is voluntary, and compliance with the Construction Industry Standard does not exempt individuals from legal obligations. This standard serves the purpose of rating building workmanship and is not intended for use as specifications or compliance requirements.
         </div>
         <Header headerText={{ title: 'HOW TO USE' }} />
         <div className='w-80 flex justify-center text-base py-4'><div>NAVIGATION BAR </div></div>
-        <div className='w-80 md:w-screen flex justify-start md:justify-center text-sm py-4'><img alt='' className='w-18 h-8 px-2 ' src={menu} /><div>Main Menu - This page will show all available functions of DECON app.</div></div>
+        <div className='w-80 md:w-screen flex justify-start md:justify-center text-sm py-4'><img alt='' className='w-18 h-8 px-2 ' src={menu} /><div>Main Menu - This page will show all available functions of InspectMY app.</div></div>
         <div className='w-80 md:w-screen flex justify-start md:justify-center text-sm py-4'><img alt='' className='w-18 h-8 px-2 ' src={project} /><div>Add Project - This page is to let user to create new project.Project refers as property unit where defect inspection will be conducted.</div></div>
         <div className='w-80 md:w-screen flex justify-start md:justify-center text-sm py-4'><img alt='' className='w-18 h-8 px-2 ' src={defect} /><div>Add Defect - User can raise new defect by stating floor, area, element and attach with detail layout plan and photos.</div></div>
         <div className='w-80 md:w-screen flex justify-start md:justify-center text-sm py-4'><img alt='' className='w-18 h-8 px-2 ' src={summary} /><div>View Defects - This page will display all raised defects in summary view.User can perform deletion in this page as well.</div></div>

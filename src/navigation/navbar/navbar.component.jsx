@@ -1,6 +1,6 @@
 import { Fragment, useContext, useRef, useState, useEffect } from 'react';
 import { Outlet, Link } from 'react-router-dom';
-import logo from '../../assets/img/DECON.svg';
+import logo from '../../assets/img/INSPECTMY.png';
 import { NAVBARCOLOR, LABELCOLOR, LABELHOVERCOLOR, NAVBARLINK } from '../../utils/theme';
 import pdf from '../../assets/img/pdf.png';
 import menu from '../../assets/img/menu2.png';
@@ -32,7 +32,7 @@ const NavBar = () => {
     return (
         <Fragment>
             <div className={`flex ${LABELCOLOR}font-bold text-xs uppercase items-center w-full h-16 drop-shadow-lg shadow-lg ${NAVBARCOLOR} overflow-x-auto`} style={{ pointerEvents: disableNavBar }}>
-                <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/menu'><img alt='' className='w-18 h-8 pl-3' src={logo} /></Link>
+                <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/menu'><img alt='' className='w-32 h-14 pl-3' src={logo} /></Link>
                 <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/menu'><img alt='' className='w-15 h-8 ' src={menu} /><div>MAIN MENU</div></Link>
                 <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/addprojectfile'><img alt='' className='w-15 h-8 ' src={project} /><div>ADD PROJECT</div></Link>
                 <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/adddefect'><img alt='' className='w-15 h-8 ' src={defect} /><div>ADD DEFECT</div></Link>
