@@ -57,7 +57,7 @@ const ViewMobile = (result) => {
     let desc2 = '';
 
     return (<>
-        <div className='text-base flex justify-center my-2 text-gray-600'>Scroll right to view more invoices.</div>
+        <div className='text-base flex justify-center my-2 text-gray-600'>Scroll right to view more defects.</div>
         <div className={`flex items-center w-full drop-shadow-lg shadow-lg overflow-x-auto shrink-0 `}>
             {result.ele.map((item) => {
                 row++;

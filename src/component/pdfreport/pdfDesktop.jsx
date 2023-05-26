@@ -14,7 +14,7 @@ const PdfDesktop = (result) => {
         <div id='elementChart' className='w-2/4'>{result.ele.length ? <ElementChart table={result.ele} /> : ''}</div>
 
 
-        <div className="flex justify-center w-full ">
+        <div className="flex w-full ">
             <table id='print' className="w-full table-auto rounded-lg text-left text-gray-500 dark:text-gray-400 text-xs">
                 <thead className={`rounded-lg text-xs text-gray-700 uppercase ${NAVBARCOLOR} ${LABELCOLOR}`}>
                     <tr>
@@ -93,7 +93,7 @@ const PdfDesktop = (result) => {
                             </tr>
                         )
                     })}
-                    
+
                 </tbody>
 
             </table></div>

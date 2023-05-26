@@ -32,8 +32,8 @@ const Content = () => {
             </div>
             <div className='md:h-screen w-2/4 flex justify-left items-left flex-col pt-10 pl-5 flex-wrap'>
                 <div className='md:h-48'></div>
-                <div><img className='' src={LOGO} alt='' height='150' width='150' /></div>
-                <div className=' py-4 pr-8 md:text-3xl text-lg font-bold flex flex-wrap'>INSPECTMY - THE WEB BASED DEFECT INSPECTION TOOL.</div>
+
+                <div className=' py-4 pr-8 md:text-3xl text-lg font-bold flex flex-wrap'><img src={LOGO} alt='' className='h-44 w-72' />  THE WEB BASED DEFECT INSPECTION TOOL.</div>
                 <div>Allowing you to carry out your defect inspection process with ease! </div>
             </div>
         </div>
@@ -76,13 +76,13 @@ const Content = () => {
             <div className='h-72 md:h-screen w-2/4 flex justify-left items-left flex-col p-10 md:p-20 flex-nowrap'>
                 <div className='h-48 md:h-60'> </div>
                 <div></div>
-                <div className='py-4 md:text-3xl text-lg font-bold flex justify-start'>EXPORT IN PDF FORM</div>
+                <div className='py-4 md:text-3xl text-lg font-bold flex justify-start'>EXPORT IN PDF FORMAT</div>
                 <div>Exporting your defect report into PDF format. Directly send soft copy report to your contractor or developer.
                     <br></br>Go paperless!</div>
             </div>
         </div>
 
-        <div className='flex justify-around justify-between pb-20'>
+        <div className='flex justify-around justify-between pb-20 my-8'>
             <div className='h-96 w-2/4 flex justify-left items-left flex-col p-10 md:p-20 '>
                 <div className='h-60'> </div>
                 <div></div>
@@ -93,7 +93,7 @@ const Content = () => {
 
         </div>
 
-        <div className='h-96 w-full flex flex-col justify-center items-center '>
+        <div className='h-96 w-full flex flex-col justify-center items-center mt-8'>
             <div className='h-32 w-2/4 flex justify-center items-center flex-col p-0 md:p-20'>
                 <div className='py-20 md:text-3xl text-lg font-bold  text-center'>WHO SHOULD BE USING THIS APP?</div>
             </div>

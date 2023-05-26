@@ -5,7 +5,7 @@ import { addProject, generateProjectList } from '../../utils/firebase/firebase.u
 import { useContext, useState, useEffect } from "react";
 import { GeneralContext } from "../../context/generalcontext.component";
 import { NAVBARCOLOR, BUTTONCOLOR, LABELCOLOR, LABELHOVERCOLOR } from '../../utils/theme.js';
-import layout from '../../assets/img/imglayout.jpg';
+
 import { UserContext } from '../../context/user.context';
 import { useNavigate } from 'react-router-dom';
 const AddProjectFile = () => {
@@ -113,7 +113,7 @@ const AddProjectFile = () => {
     }
 
 
-    return (<div className='flex justify-center w-full items-center bg-gray-300'>
+    return (<div className='flex justify-center w-full items-center bg-gray-300 min-h-screen'>
 
         <div className='grid grid-flow-row auto-rows-max place-items-center items-center bg-gray-300 place-items-center' >
             <Header headerText={{ title: 'ADD PROJECT FILE' }} />
