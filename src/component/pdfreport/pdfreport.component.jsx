@@ -437,9 +437,9 @@ const PdfReport = () => {
 
                 let defectUrl = rec.url
                 doc.addImage(defectUrl, 'JPEG', 155, imageY, 40, 53); // adjust the coordinates and dimensions as needed
-
+                console.log(rec.defectxpos,rec.defectypos);
                 let pin = 'https://res.cloudinary.com/drpsfwq3y/image/upload/v1685584139/decon/pin_n4gkso.png';
-                doc.addImage(pin, 'PNG', 110 + (rec.defectxpos/100)-7, imageY + (rec.defectypos/100)-15.5, 10, 10);   
+                doc.addImage(pin, 'PNG', 110 + (rec.defectxpos/100)-37, imageY + (rec.defectypos/100)-17, 10, 10);   
                    
                 y += 3;
                 doc.line(20, y, 200, y);

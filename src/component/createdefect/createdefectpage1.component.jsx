@@ -333,7 +333,9 @@ const CreateDefectPage1 = () => {
         eleY = document.getElementById('photo').offsetTop;
         corX = x - eleX;
         corY = y - eleY;
-
+        console.log(x,y);
+        console.log(eleX,eleY);
+        console.log(corX,corY);
         setMarker(<div><div style={{ position: "absolute", top: y - 37, left: x - 17 }} ><img src={pin} alt='' style={{ width: 35, height: 35 }} /></div>
             <div style={{ position: "absolute", top: y - 37 + 3, left: x - 17 + 10 }} >
                 <div style={{
