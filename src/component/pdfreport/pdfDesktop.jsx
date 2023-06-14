@@ -48,47 +48,47 @@ const PdfDesktop = (result) => {
 
                         }
 
-                        if (item["defectDesc"].length > 40) {
-                            desc = '';
-                            desc2 = '';
-                            const temp = item["defectDesc"].split(' ');
+                        // if (item["defectDesc"].length > 40) {
+                        //     desc = '';
+                        //     desc2 = '';
+                        //     const temp = item["defectDesc"].split(' ');
 
-                            for (let i = 0; i < temp.length; i++) {
-                                if (i < 6) {
-                                    desc += temp[i] + ' ';
-                                } else {
-                                    desc2 += temp[i] + ' ';
-                                }
-                            }
+                        //     for (let i = 0; i < temp.length; i++) {
+                        //         if (i < 6) {
+                        //             desc += temp[i] + ' ';
+                        //         } else {
+                        //             desc2 += temp[i] + ' ';
+                        //         }
+                        //     }
 
-                        } else {
-                            desc = item["defectDesc"];
-                            desc2 = '';
-                        }
+                        // } else {
+                        //     desc = item["defectDesc"];
+                        //     desc2 = '';
+                        // }
 
 
                         return (
                             <tr className={RowBgStyle} key={item["rowcount"]}>
-                                <th scope="row" className="py-1 px-2 whitespace-nowrap dark:text-white text-center">
+                                <td scope="row" className="py-1 px-2 whitespace-nowrap dark:text-white text-center">
                                     {item["rowcount"]}
-                                </th>
-                                <td className="py-2 px-2">
-                                    <div className=''>
-                                        {item["floor"]},<br></br>
-                                        {item["area"]},<br></br>
-                                        {item["element"]}.
-                                    </div>
-                                </td>
-                                <td className="py-2 px-2 text-center flex flex-col ">
-                                    <div className='flex justify-start'>{desc}</div><br></br>
-                                    <div className='flex justify-start'>{desc2}</div>
                                 </td>
                                 <td className="py-2 px-2">
-                                    <div className='flex justify-center'><img id={item["rowcount"]} src={item["layouturl"]} alt='' className='w-16 h-16' /></div>
+
+                                    {item["floor"]},<br></br>
+                                    {item["area"]},<br></br>
+                                    {item["element"]}.
+
+                                </td>
+                                <td className="py-2 px-2 text-center">
+                                    <div className='flex justify-start'>{item["defectDesc"]}</div>
+
+                                </td>
+                                <td className="py-2 px-2">
+                                    <div className='flex justify-center'><img id={item["rowcount"]} src={item["layouturl"]} alt='' className='' height='400' width='300' /></div>
                                 </td>
 
                                 <td className="py-2 px-2">
-                                    <div className='flex justify-center'><img src={item["url"]} alt='' className='w-16 h-16' /></div>
+                                    <div className='flex justify-center'><img src={item["url"]} alt='' className='' height='400' width='300' /></div>
                                 </td>
                             </tr>
                         )

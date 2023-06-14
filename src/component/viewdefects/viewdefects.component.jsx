@@ -223,7 +223,7 @@ const ViewDefects = () => {
                 </div>
 
                 <div className='flex justify-center text-sm py-2 h-10 font-semibold'>Record(s) found : {rowCount}</div>
-                {getImg ? <div className="flex justify-center p-2 my-2 w-full "><img id='photo' className='drop-shadow-lg shadow-lg w-80 h-80' src={getImg} alt='' /></div> : <div className="flex justify-center p-2 my-2 w-full "></div>}
+                {getImg ? <div className="flex justify-center p-2 my-2 w-full "><img id='photo' className='drop-shadow-lg shadow-lg' height='400' width='300' src={getImg} alt='' /></div> : <div className="flex justify-center p-2 my-2 w-full "></div>}
 
 
                 {marker}

@@ -117,21 +117,21 @@ const PdfReport = () => {
         setRowCount(0);
     };
 
-    const getHighestCount = (sortedObject) => {
-        let obj = sortedObject
-        let highestCount = '';
-        let highestKey = '';
+    // const getHighestCount = (sortedObject) => {
+    //     let obj = sortedObject
+    //     let highestCount = '';
+    //     let highestKey = '';
 
-        Object.keys(obj).map((key) => {
-            if (obj[key] > highestCount) {
-                highestKey = key;
-                highestCount = obj[key];
-            }
-        });
-        // console.log(highestKey, highestCount);
+    //     Object.keys(obj).map((key) => {
+    //         if (obj[key] > highestCount) {
+    //             highestKey = key;
+    //             highestCount = obj[key];
+    //         }
+    //     });
+    //     // console.log(highestKey, highestCount);
 
-        return { highestKey, highestCount };
-    }
+    //     return { highestKey, highestCount };
+    // }
 
     const getPercentage = (sortedObject, totalCount, status, str) => {
 

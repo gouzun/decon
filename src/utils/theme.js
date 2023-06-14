@@ -199,7 +199,7 @@ export const PERIMETREDEFECTS = [
     'finishing-rough/patchy surface',
     'finishing-sign of corrosion',
     'Alignment and evenness-Edge to be straight and even',
-    'crack and damages-isible damages/defects',
+    'crack and damages-visible damages/defects',
     'crack and damages-should be Securely fixed, functional and safe',
     'fall/gradient-should be free flowing and no water ponding',
     'joint and gaps-inconsistent joints width or not neat joint'

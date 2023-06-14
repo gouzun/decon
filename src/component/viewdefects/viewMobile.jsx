@@ -62,26 +62,27 @@ const ViewMobile = (result) => {
             {result.ele.map((item) => {
                 row++;
                 return (
-                    <Card id={item["rowcount"]} className={`w-80 drop-shadow-lg shadow-lg flex-none my-2 mb-8 mx-4 bg-gradient-to-r from-teal-100 to-cyan-200`}>
-                        <CardHeader floated={false} className="h-90">
-                            <div className='flex justify-center bg-gradient-to-r from-teal-300 to-cyan-500'>
-                                {row}/{result.ele.length}</div>
-                            <img src={item["url"]} alt="" />
+                    <Card id={item["rowcount"]} className="w-80 drop-shadow-lg shadow-lg flex-none my-2 mb-8 mx-4 bg-gradient-to-r from-teal-100 to-cyan-200">
+                        <CardHeader floated={false} className="">
+                            <div className="flex justify-center bg-gradient-to-r from-teal-300 to-cyan-500">
+                                {row}/{result.ele.length}
+                            </div>
+                            <img src={item["url"]} alt="" className="card-image object-contain h-64 w-full" />
                         </CardHeader>
-                        <CardBody className='grow-0'>
+                        <CardBody className="card-body h-40">
                             <Typography className="flex flex-col justify-start text-base">
-                                <div>DEFECT INDEX : {item["rowcount"]}</div>
-                                <div>FLOOR : {item["floor"]}</div>
-                                <div>AREA : {item["area"]}</div>
-                                <div>ELEMENT : {item["element"]}</div>
-                                <div>DEFECT DESC : {item["defectDesc"].toUpperCase()}</div>
-
+                                <div>DEFECT INDEX: {item["rowcount"]}</div>
+                                <div>FLOOR: {item["floor"]}</div>
+                                <div>AREA: {item["area"]}</div>
+                                <div>ELEMENT: {item["element"]}</div>
+                                <div>DEFECT DESC: {item["defectDesc"].toUpperCase()}</div>
                             </Typography>
                         </CardBody>
                         <CardFooter divider className="flex items-center justify-center">
-                            <img src={dustbin} alt='' height='30' width='30' onClick={() => confirmDelete(item["defectName"])} />
+                            <img src={dustbin} alt="" className="cursor-pointer" height="30" width="30" onClick={() => confirmDelete(item["defectName"])} />
                         </CardFooter>
-                    </Card>)
+                    </Card>
+                )
             })
             }
         </div>

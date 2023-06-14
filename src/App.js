@@ -27,18 +27,18 @@ const App = () => {
       setCurrentUser(sessionStorage.getItem('user'));
       setLogged(<Routes>
         <Route path='/' element={< NavBar />}>
-        <Route index element={<SignInForm />} />
-        <Route path='/signin' element={<SignInForm />} />
-        <Route path='/signup' element={<SignUpForm />} />
-        <Route path='/menu' element={<MainMenu />} />
-        <Route path='/addprojectfile' element={<AddProjectFile />} />
-        <Route path='/adddefect' element={<CreateDefectPage1 />} />
-        <Route path='/viewdefects' element={<ViewDefects />} />
-        <Route path='/pdf' element={<PdfReport />} />
-        <Route path='/logout' element={<SignOut />} />
-        <Route path='/info' element={<Manual />} />
-      </Route >
-    </Routes >);
+          <Route index element={<SignInForm />} />
+          <Route path='/signin' element={<SignInForm />} />
+          <Route path='/signup' element={<SignUpForm />} />
+          <Route path='/menu' element={<MainMenu />} />
+          <Route path='/addprojectfile' element={<AddProjectFile />} />
+          <Route path='/adddefect' element={<CreateDefectPage1 />} />
+          <Route path='/viewdefects' element={<ViewDefects />} />
+          <Route path='/pdf' element={<PdfReport />} />
+          <Route path='/logout' element={<SignOut />} />
+          <Route path='/info' element={<Manual />} />
+        </Route >
+      </Routes >);
     }
     else {
       setLogged(<Routes>
@@ -54,12 +54,24 @@ const App = () => {
     }
 
   }, [currentUser]);
-  
+
+  useEffect(() => {
+    const handleBeforeUnload = (e) => {
+      e.preventDefault();
+      e.returnValue = ''; // This is required for Chrome
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
 
   return (<>
     {logged}
-    </>
-    
+  </>
+
   );
 }
 

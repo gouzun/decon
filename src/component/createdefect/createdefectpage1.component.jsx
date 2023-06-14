@@ -397,7 +397,7 @@ const CreateDefectPage1 = () => {
 
                 <div className='text-center'><Header headerText={{ title: 'CLICK ON LAYOUT TO MARK DEFECT LOCATION' }} /></div>
 
-                <div className="flex justify-center p-2 my-2"><img id='photo' className='drop-shadow-lg shadow-lg w-80 h-80' src={imgLayoutDisplay ? imgLayoutDisplay : layout} alt='' onClick={showCoords} /></div>
+                <div className="flex justify-center p-2 my-2"><img id='photo' className='drop-shadow-lg shadow-lg' height='400' width='300' src={imgLayoutDisplay ? imgLayoutDisplay : layout} alt='' onClick={showCoords} /></div>
                 {marker}
                 <div id='area' className="w-80 flex justify-center p-2 my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-30">
                     <Select label="AREA [*required]" onChange={handleAreaDD} onClick={handleAreaIndex} value={curArea}>
@@ -409,7 +409,7 @@ const CreateDefectPage1 = () => {
                         {ELEMENTDD.sort().map((item) => (<Option key={item} value={item}>{item}</Option>))}
                     </Select></div>
                 <Header headerText={{ title: 'CLICK ON IMAGE BELOW TO TAKE IMAGE' }} />
-                <div className="flex justify-center p-2 my-2"><label><img className='drop-shadow-lg shadow-lg w-80 h-100' src={imgDefectDisplay ? imgDefectDisplay : defect} alt='' /><input accept='image/*”' type='file' className="filetype" capture='environment' onChange={onImgDefectChange} style={{ display: 'none' }} /></label></div>
+                <div className="flex justify-center p-2 my-2"><label><img className='drop-shadow-lg shadow-lg' height='400' width='300' src={imgDefectDisplay ? imgDefectDisplay : defect} alt='' /><input accept='image/*”' type='file' className="filetype" capture='environment' onChange={onImgDefectChange} style={{ display: 'none' }} /></label></div>
 
                 <div className="w-80 flex justify-center p-2 my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-40">
                     <Select label="DEFECT DESCRIPTION [*required]" onChange={handleDefectDesc} size="lg" onClick={handleDefectReload}>
