@@ -30,11 +30,11 @@ const PdfMobile = (result) => {
                 row++;
                 return (<>
                     <Card key={item["rowcount"]} className="bg-gradient-to-r from-teal-100 to-cyan-200 w-80 drop-shadow-lg shadow-lg flex-none my-2 mb-8 mx-4">
-                        <CardHeader floated={false} className="h-100">
+                        <CardHeader floated={false} className="">
                             <div className='flex justify-center bg-gradient-to-r from-teal-300 to-cyan-500'>{row}/{result.ele.length}</div>
-                            <img src={item["url"]} alt="" />
+                            <img src={item["url"]} alt="" height="400" width="300"/>
                         </CardHeader>
-                        <CardBody className='grow-0'>
+                        <CardBody className='grow-0 h-80'>
                             <Typography className="flex flex-col justify-start text-base">
                                 <div>FLOOR : {item["floor"]}</div>
                                 <div>AREA : {item["area"]}</div>

@@ -160,7 +160,7 @@ const PdfReport = () => {
 
         if (ownerName && propertyAdd) {
 
-            const doc = new jsPDF('landscape');
+            const doc = new jsPDF('portrait');
             let count = 0;
 
             let imgstatus = 0;
@@ -182,54 +182,53 @@ const PdfReport = () => {
             let elementChartImg = elementChart.lastElementChild.firstChild.toDataURL("image/png", 0.3);
 
 
-            doc.setFontSize(22);
-
-            doc.text('DEFECT INSPECTION REPORT', 150, 20, { align: 'center' });
-            doc.line(50, 25, 250, 25);
+            doc.text('DEFECT INSPECTION REPORT', 110, 20, { align: 'center' });
+            doc.line(20, 25, 200, 25);
             doc.setFontSize(16);
 
-            doc.text('OWNER NAME', 50, 40, { align: 'left' });
+            doc.text('OWNER NAME', 30, 40, { align: 'left' });
             doc.setTextColor(30, 144, 255);
             doc.setFontSize(22);
-            doc.text(ownerName, 60, 50, { align: 'left' });
+            doc.text(ownerName, 30, 50, { align: 'left' });
 
 
             if (contact) {
 
                 doc.setFontSize(16);
                 doc.setTextColor(0, 0, 0);
-                doc.text('CONTACT NUMBER', 170, 40, { align: 'left' });
+                doc.text('CONTACT NUMBER', 140, 40, { align: 'left' });
 
                 doc.setTextColor(30, 144, 255);
                 doc.setFontSize(22);
-                doc.text(contact, 180, 50, { align: 'left' });
+                doc.text(contact, 140, 50, { align: 'left' });
             }
 
             doc.setFontSize(16);
             doc.setTextColor(0, 0, 0);
-            doc.text('PROPERTY ADDRESS', 50, 70, { align: 'left' });
+            doc.text('PROPERTY ADDRESS', 30, 70, { align: 'left' });
             doc.setTextColor(30, 144, 255);
             doc.setFontSize(20);
 
             let add = propertyAdd;
-            if (add.length > 50) {
-                doc.text(add.substring(0, 50), 60, 80, { align: 'left' })
-                doc.text(add.substring(50), 60, 90, { align: 'left' })
+            if (add.length > 40) {
+                doc.text(add.substring(0, 40), 30, 80, { align: 'left' })
+                doc.text(add.substring(40, 80), 30, 90, { align: 'left' })
+                doc.text(add.substring(80, 120), 30, 100, { align: 'left' })
             } else {
-                doc.text(add, 60, 80, { align: 'left' })
+                doc.text(add, 30, 80, { align: 'left' })
             }
 
 
             doc.setFontSize(18);
             doc.setTextColor(0, 0, 0);
-            doc.text('RECEIVED BY ', 150, 120, { align: 'center' });
+            doc.text('RECEIVED BY ', 110, 120, { align: 'center' });
             doc.setFontSize(16);
-            doc.text('SIGNATURE ', 50, 140, { align: 'left' });
-            doc.text('NAME & DESIGNATION', 120, 140, { align: 'left' });
-            doc.text('DATE RECEIVED', 200, 140, { align: 'left' });
-            doc.line(50, 170, 100, 170);
-            doc.line(120, 170, 180, 170);
-            doc.line(200, 170, 250, 170);
+            doc.text('SIGNATURE ', 20, 140, { align: 'left' });
+            doc.text('NAME&DESIGNATION', 80, 140, { align: 'left' });
+            doc.text('DATE RECEIVED', 150, 140, { align: 'left' });
+            doc.line(20, 170, 70, 170);
+            doc.line(80, 170, 140, 170);
+            doc.line(150, 170, 200, 170);
 
 
             let flrcounts = [];
@@ -248,100 +247,117 @@ const PdfReport = () => {
             });
 
             doc.addPage();
-            doc.setFontSize(22);
-            doc.text('DEFECT SUMMARY CHART BY FLOOR', 150, 20, { align: 'center' });
-            doc.line(50, 25, 250, 25);
-            doc.addImage(floorChartImg, 'JPEG', 100, 35, 110, 70, undefined, 'FAST');
+            doc.setFontSize(16);
+            doc.text('DEFECT SUMMARY CHART BY FLOOR', 110, 20, { align: 'center' });
+            doc.line(20, 25, 200, 25);
+            doc.addImage(floorChartImg, 'JPEG', 50, 35, 110, 70, undefined, 'FAST');
             doc.setFontSize(10);
 
             let desc = getPercentage(flrcounts, ele.length, 'floor', 'at');
-            if (desc.length > 160) {
-                doc.text(desc.substring(0, 160), 20, 110, { align: 'left' })
-                doc.text(desc.substring(160, 320), 20, 115, { align: 'left' })
-                doc.text(desc.substring(320, 480), 20, 120, { align: 'left' })
-                doc.text(desc.substring(480, 640), 20, 125, { align: 'left' })
-                doc.text(desc.substring(640, 800), 20, 130, { align: 'left' })
-                doc.text(desc.substring(800, 960), 20, 135, { align: 'left' })
-                doc.text(desc.substring(960, 1120), 20, 140, { align: 'left' })
-                doc.text(desc.substring(1120, 1280), 20, 145, { align: 'left' })
-                doc.text(desc.substring(1280, 1440), 20, 150, { align: 'left' })
-                doc.text(desc.substring(1440, 1600), 20, 155, { align: 'left' })
-                doc.text(desc.substring(1600, 1760), 20, 160, { align: 'left' })
-                doc.text(desc.substring(1760, 1920), 20, 165, { align: 'left' })
-                doc.text(desc.substring(1920, 2080), 20, 170, { align: 'left' })
-                doc.text(desc.substring(2080, 2240), 20, 175, { align: 'left' })
-                doc.text(desc.substring(2240, 2400), 20, 180, { align: 'left' })
-                doc.text(desc.substring(2400, 2560), 20, 185, { align: 'left' })
-                doc.text(desc.substring(2560, 2720), 20, 190, { align: 'left' })
-                doc.text(desc.substring(2720, 2880), 20, 195, { align: 'left' })
-                doc.text(desc.substring(2880, 3040), 20, 200, { align: 'left' })
+            let maxlength = 110;
+            if (desc.length > maxlength) {
+                let words = desc.split(" ");
+                let lines = [];
+                let currentLine = "";
+
+                for (let i = 0; i < words.length; i++) {
+                    if ((currentLine + words[i]).length <= maxlength) {
+                        currentLine += words[i] + " ";
+                    } else {
+                        lines.push(currentLine);
+                        currentLine = words[i] + " ";
+                    }
+                }
+
+                if (currentLine.trim() !== "") {
+                    lines.push(currentLine);
+                }
+
+                let startY = 110;
+                let lineHeight = 5;
+
+                for (let i = 0; i < lines.length; i++) {
+                    doc.text(lines[i], 20, startY, { align: 'left' });
+                    startY += lineHeight;
+                }
             } else {
                 doc.text(desc, 20, 110, { align: 'left' });
             }
 
 
             doc.addPage();
-            doc.setFontSize(22);
-            doc.text('DEFECT SUMMARY CHART BY AREA', 150, 20, { align: 'center' });
-            doc.line(50, 25, 250, 25);
-            doc.addImage(areaChartImg, 'JPEG', 100, 35, 110, 70, undefined, 'FAST');
+            doc.setFontSize(16);
+            doc.text('DEFECT SUMMARY CHART BY AREA', 110, 20, { align: 'center' });
+            doc.line(20, 25, 200, 25);
+            doc.addImage(areaChartImg, 'JPEG', 50, 35, 110, 70, undefined, 'FAST');
             doc.setFontSize(10);
 
-
             desc = getPercentage(areacounts, ele.length, 'area', 'from');
-            if (desc.length > 160) {
-                doc.text(desc.substring(0, 160), 20, 110, { align: 'left' })
-                doc.text(desc.substring(160, 320), 20, 115, { align: 'left' })
-                doc.text(desc.substring(320, 480), 20, 120, { align: 'left' })
-                doc.text(desc.substring(480, 640), 20, 125, { align: 'left' })
-                doc.text(desc.substring(640, 800), 20, 130, { align: 'left' })
-                doc.text(desc.substring(800, 960), 20, 135, { align: 'left' })
-                doc.text(desc.substring(960, 1120), 20, 140, { align: 'left' })
-                doc.text(desc.substring(1120, 1280), 20, 145, { align: 'left' })
-                doc.text(desc.substring(1280, 1440), 20, 150, { align: 'left' })
-                doc.text(desc.substring(1440, 1600), 20, 155, { align: 'left' })
-                doc.text(desc.substring(1600, 1760), 20, 160, { align: 'left' })
-                doc.text(desc.substring(1760, 1920), 20, 165, { align: 'left' })
-                doc.text(desc.substring(1920, 2080), 20, 170, { align: 'left' })
-                doc.text(desc.substring(2080, 2240), 20, 175, { align: 'left' })
-                doc.text(desc.substring(2240, 2400), 20, 180, { align: 'left' })
-                doc.text(desc.substring(2400, 2560), 20, 185, { align: 'left' })
-                doc.text(desc.substring(2560, 2720), 20, 190, { align: 'left' })
-                doc.text(desc.substring(2720, 2880), 20, 195, { align: 'left' })
-                doc.text(desc.substring(2880, 3040), 20, 200, { align: 'left' })
+            maxlength = 110;
+            if (desc.length > maxlength) {
+                let words = desc.split(" ");
+                let lines = [];
+                let currentLine = "";
+
+                for (let i = 0; i < words.length; i++) {
+                    if ((currentLine + words[i]).length <= maxlength) {
+                        currentLine += words[i] + " ";
+                    } else {
+                        lines.push(currentLine);
+                        currentLine = words[i] + " ";
+                    }
+                }
+
+                if (currentLine.trim() !== "") {
+                    lines.push(currentLine);
+                }
+
+                let startY = 110;
+                let lineHeight = 5;
+
+                for (let i = 0; i < lines.length; i++) {
+                    doc.text(lines[i], 20, startY, { align: 'left' });
+                    startY += lineHeight;
+                }
             } else {
                 doc.text(desc, 20, 110, { align: 'left' });
             }
 
 
             doc.addPage();
-            doc.setFontSize(22);
-            doc.text('DEFECT SUMMARY CHART BY ELEMENT', 150, 20, { align: 'center' });
-            doc.line(50, 25, 250, 25);
-            doc.addImage(elementChartImg, 'JPEG', 100, 35, 110, 70, undefined, 'FAST');
+            doc.setFontSize(16);
+            doc.text('DEFECT SUMMARY CHART BY ELEMENT', 110, 20, { align: 'center' });
+            doc.line(20, 25, 200, 25);
+            doc.addImage(elementChartImg, 'JPEG', 50, 35, 110, 70, undefined, 'FAST');
             doc.setFontSize(10);
 
             desc = getPercentage(elecounts, ele.length, 'ele', 'on');
-            if (desc.length > 160) {
-                doc.text(desc.substring(0, 160), 20, 110, { align: 'left' })
-                doc.text(desc.substring(160, 320), 20, 115, { align: 'left' })
-                doc.text(desc.substring(320, 480), 20, 120, { align: 'left' })
-                doc.text(desc.substring(480, 640), 20, 125, { align: 'left' })
-                doc.text(desc.substring(640, 800), 20, 130, { align: 'left' })
-                doc.text(desc.substring(800, 960), 20, 135, { align: 'left' })
-                doc.text(desc.substring(960, 1120), 20, 140, { align: 'left' })
-                doc.text(desc.substring(1120, 1280), 20, 145, { align: 'left' })
-                doc.text(desc.substring(1280, 1440), 20, 150, { align: 'left' })
-                doc.text(desc.substring(1440, 1600), 20, 155, { align: 'left' })
-                doc.text(desc.substring(1600, 1760), 20, 160, { align: 'left' })
-                doc.text(desc.substring(1760, 1920), 20, 165, { align: 'left' })
-                doc.text(desc.substring(1920, 2080), 20, 170, { align: 'left' })
-                doc.text(desc.substring(2080, 2240), 20, 175, { align: 'left' })
-                doc.text(desc.substring(2240, 2400), 20, 180, { align: 'left' })
-                doc.text(desc.substring(2400, 2560), 20, 185, { align: 'left' })
-                doc.text(desc.substring(2560, 2720), 20, 190, { align: 'left' })
-                doc.text(desc.substring(2720, 2880), 20, 195, { align: 'left' })
-                doc.text(desc.substring(2880, 3040), 20, 200, { align: 'left' })
+            maxlength = 110;
+            if (desc.length > maxlength) {
+                let words = desc.split(" ");
+                let lines = [];
+                let currentLine = "";
+
+                for (let i = 0; i < words.length; i++) {
+                    if ((currentLine + words[i]).length <= maxlength) {
+                        currentLine += words[i] + " ";
+                    } else {
+                        lines.push(currentLine);
+                        currentLine = words[i] + " ";
+                    }
+                }
+
+                if (currentLine.trim() !== "") {
+                    lines.push(currentLine);
+                }
+
+                let startY = 110;
+                let lineHeight = 5;
+
+                for (let i = 0; i < lines.length; i++) {
+                    doc.text(lines[i], 20, startY, { align: 'left' });
+                    startY += lineHeight;
+                }
             } else {
                 doc.text(desc, 20, 110, { align: 'left' });
             }
@@ -349,76 +365,102 @@ const PdfReport = () => {
 
 
             doc.addPage();
-            doc.setFontSize(14);
-            doc.autoTable({
-                html: '#print',
-                bodyStyles: { minCellHeight: 34 },
-                didDrawCell: function (data) {
-                    tdcount++;
+            doc.setFontSize(16);
 
-                    if (!imgstatus) {
-                        //to skip the header
-                        if (count === 4) {
-                            imgstatus = 1;
-                            count = -1;
+            doc.text('DEFECT LIST', 110, 15, { align: 'center' });
+            doc.line(20, 22, 200, 22);
+            doc.setFontSize(12);
 
+            let y = 30;
+            let imageY = 20
+            let pageCount = 1;
+           
+            ele.forEach((rec, index) => {
+            
+                doc.text('DEFECT NO :', 20, y, { align: 'left' });
+                doc.text((rec.rowcount).toString(), 55, y, { align: 'left' });
+                imageY = y - 5;
+                y += 5;
 
-                            if (tdcount === 35) {
-                                tdcount = 5;
-                            }
-                        }
+                // doc.text('PROJECT :', 20, y, { align: 'left' });
+                // doc.text(rec.project, 55, y, { align: 'left' });
+                y += 5;
 
-                    } else {
+                doc.text('FLOOR :', 20, y, { align: 'left' });
+                doc.text(rec.floor, 55, y, { align: 'left' });
+                y += 5;
 
+                doc.text('AREA :', 20, y, { align: 'left' });
+                doc.text(rec.area, 55, y, { align: 'left' });
+                y += 5;
 
-                        if ((ele[arrRow] !== undefined)) {
-                            if (data.column.index === 3 && data.cell.section === 'body') {
-                                if (count === 3) {
-                                    var td = data.cell.raw;
+                doc.text('ELEMENT :', 20, y, { align: 'left' });
+                doc.text(rec.element, 55, y, { align: 'left' });
+                y += 5;
 
-                                    var img = td.getElementsByTagName('img')[0];
-                                    var dim = data.cell.height - data.cell.padding('vertical');
-
-                                    doc.addImage(img.src, data.cell.x, data.cell.y + 1, dim, dim, undefined, 'FAST');
-
-                                    doc.addImage(pinimg.src, data.cell.x + (dim * ele[arrRow].defectxpos / 100) - 1.5, data.cell.y + (dim * ele[arrRow].defectypos / 100) - 2.1, 3, 3, undefined, 'FAST');
-
-                                }
-                            }
-                            if (data.column.index === 4 && data.cell.section === 'body') {
-                                if (count === 4) {
-                                    // console.log(`ele[arrRow] url:`,ele[arrRow].url);
-                                    count = -1;
-                                    var td4 = data.cell.raw;
-                                    var img4 = td4.getElementsByTagName('img')[0];
-                                    var dim4 = data.cell.height - data.cell.padding('vertical');
-                                    // console.log(img4);
-                                    doc.addImage(img4.src, data.cell.x, data.cell.y + 1, dim4, dim4, undefined, 'FAST');
-
-                                }
-                            }
-                            if (count === -1) {
-                                arrRow++;
-
-                            }
-                            //will be header after 30 td cell
-                            if (tdcount === 30) {
-                                imgstatus = 0;
-                            }
-                            //after td cell, continue reading table and initialize tdcount.
+                doc.text('DESCRIPTION :', 20, y, { align: 'left' });
+                y += 10;
 
 
+                //make line split if length more than 30 
+                
+                if (rec.defectDesc.length > 30) {
+                    let words = rec.defectDesc.split(' ');
+                    let lines = [];
+                    let currentLine = '';
+
+                    for (let i = 0; i < words.length; i++) {
+                        if ((currentLine + ' ' + words[i]).length <= 30) {
+                            currentLine += ' ' + words[i];
+                        } else {
+                            lines.push(currentLine.trim());
+                            currentLine = words[i];
                         }
                     }
 
+                    if (currentLine !== '') {
+                        lines.push(currentLine.trim());
+                    }
 
-                    count++;
+                    for (let i = 0; i < lines.length; i++) {
+                        doc.text(lines[i], 20, y + (i * 5), { align: 'left' });
+                    }
+                } else {
+                    doc.text(rec.defectDesc, 20, y, { align: 'left' });
                 }
 
-            });
+
+                y += 15;
+
+                let layoutUrl = rec.layouturl
+                doc.addImage(layoutUrl, 'JPEG', 110, imageY, 40, 53); // adjust the coordinates and dimensions as needed
+
+                let defectUrl = rec.url
+                doc.addImage(defectUrl, 'JPEG', 155, imageY, 40, 53); // adjust the coordinates and dimensions as needed
+
+                let pin = 'https://res.cloudinary.com/drpsfwq3y/image/upload/v1685584139/decon/pin_n4gkso.png';
+                doc.addImage(pin, 'PNG', 110 + (rec.defectxpos/100)-7, imageY + (rec.defectypos/100)-15.5, 10, 10);   
+                   
+                y += 3;
+                doc.line(20, y, 200, y);
+                y += 7;
+                if (y > 265) {
+                    doc.text('Page ' + pageCount, 100, y + 20, { align: 'left' });
+                    doc.addPage();
+                    pageCount += 1;
+                    y = 25
+                    doc.line(20, 22, 200, 22);
+                    imageY = y - 5;
+                    y += 5;
+                }
+            })
 
 
-            doc.save('defectsummary.pdf');
+            doc.text('Page ' + pageCount, 100, y + 20, { align: 'left' });
+            doc.text('End of Report', 95, y + 25, { align: 'left' });
+            let documentname = 'test.pdf'
+
+            doc.save(documentname);
             setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-green-700 items-center bg-green-100 w-72  drop-shadow-md shadow-md'>Pdf report generated.</div>);
             handleOpen();
         } else {
@@ -464,7 +506,11 @@ const PdfReport = () => {
             ele.forEach((item) => {
 
                 strJsx.push(<div key={item["rowcount"]}>
-                    <div style={{ position: "absolute", top: getOffset(document.getElementById(item["rowcount"])).top + (document.getElementById(item["rowcount"]).clientWidth * item["defectypos"] / 100) - 15.5, left: getOffset(document.getElementById(item["rowcount"])).left + (document.getElementById(item["rowcount"]).clientWidth * item["defectxpos"] / 100) - 7, zIndex: '100' }}>
+                    <div style={{ position: "absolute", 
+                    top: getOffset(document.getElementById(item["rowcount"])).top 
+                    + (document.getElementById(item["rowcount"]).clientWidth * item["defectypos"] / 100) - 15.5, 
+                    left: getOffset(document.getElementById(item["rowcount"])).left 
+                    + (document.getElementById(item["rowcount"]).clientWidth * item["defectxpos"] / 100) - 7, zIndex: '100' }}>
                         <img src={pin} alt='' style={{ width: 15, height: 15 }} /></div>
 
                 </div>);

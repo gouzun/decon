@@ -67,9 +67,9 @@ const ViewMobile = (result) => {
                             <div className="flex justify-center bg-gradient-to-r from-teal-300 to-cyan-500">
                                 {row}/{result.ele.length}
                             </div>
-                            <img src={item["url"]} alt="" className="card-image object-contain h-64 w-full" />
+                            <img src={item["url"]} alt="" className="card-image object-contain" height="400" width="300" />
                         </CardHeader>
-                        <CardBody className="card-body h-40">
+                        <CardBody className="card-body h-80">
                             <Typography className="flex flex-col justify-start text-base">
                                 <div>DEFECT INDEX: {item["rowcount"]}</div>
                                 <div>FLOOR: {item["floor"]}</div>

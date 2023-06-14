@@ -107,7 +107,10 @@ const AreaChart = (ele) => {
 
 
   };
-
+  data.labels = data.labels.filter(
+    (_, index) => data.datasets[0].data[index] !== 0
+  );
+  data.datasets[0].data = data.datasets[0].data.filter((count) => count !== 0);
 
   return (<div className='px-4 flex justify-center overflow-x-auto w-full h-full'><Bar options={options} data={data} style={{ overflowX: 'scroll' }} /></div>)
 }
