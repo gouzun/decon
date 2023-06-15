@@ -63,8 +63,9 @@ export const createUserDocumentFromAuth = async (userAuth) => {
     if (!userSnapshot.exists()) {
         const { email } = userAuth;
         const createAt = new Date();
+        const substatus = "false";
         try {
-            await setDoc(userDocRef, { email, createAt })
+            await setDoc(userDocRef, { email, createAt,substatus })
         } catch (error) {
             console.log('error creating user', error.message);
         }
@@ -179,6 +180,31 @@ export const retrieveDefectListForProject = async (project, user) => {
         const docSnap = await getDoc(docRef);
 
         return docSnap.data().defectlist;
+    } catch (error) {
+        console.log(`Error :${error.code},${error.message}`);
+    }
+}
+
+export const retrieveUserStatus = async (user) => {
+
+    try {
+        let status = false;
+        const usersCollectionRef = collection(db, 'USERS');
+
+        const q = query(usersCollectionRef, where('email', '==', user));
+
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((docSnap) => {
+            const data = docSnap.data();
+            console.log('.substatus',data.substatus);
+            if(data.substatus){
+                status= true;
+            }else{
+                status = false;
+            }
+            
+          });
+          return status;
     } catch (error) {
         console.log(`Error :${error.code},${error.message}`);
     }

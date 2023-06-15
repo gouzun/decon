@@ -4,15 +4,12 @@ import { GeneralContext } from '../../context/generalcontext.component';
 import { useContext, useState, useEffect } from "react";
 
 import { generateProjectList } from '../../utils/firebase/firebase.utils';
-import { NAVBARCOLOR, BUTTONCOLOR, LABELCOLOR, LABELHOVERCOLOR } from '../../utils/theme.js';
+import {  BUTTONCOLOR, LABELCOLOR, LABELHOVERCOLOR } from '../../utils/theme.js';
 import {
     Select, Option, Button,
-    Dialog,
-    DialogHeader,
-    DialogBody,
-    DialogFooter,
+   
 } from "@material-tailwind/react";
-import { retrieveDefectSummary, retrieveLayoutImg, deleteDefect } from '../../utils/firebase/firebase.utils';
+import { retrieveDefectSummary, retrieveLayoutImg,  } from '../../utils/firebase/firebase.utils';
 import { FLOORDD } from "../../utils/theme.js";
 import pin from '../../assets/img/pin-red.svg';
 import spinner from '../../assets/img/spinner.svg';
@@ -30,7 +27,7 @@ const ViewDefects = () => {
     const {
         projectList, setProjectList,
         curFloor, setCurFloor,
-        curProject, setCurProject, render, setRender,
+        curProject, setCurProject, render,
         projectDisplay, setProjectDisplay
     } = useContext(GeneralContext);
     const [marker, setMarker] = useState('');
@@ -129,15 +126,14 @@ const ViewDefects = () => {
     useEffect(() => {
 
         let strJsx = [];
-        console.log(ele);
+      
         if (curFloor) {
             ele.forEach((rec) => {
-                console.log(rec);
                 strJsx.push(<div key={rec["rowcount"]}>
-                    <div style={{ top: document.getElementById('photo').offsetTop + Number(rec.defectypos)-36, left: document.getElementById('photo').offsetLeft + Number(rec.defectxpos)-17, zIndex: 1, position: 'absolute' }}>
+                    <div style={{ top: document.getElementById('photo').offsetTop + Number(rec.defectypos) - 36, left: document.getElementById('photo').offsetLeft + Number(rec.defectxpos) - 17, zIndex: 1, position: 'absolute' }}>
                         <img src={pin} alt='' style={{ width: 35, height: 35 }} /></div>
 
-                    <div style={{ top: document.getElementById('photo').offsetTop + Number(rec.defectypos)-35, left: document.getElementById('photo').offsetLeft + Number(rec.defectxpos)-6, zIndex: 1, position: 'absolute' }}>
+                    <div style={{ top: document.getElementById('photo').offsetTop + Number(rec.defectypos) - 35, left: document.getElementById('photo').offsetLeft + Number(rec.defectxpos) - 6, zIndex: 1, position: 'absolute' }}>
                         <div style={{ color: 'black', fontWeight: 700 }}>{rec["rowcount"]}</div>
                     </div>
                 </div>);
@@ -146,27 +142,28 @@ const ViewDefects = () => {
         setMarker(strJsx);
     }, [ele])
 
-    // useEffect(() => {
-    //     function updateSize() {
-    //         let strJsx = [];
+    useEffect(() => {
+        function updateSize() {
+            let strJsx = [];
 
-    //         if (curFloor) {
-    //             ele.forEach((item) => {
+            if (curFloor) {
+                ele.forEach((item) => {
 
-    //                 strJsx.push(<div key={item["rowcount"]}>
-    //                     <div style={{ position: "absolute", top: document.getElementById('photo').offsetTop + (document.getElementById('photo').clientWidth * item["defectypos"] / 100) - 37, left: document.getElementById('photo').offsetLeft + (document.getElementById('photo').clientWidth * item["defectxpos"] / 100) - 17, zIndex: '100' }}>
-    //                         <img src={pin} alt='' style={{ width: 35, height: 35 }} /></div>
-    //                     <div style={{ position: "absolute", top: document.getElementById('photo').offsetTop + (document.getElementById('photo').clientWidth * item["defectypos"] / 100) - 37 + 3, left: document.getElementById('photo').offsetLeft + (document.getElementById('photo').clientWidth * item["defectxpos"] / 100) - 17 + 10, zIndex: '100' }}>
-    //                         <div style={{ color: 'black', fontWeight: 700 }}>{item["rowcount"]}</div>
-    //                     </div>
-    //                 </div>);
-    //             });
-    //         }
-    //         setMarker(strJsx);
-    //     }
-    //     window.addEventListener('resize', updateSize);
-    //     return () => window.removeEventListener('resize', updateSize);
-    // }, [ele]);
+                    strJsx.push(<div key={item["rowcount"]}>
+                        <div style={{ top: document.getElementById('photo').offsetTop + Number(item.defectypos) - 36, left: document.getElementById('photo').offsetLeft + Number(item.defectxpos) - 17, zIndex: 1, position: 'absolute' }}>
+                            <img src={pin} alt='' style={{ width: 35, height: 35 }} /></div>
+
+                        <div style={{ top: document.getElementById('photo').offsetTop + Number(item.defectypos) - 35, left: document.getElementById('photo').offsetLeft + Number(item.defectxpos) - 6, zIndex: 1, position: 'absolute' }}>
+                            <div style={{ color: 'black', fontWeight: 700 }}>{item["rowcount"]}</div>
+                        </div>
+                    </div>);
+                });
+            }
+            setMarker(strJsx);
+        }
+        window.addEventListener('resize', updateSize);
+        return () => window.removeEventListener('resize', updateSize);
+    }, [ele]);
 
     const handleProjectIndex = () => {
         const projectDD = document.getElementById('projectDD');

@@ -8,15 +8,14 @@ import { NAVBARCOLOR, LABELCOLOR } from '../../utils/theme.js';
 const PdfDesktop = (result) => {
     let RowBgStyle = '';
     let row = 0;
-    let desc = '';
-    let desc2 = '';
-    return (<><div id='floorChart' className='w-2/4'>{result.ele.length ? <FloorCountChart table={result.ele} /> : ''}</div>
-        <div id='areaChart' className='w-2/4'>{result.ele.length ? <AreaChart table={result.ele} /> : ''}</div>
-        <div id='elementChart' className='w-2/4'>{result.ele.length ? <ElementChart table={result.ele} /> : ''}</div>
+  
+    return (<><div id='floorChart' className='w-1/4'>{result.ele.length ? <FloorCountChart table={result.ele} /> : ''}</div>
+        <div id='areaChart' className='w-1/4'>{result.ele.length ? <AreaChart table={result.ele} /> : ''}</div>
+        <div id='elementChart' className='w-1/4'>{result.ele.length ? <ElementChart table={result.ele} /> : ''}</div>
 
 
         <div className="flex w-full ">
-            <table id='print' className="w-full table-auto rounded-lg text-left text-gray-500 dark:text-gray-400 text-xs">
+            <table id='print' className="w-full rounded-lg text-left text-gray-500 dark:text-gray-400 text-xs">
                 <thead className={`rounded-lg text-xs text-gray-700 uppercase ${NAVBARCOLOR} ${LABELCOLOR}`}>
                     <tr>
                         <th scope="col" className="py-1 px-2 text-center">
@@ -48,26 +47,8 @@ const PdfDesktop = (result) => {
                             RowBgStyle = 'bg-gray-200 text-gray-900 ';
 
                         }
-
-                        // if (item["defectDesc"].length > 40) {
-                        //     desc = '';
-                        //     desc2 = '';
-                        //     const temp = item["defectDesc"].split(' ');
-
-                        //     for (let i = 0; i < temp.length; i++) {
-                        //         if (i < 6) {
-                        //             desc += temp[i] + ' ';
-                        //         } else {
-                        //             desc2 += temp[i] + ' ';
-                        //         }
-                        //     }
-
-                        // } else {
-                        //     desc = item["defectDesc"];
-                        //     desc2 = '';
-                        // }
-
-
+               
+                        
                         return (
                             <tr className={RowBgStyle} key={item["rowcount"]}>
                                 <td scope="row" className="py-1 px-2 whitespace-nowrap dark:text-white text-center">
@@ -84,10 +65,11 @@ const PdfDesktop = (result) => {
                                     <div className='flex justify-start'>{item["defectDesc"]}</div>
 
                                 </td>
-                                <td className="py-2 px-2">
-                                    <div className='flex justify-center'><img id={item["rowcount"]} src={item["layouturl"]} alt='' className='' height='400' width='300' /></div>
-                                    <div style={{ top: -40 + Number(item.ycoors) + 52, left: -12 + Number(item.xcoors) + 28, zIndex: 1, position: 'absolute' }}>
-                                    <img src={pin} alt='' style={{ width: 15, height: 15 }} /></div>
+                                <td className="py-2 px-2 relative">
+                                    <div className='flex justify-center' style={{ position: 'relative' }}><img id={item["rowcount"]} src={item["layouturl"]} alt='' height="400" width="300"
+                                    /></div>
+                                    <div style={{ top: Number(item.defectypos)-28, left: Number(item.defectxpos)+60, zIndex: 1, position: 'absolute' }}>
+                                    <img src={pin} alt='' style={{ width: 35, height: 35 }} /></div>
                                             
                                 </td>
 
@@ -106,3 +88,4 @@ const PdfDesktop = (result) => {
 
 }
 export default PdfDesktop;
+                 
