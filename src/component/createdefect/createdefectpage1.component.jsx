@@ -342,10 +342,10 @@ const CreateDefectPage1 = () => {
                     color: { PINTEXTBLACK }, fontWeight: 700
                 }}  >{1 + curDefectList.length}</div></div></div>);
 
-        const xPercentage = corX / document.getElementById('photo').clientWidth * 100
-        const yPercentage = corY / document.getElementById('photo').clientWidth * 100
-        setXpos(xPercentage);
-        setYpos(yPercentage);
+        // const xPercentage = corX / document.getElementById('photo').clientWidth * 100
+        // const yPercentage = corY / document.getElementById('photo').clientWidth * 100
+        setXpos(corX);
+        setYpos(corY);
 
         // setXpos(corX);
         // setYpos(corY);

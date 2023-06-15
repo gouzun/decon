@@ -439,7 +439,7 @@ const PdfReport = () => {
                 doc.addImage(defectUrl, 'JPEG', 155, imageY, 40, 53); // adjust the coordinates and dimensions as needed
                 console.log(rec.defectxpos,rec.defectypos);
                 let pin = 'https://res.cloudinary.com/drpsfwq3y/image/upload/v1685584139/decon/pin_n4gkso.png';
-                doc.addImage(pin, 'PNG', 110 + (rec.defectxpos/100)-37, imageY + (rec.defectypos/100)-17, 10, 10);   
+                doc.addImage(pin, 'PNG', 110 + (rec.defectxpos), imageY + (rec.defectypos), 10, 10);   
                    
                 y += 3;
                 doc.line(20, y, 200, y);
@@ -469,24 +469,25 @@ const PdfReport = () => {
         }
     }
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        let strJsx = [];
-
-
-        ele.forEach((item) => {
-
-            strJsx.push(<div key={item["rowcount"]}>
-                <div style={{ position: "absolute", top: getOffset(document.getElementById(item["rowcount"])).top + (document.getElementById(item["rowcount"]).clientWidth * item["defectypos"] / 100) - 15.5, left: getOffset(document.getElementById(item["rowcount"])).left + (document.getElementById(item["rowcount"]).clientWidth * item["defectxpos"] / 100) - 7, zIndex: '100' }}>
-                    <img src={pin} alt='' style={{ width: 15, height: 15 }} /></div>
-
-            </div>);
-        });
-
-        setMarker(strJsx);
+    //     let strJsx = [];
 
 
-    }, [ele]);
+    //     ele.forEach((item) => {
+
+    //         strJsx.push(<div key={item["rowcount"]}>
+    //            <div style={{ top: document.getElementById(item["rowcount"]).top + Number(item.defectypos)-36, left: document.getElementById(item["rowcount"]).left + Number(item.defectxpos)-17, zIndex: 1, position: 'absolute' }}>
+                    
+    //             <img src={pin} alt='' style={{ width: 15, height: 15 }} /></div>
+
+    //         </div>);
+    //     });
+
+    //     setMarker(strJsx);
+
+
+    // }, [ele]);
 
     function getOffset(el) {
         if (el) {
@@ -498,29 +499,29 @@ const PdfReport = () => {
         }
     }
 
-    useEffect(() => {
-        function updateSize() {
-            let strJsx = [];
+    // useEffect(() => {
+    //     function updateSize() {
+    //         let strJsx = [];
 
 
-            ele.forEach((item) => {
+    //         ele.forEach((item) => {
 
-                strJsx.push(<div key={item["rowcount"]}>
-                    <div style={{ position: "absolute", 
-                    top: getOffset(document.getElementById(item["rowcount"])).top 
-                    + (document.getElementById(item["rowcount"]).clientWidth * item["defectypos"] / 100) - 15.5, 
-                    left: getOffset(document.getElementById(item["rowcount"])).left 
-                    + (document.getElementById(item["rowcount"]).clientWidth * item["defectxpos"] / 100) - 7, zIndex: '100' }}>
-                        <img src={pin} alt='' style={{ width: 15, height: 15 }} /></div>
+    //             strJsx.push(<div key={item["rowcount"]}>
+    //                 <div style={{ position: "absolute", 
+    //                 top: getOffset(document.getElementById(item["rowcount"])).top 
+    //                 + (document.getElementById(item["rowcount"]).clientWidth * item["defectypos"] / 100) - 15.5, 
+    //                 left: getOffset(document.getElementById(item["rowcount"])).left 
+    //                 + (document.getElementById(item["rowcount"]).clientWidth * item["defectxpos"] / 100) - 7, zIndex: '100' }}>
+    //                     <img src={pin} alt='' style={{ width: 15, height: 15 }} /></div>
 
-                </div>);
-            });
+    //             </div>);
+    //         });
 
-            setMarker(strJsx);
-        }
-        window.addEventListener('resize', updateSize);
-        return () => window.removeEventListener('resize', updateSize);
-    }, [ele]);
+    //         setMarker(strJsx);
+    //     }
+    //     window.addEventListener('resize', updateSize);
+    //     return () => window.removeEventListener('resize', updateSize);
+    // }, [ele]);
 
 
     const handleExport = async () => {

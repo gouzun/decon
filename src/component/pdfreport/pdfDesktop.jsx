@@ -2,6 +2,7 @@ import FloorCountChart from "../chart/floorcountchart";
 import AreaChart from "../chart/areachart";
 import ElementChart from "../chart/elementchart";
 
+import pin from '../../assets/img/pin-red.svg';
 import { NAVBARCOLOR, LABELCOLOR } from '../../utils/theme.js';
 
 const PdfDesktop = (result) => {
@@ -85,6 +86,9 @@ const PdfDesktop = (result) => {
                                 </td>
                                 <td className="py-2 px-2">
                                     <div className='flex justify-center'><img id={item["rowcount"]} src={item["layouturl"]} alt='' className='' height='400' width='300' /></div>
+                                    <div style={{ top: -40 + Number(item.ycoors) + 52, left: -12 + Number(item.xcoors) + 28, zIndex: 1, position: 'absolute' }}>
+                                    <img src={pin} alt='' style={{ width: 15, height: 15 }} /></div>
+                                            
                                 </td>
 
                                 <td className="py-2 px-2">
