@@ -63,9 +63,11 @@ export const createUserDocumentFromAuth = async (userAuth) => {
     if (!userSnapshot.exists()) {
         const { email } = userAuth;
         const createAt = new Date();
-        const substatus = "false";
+        const substatus = false;
+        const subtype = "none";
+        const subdate = '';
         try {
-            await setDoc(userDocRef, { email, createAt,substatus })
+            await setDoc(userDocRef, { email, createAt, substatus, subtype, subdate })
         } catch (error) {
             console.log('error creating user', error.message);
         }
@@ -196,15 +198,15 @@ export const retrieveUserStatus = async (user) => {
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((docSnap) => {
             const data = docSnap.data();
-            console.log('.substatus',data.substatus);
-            if(data.substatus){
-                status= true;
-            }else{
+            // console.log('.substatus',data.substatus);
+            if (data.substatus) {
+                status = true;
+            } else {
                 status = false;
             }
-            
-          });
-          return status;
+
+        });
+        return status;
     } catch (error) {
         console.log(`Error :${error.code},${error.message}`);
     }

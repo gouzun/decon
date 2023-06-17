@@ -1,7 +1,7 @@
 import Header from "../header/header.component";
 import Footer from "../footer/footer.component";
 import { GeneralContext } from '../../context/generalcontext.component';
-import { useContext, useState, useEffect, React,Fragment } from "react";
+import { useContext, useState, useEffect, React, Fragment } from "react";
 import { generateProjectList } from '../../utils/firebase/firebase.utils';
 import { BUTTONCOLOR, LABELCOLOR, LABELHOVERCOLOR } from '../../utils/theme.js';
 import { Select, Option, Input, Textarea } from "@material-tailwind/react";
@@ -11,6 +11,7 @@ import spinner from '../../assets/img/spinner.svg';
 import { UserContext } from '../../context/user.context';
 import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
+import { Link } from 'react-router-dom';
 
 import PdfMobile from "./pdfMobile";
 import {
@@ -456,7 +457,13 @@ const PdfReport = () => {
             }
         } else {
             handleOpenPayment();
+
         }
+    }
+
+    const handlePurchase = () => {
+        handleOpenPayment();
+        navigate('/pricing');
     }
 
 
@@ -541,7 +548,7 @@ const PdfReport = () => {
                     </Button>
                 </DialogFooter>
             </Dialog>
-            <Fragment>               
+            <Fragment>
                 <Dialog open={openPayment} handler={handleOpenPayment}>
                     <DialogHeader>Access Limited</DialogHeader>
                     <DialogBody divider>
@@ -556,8 +563,8 @@ const PdfReport = () => {
                         >
                             <span>Cancel</span>
                         </Button>
-                        <Button variant="gradient" color="green" onClick={handleOpenPayment}>
-                            <span>Confirm</span>
+                        <Button variant="gradient" color="green" onClick={handlePurchase}>
+                            <span>Make Purchase</span>
                         </Button>
                     </DialogFooter>
                 </Dialog>

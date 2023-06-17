@@ -14,6 +14,7 @@ const ContentNavBar = () => {
                 <div className={`flex justify-end ${NAVBARTEXT} items-center w-full overflow-x-auto gap-5 pr-4`} >
                     <Link to='/app' className={`${NAVBARTEXTHOVER}`}>APP</Link>
                     <Link to='/signin' className={`${NAVBARTEXTHOVER}`}>LOGIN</Link>
+                    <Link to='/pricing' className={`${NAVBARTEXTHOVER}`}>PRICING</Link>
                     <Link to='/contactus' className={`${NAVBARTEXTHOVER}`}>CONTACT US</Link>
                 </div>
             </div>

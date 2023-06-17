@@ -17,6 +17,7 @@ import { UserContext } from '../src/context/user.context';
 import Content from '../src/component/content/content';
 import ContactUs from '../src/component/contactus/contactus.component';
 import ContentNavBar from './navigation/navbar/contentnavbar.component';
+import PricePage from './component/price/pricepage';
 
 const App = () => {
   const { currentUser, setCurrentUser } = useContext(UserContext);
@@ -37,6 +38,7 @@ const App = () => {
           <Route path='/pdf' element={<PdfReport />} />
           <Route path='/logout' element={<SignOut />} />
           <Route path='/info' element={<Manual />} />
+          <Route path='/pricing' element={<PricePage />} />
         </Route >
       </Routes >);
     }
@@ -49,6 +51,7 @@ const App = () => {
           <Route path='/signup' element={<SignUpForm />} />
           <Route path='/app' element={<Content />} />
           <Route path='/contactus' element={<ContactUs />} />
+          <Route path='/pricing' element={<PricePage />} />
         </Route>
       </Routes>);
     }
