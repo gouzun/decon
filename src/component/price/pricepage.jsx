@@ -12,7 +12,62 @@ import { BUTTONCOLOR, LABELCOLOR, LABELHOVERCOLOR, BGCOLOR } from '../../utils/t
 import Header from "../header/header.component";
 import Footer from "../footer/footer.component";
 
+
 const PricePage = () => {
+    const handleCreatePayment = async () => {
+        console.log('in');
+        let obj = {
+            "merchantKey": "merchant Key",
+            "signature": "merchant Signature",
+            "paymentName": "John Smith",
+            "paymentEmail": "johnsmith@test.com",
+            "paymentDesc": "DEFECT Payment",
+            "paymentType": "Banking,Fpx,Ewallet",
+            "paymentAmount": "3000",
+            "paymentRefNo": "ABC123456",
+            "paymentCallbackURL": "https://www.callback.com",
+            "paymentRedirectURL": "https://www.google.com",
+            "paymentCustomFields": [
+                {
+                    "title": "Parking Date",
+                    "value": "20/12/22"
+                },
+                {
+                    "title": "Location",
+                    "value": "KL HQ 1"
+                },
+                {
+                    "title": "Delivery Date",
+                    "value": "22/2/22"
+                }
+            ]
+        }
+
+
+
+        // Encode JSON string to base64
+        const paramsJson = JSON.stringify(obj);
+
+        // Encode JSON string to base64
+        const paramsBase64 = btoa(paramsJson);
+        console.log(paramsBase64);
+
+        const url = 'https://stoplight.io/mocks/tekkis/tpayment/32493892/payment/addPaymentFromExternal';
+        const options = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify({ payload: paramsBase64 }),
+        };
+
+        try {
+            const response = await fetch(url, options);
+            const data = await response.json();
+            console.log(data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     return (<>
         <div className={`flex flex-col justify-center items-center bg-gray-300 min-h-screen w-full pt-20 ${BGCOLOR} text-center`}>
             <Header headerText={{ title: 'PRICE RATE (RM)' }} />
@@ -76,6 +131,7 @@ const PricePage = () => {
                             className="text-blue-500 hover:scale-[1.02] focus:scale-[1.02] active:scale-100"
                             ripple={false}
                             fullWidth={true}
+                            onClick={handleCreatePayment}
                         >
                             Buy Now
                         </Button>
