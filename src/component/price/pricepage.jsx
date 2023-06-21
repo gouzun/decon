@@ -14,49 +14,43 @@ import Footer from "../footer/footer.component";
 
 
 const PricePage = () => {
+
+    let sandbox = 'https://www.billplz-sandbox.com/api/'
+
+
     const handleCreatePayment = async () => {
         console.log('in');
-        let obj = {
-            "merchantKey": "merchant Key",
-            "signature": "merchant Signature",
-            "paymentName": "John Smith",
-            "paymentEmail": "johnsmith@test.com",
-            "paymentDesc": "DEFECT Payment",
-            "paymentType": "Banking,Fpx,Ewallet",
-            "paymentAmount": "3000",
-            "paymentRefNo": "ABC123456",
-            "paymentCallbackURL": "https://www.callback.com",
-            "paymentRedirectURL": "https://www.google.com",
-            "paymentCustomFields": [
-                {
-                    "title": "Parking Date",
-                    "value": "20/12/22"
-                },
-                {
-                    "title": "Location",
-                    "value": "KL HQ 1"
-                },
-                {
-                    "title": "Delivery Date",
-                    "value": "22/2/22"
-                }
-            ]
-        }
+        // let obj = {
+        //     "Authorization": "a5c23f94-92b4-4044-8b4a-0fc248187e9e",
+        //     "title": "My First API Collection",
+        // }
 
 
+        // // Encode JSON string to base64
+        // const paramsJson = JSON.stringify(obj);
 
-        // Encode JSON string to base64
-        const paramsJson = JSON.stringify(obj);
+        // // Encode JSON string to base64
+        // const paramsBase64 = btoa(paramsJson);
+        // console.log(paramsBase64);
 
-        // Encode JSON string to base64
-        const paramsBase64 = btoa(paramsJson);
-        console.log(paramsBase64);
+        // let apilink = 'https://www.billplz-sandbox.com/api/';
+        let authlink = 'https://www.billplz-sandbox.com/api/v4/webhook_rank';
+        let createCollection = 'v4/collections';
+        const apiKey = 'a5c23f94-92b4-4044-8b4a-0fc248187e9e';
 
-        const url = 'https://stoplight.io/mocks/tekkis/tpayment/32493892/payment/addPaymentFromExternal';
+        const data = new URLSearchParams();
+        data.append('title', 'My First V4 API Collection');
+
+        const url = authlink;
+        console.log('url:', url);
+
         const options = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-            body: JSON.stringify({ payload: paramsBase64 }),
+            headers: {
+                Authorization: `Basic ${btoa(`${apiKey}:`)}`,
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: data,
         };
 
         try {
