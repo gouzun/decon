@@ -78,7 +78,7 @@ const PricePage = () => {
                             color="white"
                             className="font-normal uppercase"
                         >
-                            FOR HOUSE OWNER
+                            FOR ALL USERS
                         </Typography>
                         <Typography
                             variant="h1"
@@ -131,7 +131,7 @@ const PricePage = () => {
                         </Button>
                     </CardFooter>
                 </Card>
-                <Card color="light-green" variant="gradient" className="w-full max-w-[20rem] p-8">
+                {/*<Card color="light-green" variant="gradient" className="w-full max-w-[20rem] p-8">
                     <CardHeader
                         floated={false}
                         shadow={false}
@@ -205,7 +205,7 @@ const PricePage = () => {
                             Buy Now
                         </Button>
                     </CardFooter>
-                </Card>
+    </Card>*/}
             </div>
             <Footer />
         </div>

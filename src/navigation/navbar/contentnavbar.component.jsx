@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { Outlet, Link, useNavigate } from 'react-router-dom';
+import { Outlet, Link } from 'react-router-dom';
 import LOGO from '../../assets/img/INSPECTMY.png';
 import { CONTENTNAVBARCOLOR, NAVBARTEXT, NAVBARTEXTHOVER } from '../../utils/theme';
 
