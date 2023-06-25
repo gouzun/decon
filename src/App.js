@@ -18,6 +18,7 @@ import Content from '../src/component/content/content';
 import ContactUs from '../src/component/contactus/contactus.component';
 import ContentNavBar from './navigation/navbar/contentnavbar.component';
 import PricePage from './component/price/pricepage';
+import PaymentCallback from './component/price/paymentcallback';
 
 const App = () => {
   const { currentUser, setCurrentUser } = useContext(UserContext);
@@ -39,6 +40,8 @@ const App = () => {
           <Route path='/logout' element={<SignOut />} />
           <Route path='/info' element={<Manual />} />
           <Route path='/pricing' element={<PricePage />} />
+          <Route path='/payment-callback' element={<PaymentCallback />} />
+          
         </Route >
       </Routes >);
     }
@@ -52,6 +55,7 @@ const App = () => {
           <Route path='/app' element={<Content />} />
           <Route path='/contactus' element={<ContactUs />} />
           <Route path='/pricing' element={<PricePage />} />
+          <Route path='/payment-callback' element={<PaymentCallback />} />
         </Route>
       </Routes>);
     }

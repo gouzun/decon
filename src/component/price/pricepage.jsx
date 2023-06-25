@@ -15,52 +15,9 @@ import Footer from "../footer/footer.component";
 
 const PricePage = () => {
 
-    let sandbox = 'https://www.billplz-sandbox.com/api/'
-
-
     const handleCreatePayment = async () => {
         console.log('in');
-        // let obj = {
-        //     "Authorization": "a5c23f94-92b4-4044-8b4a-0fc248187e9e",
-        //     "title": "My First API Collection",
-        // }
-
-
-        // // Encode JSON string to base64
-        // const paramsJson = JSON.stringify(obj);
-
-        // // Encode JSON string to base64
-        // const paramsBase64 = btoa(paramsJson);
-        // console.log(paramsBase64);
-
-        // let apilink = 'https://www.billplz-sandbox.com/api/';
-        // let authlink = 'https://www.billplz-sandbox.com/api/v4/webhook_rank';
-        // let createCollection = 'v4/collections';
-        // const apiKey = 'a5c23f94-92b4-4044-8b4a-0fc248187e9e';
-
-        // const data = new URLSearchParams();
-        // data.append('title', 'My First V4 API Collection');
-
-        // const url = authlink;
-        // console.log('url:', url);
-
-        // const options = {
-        //     method: 'POST',
-        //     headers: {
-        //         Authorization: `Basic ${btoa(`${apiKey}:`)}`,
-        //         'Content-Type': 'application/x-www-form-urlencoded',
-        //     },
-        //     body: data,
-        // };
-
-        // try {
-        //     const response = await fetch(url, options);
-        //     const data = await response.json();
-        //     console.log(data);
-        // } catch (error) {
-        //     console.error(error);
-        // }
-
+        
         //node
         const response = await fetch('https://inspectmynode.onrender.com/api/v1/userlist', {
             method: 'GET',
@@ -69,10 +26,10 @@ const PricePage = () => {
             },
           
         });
-
         if (response.ok) {
             const result = await response.json();
-            console.log(result);
+            console.log('frontend:',result.url);
+            window.open(result.url, '_blank');
         }else{
             console.log('response not ok');
         }
