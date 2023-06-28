@@ -17,20 +17,19 @@ const PricePage = () => {
 
     const handleCreatePayment = async () => {
         console.log('in');
-        
+
         //node
         const response = await fetch('https://inspectmynode.onrender.com/api/v1/userlist', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
             },
-          
+
         });
         if (response.ok) {
             const result = await response.json();
-            console.log('frontend:',result.url);
             window.open(result.url, '_blank');
-        }else{
+        } else {
             console.log('response not ok');
         }
     }
