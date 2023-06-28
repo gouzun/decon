@@ -2,77 +2,71 @@ import React from 'react'
 import Header from "../header/header.component";
 import Footer from "../footer/footer.component";
 import { useEffect } from 'react';
-import crypto from 'crypto';
-
-
+import { enc, HmacSHA256 } from 'crypto-js';
 import { BUTTONCOLOR, LABELCOLOR, LABELHOVERCOLOR, BGCOLOR } from '../../utils/theme';
-
+import CryptoJS from 'crypto-js';
+import { useState } from 'react';
+// import dotenv from 'dotenv-webpack';
+// dotenv.config();
 const PaymentCallback = () => {
-    const calculateXSignature = async (params, apiKey) => {
-        // Sort the parameters alphabetically by key
-        const sortedParams = Object.keys(params).sort().reduce((acc, key) => {
-            acc[key] = params[key];
-            return acc;
-        }, {});
+    const [xSignatureKey, setXSignatureKey] = useState('S-eoIF74Bg1fI_K2mu7Mc3xA');
+    let obj ={
+        id: '',
+        paid: '',
+        paid_at: '',
+        transaction_id: '',
+        transaction_status: '',
+      }
+    let sign = '';
 
-        // Create a new TextEncoder instance
-        const encoder = new TextEncoder();
+    const constructSourceString = (inputObj) => {
+        console.log(inputObj);
+        const sortedKeys = Object.keys(inputObj).sort((a, b) =>
+          a.toLowerCase().localeCompare(b.toLowerCase())
+        );
+    
+        const sourceString = sortedKeys
+          .map(key => {
+            const value = inputObj[key];
+            return `${key}${value}`;
+          })
+          .join('|');
+    
+        return sourceString;
+      };
 
-        // Convert the sortedParams to a string
-        const paramString = JSON.stringify(sortedParams);
-
-        // Encode the string into a Uint8Array
-        const encodedData = encoder.encode(paramString);
-
-        // Import the API key as a CryptoKey
-        const keyData = encoder.encode(apiKey);
-        const importedKey = await crypto.subtle.importKey('raw', keyData, { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
-
-        // Calculate the HMAC-SHA256 hash using the imported key
-        const signature = await crypto.subtle.sign('HMAC', importedKey, encodedData);
-
-        // Convert the signature to a hexadecimal string
-        const hexSignature = Array.from(new Uint8Array(signature))
-            .map((byte) => byte.toString(16).padStart(2, '0'))
-            .join('');
-
-        return hexSignature;
-    };
-
-
+    const signSourceString = () => {
+        const sourceString = constructSourceString(obj);
+        const signature = CryptoJS.HmacSHA256(sourceString, xSignatureKey).toString();
+        
+        return signature;
+      };
 
     useEffect(() => {
         const handleCallback = async () => {
             try {
                 console.log('payment-redirect');
-                const urlParams = new URLSearchParams(window.location.search);
-                const billplzId = urlParams.get('billplz[id]');
-                const isPaid = urlParams.get('billplz[paid]');
-                const paidAt = urlParams.get('billplz[paid_at]');
-                const transactionId = urlParams.get('billplz[transaction_id]');
-                const transactionStatus = urlParams.get('billplz[transaction_status]');
-                const xSignature = urlParams.get('billplz[x_signature]');
-
+                
+                // const urlParams = new URLSearchParams(window.location.search);
+                const urlParams = new URLSearchParams('billplz%5Bid%5D=dif57g6v&billplz%5Bpaid%5D=true&billplz%5Bpaid_at%5D=2023-06-27+22%3A31%3A18+%2B0800&billplz%5Btransaction_id%5D=EA41430DE49A&billplz%5Btransaction_status%5D=completed&billplz%5Bx_signature%5D=b888ac1925a1a8b412ccf119c5c01c2f4ab00ad9545210e2d459203dc5fc564c');
+                let objInput=''
+                objInput.id = urlParams.get('billplz[id]');
+                objInput.paid = urlParams.get('billplz[paid]');
+                objInput.paid_at = urlParams.get('billplz[paid_at]');
+                objInput.transaction_id = urlParams.get('billplz[transaction_id]');
+                objInput.transaction_status = urlParams.get('billplz[transaction_status]');
+                let sign = urlParams.get('billplz[x_signature]');
+                console.log(objInput)
+                obj = objInput
                 // You can now use the retrieved data as needed
-                console.log('billplzId:', billplzId);
-                console.log('isPaid:', isPaid);
-                console.log('paidAt:', paidAt);
-                console.log('transactionId:', transactionId);
-                console.log('transactionStatus:', transactionStatus);
-                console.log('xSignature:', xSignature);
+                console.log('obj :', objInput);
+                
+                const xSignature = signSourceString();
+   
+                console.log('Constructed Source String signature:', constructSourceString());
+                console.log('XSignature Value:', xSignature);
+                console.log('sign Value:', sign);
 
-                const hexSignature = calculateXSignature(
-                    {
-                        id: billplzId,
-                        paid: isPaid,
-                        paid_at: paidAt,
-                        transaction_id: transactionId,
-                        transaction_status: transactionStatus,
-                    },
-                    process.env.API_KEY
-                );
-                console.log('hexSignature:', hexSignature);
-                console.log('xSignature:', xSignature);
 
             } catch (error) {
                 console.log(error)
@@ -80,7 +74,7 @@ const PaymentCallback = () => {
         };
 
         handleCallback();
-    }, []);
+    }, [obj]);
 
     return (<>
         <div className={`flex flex-col justify-center items-center bg-gray-300 min-h-screen w-full pt-20 ${BGCOLOR} text-center`}>
