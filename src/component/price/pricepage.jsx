@@ -30,7 +30,7 @@ const PricePage = () => {
             const result = await response.json();
             window.open(result.url, '_blank');
         } else {
-            console.log('response not ok');
+            console.log('create bill response not ok');
         }
     }
 

@@ -12,6 +12,7 @@ const ContentNavBar = () => {
                 <div className={`flex justify-start items-center pl-4 pt-2`} >
                     <img src={LOGO} alt='' height='70' width='100' /></div>
                 <div className={`flex justify-end ${NAVBARTEXT} items-center w-full overflow-x-auto gap-5 pr-4`} >
+                <div>test</div>    
                     <Link to='/app' className={`${NAVBARTEXTHOVER}`}>APP</Link>
                     <Link to='/signin' className={`${NAVBARTEXTHOVER}`}>LOGIN</Link>
                     <Link to='/pricing' className={`${NAVBARTEXTHOVER}`}>PRICING</Link>
