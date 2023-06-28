@@ -1,4 +1,4 @@
-import { Fragment, useContext, useRef, useState, useEffect } from 'react';
+import { Fragment, useContext, useState, useEffect } from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import logo from '../../assets/img/INSPECTMY.png';
 import { NAVBARCOLOR, LABELCOLOR, LABELHOVERCOLOR, NAVBARLINK } from '../../utils/theme';

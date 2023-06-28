@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState } from "react";
 
 export const GeneralContext = createContext({
     xpos: '',
@@ -42,10 +42,10 @@ export const GeneralContext = createContext({
     setRender: () => { },
     contact: '',
     setContact: () => { },
-    projectDisplay:'', 
-    setProjectDisplay:()=>{},
-    defects:'', 
-    setDefects:()=>{},
+    projectDisplay: '',
+    setProjectDisplay: () => { },
+    defects: '',
+    setDefects: () => { },
 });
 
 
@@ -97,7 +97,7 @@ export const GeneralProvider = ({ children }) => {
         imgLayoutDisplay, setImgLayoutDisplay,
         imgDefectDisplay, setImgDefectDisplay,
         userLoggedOut, setUserLoggedOut,
-        render, setRender, contact, setContact,projectDisplay, setProjectDisplay,
+        render, setRender, contact, setContact, projectDisplay, setProjectDisplay,
         defects, setDefects
     };
 

@@ -11,7 +11,7 @@ import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import Footer from '../footer/footer.component';
 import DANDM from '../../assets/img/desktopandmobile.png'
-import PhoneTurn from './phoneturn.component';
+
 
 import { useMediaQuery } from 'react-responsive';
 const Content = () => {
@@ -27,13 +27,13 @@ const Content = () => {
         <div className='flex justify-around justify-between flex-wrap pt-20'>
             <div className='md:h-screen w-2/4 flex justify-center items-center'>
                 <div className='h-96 md:h-screen md:w-screen flex justify-center items-center'>
-                    {isMobile ? <img className='pt-10' src={MOBILE} alt='' height='300' width='300' /> : <PhoneTurn />}</div>
+                    {isMobile ? <img className='pt-10' src={MOBILE} alt='' height='200' width='200' /> : <img className='pt-10' src={MOBILE} alt='' height='300' width='300' />}</div>
 
             </div>
             <div className='md:h-screen w-2/4 flex justify-left items-left flex-col pt-10 pl-5 flex-wrap'>
                 <div className='md:h-48'></div>
 
-                <div className=' py-4 pr-8 md:text-3xl text-lg font-bold flex flex-wrap'><img src={LOGO} alt='' className='h-44 w-72' />  THE WEB BASED DEFECT INSPECTION TOOL.</div>
+                <div className=' py-4 pr-8 md:text-3xl text-lg font-bold flex flex-wrap'><img src={LOGO} alt='' />  THE WEB BASED DEFECT INSPECTION TOOL.</div>
                 <div>Allowing you to carry out your defect inspection process with ease! </div>
             </div>
         </div>

@@ -8,7 +8,7 @@ import {
     Button,
 } from "@material-tailwind/react";
 import { CheckIcon } from "@heroicons/react/24/outline";
-import { BUTTONCOLOR, LABELCOLOR, LABELHOVERCOLOR, BGCOLOR } from '../../utils/theme';
+import { BGCOLOR } from '../../utils/theme';
 import Header from "../header/header.component";
 import Footer from "../footer/footer.component";
 
@@ -19,8 +19,8 @@ const PricePage = () => {
         console.log('in');
 
         //node
-        const response = await fetch('https://inspectmynode.onrender.com/api/v1/userlist', {
-            method: 'GET',
+        const response = await fetch('https://inspectmynode.onrender.com/api/v1/createbill', {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
