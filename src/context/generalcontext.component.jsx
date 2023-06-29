@@ -46,6 +46,8 @@ export const GeneralContext = createContext({
     setProjectDisplay: () => { },
     defects: '',
     setDefects: () => { },
+    bill:'',
+    setBill:() => { },
 });
 
 
@@ -78,6 +80,7 @@ export const GeneralProvider = ({ children }) => {
 
     const [defects, setDefects] = useState([]);
     const [projectDisplay, setProjectDisplay] = useState('');
+    const [bill,setBill] = useState('');
 
     const value = {
         xpos, setXpos, ypos, setYpos,
@@ -98,7 +101,7 @@ export const GeneralProvider = ({ children }) => {
         imgDefectDisplay, setImgDefectDisplay,
         userLoggedOut, setUserLoggedOut,
         render, setRender, contact, setContact, projectDisplay, setProjectDisplay,
-        defects, setDefects
+        defects, setDefects,bill,setBill
     };
 
     return (<GeneralContext.Provider value={value}>{children}</GeneralContext.Provider >)

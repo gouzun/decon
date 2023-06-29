@@ -11,9 +11,14 @@ import { CheckIcon } from "@heroicons/react/24/outline";
 import { BGCOLOR } from '../../utils/theme';
 import Header from "../header/header.component";
 import Footer from "../footer/footer.component";
+import { GeneralContext } from '../../context/generalcontext.component';
+import { useContext } from 'react';
+
 
 
 const PricePage = () => {
+
+    const {bill,setBill} = useContext(GeneralContext);
 
     const handleCreatePayment = async () => {
         console.log('in');
@@ -28,6 +33,7 @@ const PricePage = () => {
         });
         if (response.ok) {
             const result = await response.json();
+            setBill(result.url);
             window.open(result.url, '_blank');
         } else {
             console.log('create bill response not ok');
