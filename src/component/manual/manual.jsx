@@ -33,17 +33,17 @@ const Manual = () => {
         <div className='w-80 md:w-screen flex justify-center text-base py-1'><div><img alt='' className='w-100 h-70' src={logo} /></div></div>
 
         <div className='w-80 md:w-screen text-sm py-4 px-0 md:px-8'>
-            InspectMY is a web application designed for defect inspection.Our primary objective is to enhance the efficiency of defect detection and information gathering/recording, reducing time consumption and increasing effectiveness.
+            InspectMY is a web application specifically designed to streamline defect inspection processes. Our primary objective is to optimize the efficiency of defect detection and information gathering/recording, ultimately reducing time consumption and enhancing effectiveness.
             <br /><br />
-            The conventional method of defect identification is burdensome for users, as information is scattered and difficult to manage. Users encounter challenges when dealing with various defect attributes such as defect location, defect types, defect images, and numbering of defects for report generation.
+            Traditionally, the process of identifying defects has been cumbersome for users, with scattered and difficult-to-manage information. Users face challenges when dealing with various defect attributes, such as defect location, defect types, defect images, and numbering of defects for report generation.
             <br /><br />
-            Moreover, inaccurate defect reports can lead to misunderstandings and complications for users, developers, and contractors. This can result in delays in defect repair timelines and directly impact move-in schedules.
+            Furthermore, inaccurate defect reports can lead to misunderstandings and complications among users, developers, and contractors. These issues can result in delays in defect repair timelines and directly impact move-in schedules.
             <br /><br />
-            With InspectMY, users can easily raise defects by providing accurate defect information, including defect location, description, and images, all within a few simple clicks. Importantly, these tasks can be accomplished using just a mobile phone. InspectMY significantly reduces the time-consuming process of organizing data for report generation.
+            InspectMY addresses these challenges by enabling users to easily raise defects with accurate information, including defect location, description, and images, all through a few simple clicks. Notably, this can be achieved using just a mobile phone, making the process even more convenient. InspectMY significantly reduces the time-consuming task of organizing data for report generation.
             <br /><br />
-            InspectMY caters to a wide range of residential property types, including single-storey units, double-storey units, superlinks, semi-detached houses, bungalows, condos/service apartments, SOHOs, studios, and more. Additionally, InspectMY can be utilized for commercial properties such as shoplots, offices, factories, and others.
+            The development of InspectMY is based on the QLASSIC CONSTRUCTION INDUSTRY STANDARD (CIS 7:2021), which is a recognized reference for assessing defect descriptions. It is important to emphasize that the use of this standard is voluntary, and compliance with the Construction Industry Standard does not exempt individuals from legal obligations. This standard serves the purpose of rating building workmanship and is not intended for use as specifications or compliance requirements.
             <br /><br />
-            InspectMY's development is based on the QLASSIC CONSTRUCTION INDUSTRY STANDARD (CIS 7:2021) as a recognized reference for assessing defect descriptions. It is important to note that the use of this standard is voluntary, and compliance with the Construction Industry Standard does not exempt individuals from legal obligations. This standard serves the purpose of rating building workmanship and is not intended for use as specifications or compliance requirements.
+            By providing a user-friendly and efficient platform for defect inspection, InspectMY aims to enhance the overall quality and productivity of defect management in the construction industry.
         </div>
         <Header headerText={{ title: 'HOW TO USE' }} />
         <div className='w-80 flex justify-center text-base py-4'><div>NAVIGATION BAR </div></div>

@@ -11,34 +11,52 @@ import { CheckIcon } from "@heroicons/react/24/outline";
 import { BGCOLOR } from '../../utils/theme';
 import Header from "../header/header.component";
 import Footer from "../footer/footer.component";
-import { GeneralContext } from '../../context/generalcontext.component';
-import { useContext } from 'react';
-
-
+import { Link } from 'react-router-dom';
+import { NAVBARTEXTHOVER } from '../../utils/theme';
+import { UserContext } from '../../context/user.context';
+import { useState, useEffect } from 'react';
+import Loader from '../../utils/Loader';
 
 const PricePage = () => {
 
-    const {bill,setBill} = useContext(GeneralContext);
+    const [logged, setLogged] = useState(false);
+    const [loading, setLoading] = useState('');
 
     const handleCreatePayment = async () => {
         console.log('in');
+        setLoading(<div className='flex justify-center text-sm py-2 h-5 text-red-700 items-center bg-red-100 w-72  drop-shadow-md shadow-md'>Updating record. </div>);
+        try {
+            //node
+            const response = await fetch('https://inspectmynode.onrender.com/api/v1/createbill', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
 
-        //node
-        const response = await fetch('https://inspectmynode.onrender.com/api/v1/createbill', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-
-        });
-        if (response.ok) {
-            const result = await response.json();
-            setBill(result.url);
-            window.open(result.url, '_blank');
-        } else {
-            console.log('create bill response not ok');
+            });
+            if (response.ok) {
+                const result = await response.json();
+                // window.location.href = result.url;
+                window.open(result.url, '_blank');
+            } else {
+                console.log('create bill response not ok');
+            }
+        } catch (err) {
+            console.log(err);
+        } finally {
+            setLoading('');
         }
     }
+
+
+    useEffect(() => {
+        if (sessionStorage.getItem('user')) {
+            setLogged(true);
+        }
+        else {
+            setLogged(false);
+        }
+    }, []);
 
     return (<>
         <div className={`flex flex-col justify-center items-center bg-gray-300 min-h-screen w-full pt-20 ${BGCOLOR} text-center`}>
@@ -97,7 +115,7 @@ const PricePage = () => {
                         </ul>
                     </CardBody>
                     <CardFooter className="mt-12 p-0">
-                        <Button
+                        {logged ? (<Button
                             size="lg"
                             color="white"
                             className="text-blue-500 hover:scale-[1.02] focus:scale-[1.02] active:scale-100"
@@ -106,7 +124,17 @@ const PricePage = () => {
                             onClick={handleCreatePayment}
                         >
                             Buy Now
-                        </Button>
+                            {loading?<Loader/>:''}
+                        </Button>) : (<Link to='/signin' className={`${NAVBARTEXTHOVER}`}><Button
+                            size="lg"
+                            color="white"
+                            className="text-blue-500 hover:scale-[1.02] focus:scale-[1.02] active:scale-100"
+                            ripple={false}
+                            fullWidth={true}
+                        >
+                            Login/Sign Up Now
+                        </Button></Link>)}
+
                     </CardFooter>
                 </Card>
                 {/*<Card color="light-green" variant="gradient" className="w-full max-w-[20rem] p-8">
