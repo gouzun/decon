@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
 import { BGCOLOR } from '../../utils/theme';
-
+import Loader from '../../utils/Loader';
 import {
     Card,
     CardBody,
@@ -16,6 +16,7 @@ const PaymentRedirect = () => {
     const [obj, setObj] = useState({});
     const [header, setHeader] = useState('PAYMENT PROCESSING');
     const [tryAgain, setTryAgain] = useState(false);
+    const [spinner, setSpinner] = useState('');
 
     const isEmptyObject = (obj) => {
         return Object.keys(obj).length === 0;
@@ -24,7 +25,7 @@ const PaymentRedirect = () => {
     useEffect(() => {
         const handleCallback = async () => {
             try {
-
+                setSpinner(true);
                 // const urlParams = new URLSearchParams(window.location.search);
                 const urlParams = new URLSearchParams('billplz%5Bid%5D=5il95qcc&billplz%5Bpaid%5D=true&billplz%5Bpaid_at%5D=2023-06-28+12%3A44%3A55+%2B0800&billplz%5Btransaction_id%5D=7AB89CE9ABCA&billplz%5Btransaction_status%5D=completed&billplz%5Bx_signature%5D=b9a147398ba9a6ead673ecfe2e1654734b551601f36a6d2b16e70bdaa51c19d6');
 
@@ -32,7 +33,6 @@ const PaymentRedirect = () => {
                 console.log('paramsObject:', paramsObject);
 
                 if (!isEmptyObject(paramsObject)) {
-
 
                     const response = await fetch('https://inspectmynode.onrender.com/api/v1/validatebill', {
                         method: 'POST',
@@ -44,7 +44,6 @@ const PaymentRedirect = () => {
                     });
                     if (response.ok) {
                         // const result = await response.json();
-
 
                         const data = {
                             billplzid
@@ -85,6 +84,8 @@ const PaymentRedirect = () => {
 
             } catch (error) {
                 console.log(error)
+            }finally{
+                setSpinner('');
             }
         };
 
@@ -96,7 +97,7 @@ const PaymentRedirect = () => {
     }
 
     const handleClick = ()=>{
-        <Link to='/contactus' className={`${NAVBARTEXTHOVER}`}>CONTACT US</Link>
+        <Link to='/account' className={`${NAVBARTEXTHOVER}`}>BACK TO ACCOUNT</Link>
     }
 
 
@@ -107,7 +108,8 @@ const PaymentRedirect = () => {
 
                 <Card className="mt-6 w-96">
                     <CardBody>
-                        <Typography variant="h4" color="blue-gray" className="mb-8">
+                    {spinner?(<Loader/>):
+                        (<><Typography variant="h4" color="blue-gray" className="mb-8">
                             {header}
                         </Typography>
                         <Typography variant="h6">
@@ -118,7 +120,7 @@ const PaymentRedirect = () => {
                                 <div className='flex item-center justify-center pt-4'><div className='text-center'>RECEIPT HAS BEEN SENT TO YOUR EMAIL</div></div>
                                 <div className='flex item-center justify-center py-3'><Link to='/contactus' className={`${NAVBARTEXTHOVER}`}><Button onClick={handleClick}>BACK TO MY ACCOUNT</Button></Link></div>
                             </div>
-                        </Typography>
+                        </Typography></>)}
                     </CardBody>
                 </Card>
 

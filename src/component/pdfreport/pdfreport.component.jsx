@@ -141,13 +141,44 @@ const PdfReport = () => {
 
     }
 
+    const getProjectPaymentStatus = async()=>{
+        try {
+            //node
+            let obj = {
+                email: sessionStorage.getItem('user'),
+                project: curProject,                
+            }
+
+            const response = await fetch('https://inspectmynode.onrender.com/api/v1/getprojectpaymentstatus', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(obj),
+
+            });
+            const result = await response.json();
+            console.log(result.message);
+            if (response.ok) {
+                return true;
+            } else {               
+                return false;
+            }
+        } catch (err) {
+            console.log(err);
+            return false;
+        }
+    }
+
 
     const pdf = async () => {
 
         //retrieve user status
-        const status = await retrieveUserStatus(currentUser);
-        //if user true then
-        console.log(status);
+        // const status = await retrieveUserStatus(currentUser);
+        // //if user true then
+        // console.log(status);
+        const status = await getProjectPaymentStatus();
+        console.log('status:',status);
         if (status) {
             if (ownerName && propertyAdd) {
 
@@ -457,7 +488,6 @@ const PdfReport = () => {
             }
         } else {
             handleOpenPayment();
-
         }
     }
 
