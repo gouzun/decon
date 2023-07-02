@@ -91,23 +91,36 @@ export const signOutUser = async () => await signOut(auth);
 export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
 
 
-
 ///////////for defix
 export async function addProject(propertyName, ownerName, propertyAddress, user) {
     const dbPL = db;
     try {
         //create new doc with custom id;
         const docRef = doc(dbPL, "ProjectList", `${propertyName}-${ownerName}-${user}`);
+        
+        let newData = {};
 
-        const newData = {
-            propertyName: propertyName,
-            ownerName: ownerName,
-            propertyAddress: propertyAddress,
-            defectlist: [],
-            user: user,
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          
+            const existingData = docSnap.data();
+            newData = {
+                ...existingData,propertyAddress: propertyAddress,              
+            }
+            
+            await updateDoc(docRef, newData);
+        } else {            
+           
+            newData = {
+                propertyName: propertyName,
+                ownerName: ownerName,
+                propertyAddress: propertyAddress,
+                defectlist: [],
+                user: user,
+            }
+            await setDoc(docRef, newData, { merge: true });
         }
-
-        await setDoc(docRef, newData);
 
     } catch (error) {
         console.log(`Error :${error.code},${error.message}`);

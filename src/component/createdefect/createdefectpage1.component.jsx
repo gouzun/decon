@@ -5,7 +5,6 @@ import defect from '../../assets/img/imgdefect.jpg';
 import cam from '../../assets/img/camera.svg';
 
 import { GeneralContext } from '../../context/generalcontext.component';
-
 import { Select, Option } from "@material-tailwind/react";
 import { Button } from "@material-tailwind/react";
 import Header from '../header/header.component';
@@ -19,6 +18,7 @@ import { UserContext } from '../../context/user.context';
 import { useNavigate } from 'react-router-dom';
 import { PINTEXTBLACK } from "../../utils/theme";
 import { BUTTONCOLOR, LABELHOVERCOLOR } from '../../utils/theme';
+import Loader from '../../utils/Loader';
 
 
 const CreateDefectPage1 = () => {
@@ -43,23 +43,49 @@ const CreateDefectPage1 = () => {
     const [isLoading, setIsLoading] = useState(null);
     const [defects, setDefects] = useState([]);
     const [defectDisplay, setDefectDisplay] = useState('');
+    const [loader,setLoader] = useState(false);
 
     const fieldreset = () => {
         setXpos(0);
         setYpos(0);
         setMarker('');
-        setImgDefectDisplay(defect);
-        setImgDefect(defect);
+        setImgDefectDisplay('');
+        setImgDefect('');
         setCurDefectDesc('');
         setCurElement('');
         setProjectDisplay('');
         setDefectDisplay('');
         setDefects([]);
+        setCurArea('');
+        // setImgLayout('');
+        // setImgLayoutDisplay('');
+        // setCurProject('');
+        // setCurFloor('');
     }
 
     const navigate = useNavigate();
 
+     const pageReloadResetField = ()=>{
+        setXpos(0);
+        setYpos(0);
+        setMarker('');
+        setImgDefectDisplay('');
+        setImgDefect('');
+        setCurDefectDesc('');
+        setCurElement('');
+        setProjectDisplay('');
+        setDefectDisplay('');
+        setDefects([]);
+        setCurArea('');
+        setImgLayout('');
+        setImgLayoutDisplay('');
+        setCurProject('');
+        setCurFloor('');
+    }
+
     useEffect(() => {
+    
+        pageReloadResetField();
         if (sessionStorage.getItem('user')) {
             setCurrentUser(sessionStorage.getItem('user'));
         }
@@ -87,6 +113,7 @@ const CreateDefectPage1 = () => {
     };
 
     const onImgLayoutChange = (event) => {
+        
         if (event.target.files && event.target.files[0]) {
             const image = event.target.files[0];
             new Compressor(image, {
@@ -102,6 +129,7 @@ const CreateDefectPage1 = () => {
     };
 
     const handleFloorDD = async (value) => {
+        setLoader(true);
         setCurFloor(value);
         try {
             setImgLoad(<div className='flex justify-center text-sm py-2 h-5 text-red-700 items-center bg-red-100 w-72  drop-shadow-md shadow-md'>Searching layout <img src={spinner} alt='' /></div>);
@@ -120,7 +148,9 @@ const CreateDefectPage1 = () => {
                 setImgLayoutDisplay(layout);
             }
             setImgLoad('');
-        };
+        }finally{
+            setLoader(false);
+        }
 
     };
 
@@ -228,12 +258,13 @@ const CreateDefectPage1 = () => {
                     await storeImg(imgLayout, `${curProject}-${curFloor}`)
                         .then(async (urlLayout) => {
                             await addProjectFlrUrl(curProject, curFloor, urlLayout, currentUser)
-                        }).then(fieldreset())
+                        })
+                        // .then(fieldreset())
                         .then(
                             setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-green-700 items-center bg-green-100 w-72  drop-shadow-md shadow-md'>Defect no. {defCount} Added.</div>)
                         );
                 } else {
-                    fieldreset();
+                
 
                     setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-green-700 items-center bg-green-100 w-72  drop-shadow-md shadow-md'>Defect no. {defCount} Added.</div>);
 
@@ -244,6 +275,8 @@ const CreateDefectPage1 = () => {
             }
         } catch (e) {
             alert(e.message)
+        }finally{
+            fieldreset();
         }
 
     }
@@ -251,7 +284,7 @@ const CreateDefectPage1 = () => {
     const handlePDD = async (value) => {
 
         setCurProject(value);
-        setProjectDisplay(value => value);
+        // setProjectDisplay(value => value);
         handleGetCurDefList(value, currentUser);
         try {
             if (curFloor) {
@@ -284,7 +317,7 @@ const CreateDefectPage1 = () => {
 
     useEffect(() => {
         generateDropDown();
-        setProjectDisplay(curProject);
+        // setProjectDisplay(curProject);
     }, [currentUser]);
 
 
@@ -316,8 +349,6 @@ const CreateDefectPage1 = () => {
         pdd.style.zIndex = '10';
     }
 
-
-
     let corX = 0;
     let corY = 0;
     let x = 0;
@@ -333,9 +364,7 @@ const CreateDefectPage1 = () => {
         eleY = document.getElementById('photo').offsetTop;
         corX = x - eleX;
         corY = y - eleY;
-        console.log(x,y);
-        console.log(eleX,eleY);
-        console.log(corX,corY);
+      
         setMarker(<div><div style={{ position: "absolute", top: y - 37, left: x - 17 }} ><img src={pin} alt='' style={{ width: 35, height: 35 }} /></div>
             <div style={{ position: "absolute", top: y - 37 + 3, left: x - 17 + 10 }} >
                 <div style={{
@@ -351,6 +380,30 @@ const CreateDefectPage1 = () => {
         // setYpos(corY);
     }
 
+    //orig code back up
+    // const showCoords = (event) => {
+
+    //     x = event.pageX;
+    //     y = event.pageY;
+    //     eleX = document.getElementById('photo').offsetLeft;
+    //     eleY = document.getElementById('photo').offsetTop;
+    //     corX = x - eleX;
+    //     corY = y - eleY;
+      
+    //     setMarker(<div><div style={{ position: "absolute", top: y - 37, left: x - 17 }} ><img src={pin} alt='' style={{ width: 35, height: 35 }} /></div>
+    //         <div style={{ position: "absolute", top: y - 37 + 3, left: x - 17 + 10 }} >
+    //             <div style={{
+    //                 color: { PINTEXTBLACK }, fontWeight: 700
+    //             }}  >{1 + curDefectList.length}</div></div></div>);
+
+    //     // const xPercentage = corX / document.getElementById('photo').clientWidth * 100
+    //     // const yPercentage = corY / document.getElementById('photo').clientWidth * 100
+    //     setXpos(corX);
+    //     setYpos(corY);
+
+    //     // setXpos(corX);
+    //     // setYpos(corY);
+    // }
 
 
     useEffect(() => {
@@ -366,11 +419,7 @@ const CreateDefectPage1 = () => {
         return () => window.removeEventListener('resize', updateSize);
     }, [xpos, ypos]);
 
-    useEffect(() => {
-        // if (curProject) {
-        //     setProjectDisplay(curProject);
-        // }
-    }, [])
+ 
 
     return (
 
@@ -380,12 +429,11 @@ const CreateDefectPage1 = () => {
                 <Header headerText={{ title: 'CREATE NEW DEFECT ITEM' }} />
 
                 <div id='pdd' className='w-80 flex justify-center p-2  my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-20'>
-                    <Select id='projectDD' label="SELECT PROJECT [*required]" onChange={handlePDD} onClick={handlePDDIndex} value={projectDisplay}>
+                    <Select id='projectDD' label="SELECT PROJECT [*required]" onChange={handlePDD} onClick={handlePDDIndex} value={curProject}>
                         {projectList.map((item) => {
                             return (<Option key={item} value={item}>{item}</Option>);
                         })}
                     </Select>
-
                 </div>
                 <div id='fdd' className="w-80 flex justify-center p-2  my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-10">
                     <Select label="FLOOR [*required]" onChange={handleFloorDD} value={curFloor} onClick={handleFDDIndex}>
@@ -398,8 +446,8 @@ const CreateDefectPage1 = () => {
                 <div className="flex flex-col items-center justify-center p-2"><label><img className='drop-shadow-lg shadow-lg' width={25} height={25} src={cam} alt='' /><input accept="image/png,image/jpeg" type='file' className="filetype" capture='environment' onChange={onImgLayoutChange} style={{ display: 'none' }} /></label></div>
 
                 <div className='text-center'><Header headerText={{ title: 'CLICK ON LAYOUT TO MARK DEFECT LOCATION' }} /></div>
-
-                <div className="flex justify-center p-2 my-2"><img id='photo' className='drop-shadow-lg shadow-lg' height='400' width='300' src={imgLayoutDisplay ? imgLayoutDisplay : layout} alt='' onClick={showCoords} /></div>
+{loader?<Loader/>:<div className="flex justify-center p-2 my-2"><img id='photo' className='drop-shadow-lg shadow-lg' height='400' width='300' src={imgLayoutDisplay ? imgLayoutDisplay : layout} alt='' onClick={showCoords} /></div>}
+                
                 {marker}
                 <div id='area' className="w-80 flex justify-center p-2 my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-30">
                     <Select label="AREA [*required]" onChange={handleAreaDD} onClick={handleAreaIndex} value={curArea}>

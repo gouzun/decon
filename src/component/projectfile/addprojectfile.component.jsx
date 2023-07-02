@@ -22,7 +22,13 @@ const AddProjectFile = () => {
     const { currentUser, setCurrentUser } = useContext(UserContext);
     const navigate = useNavigate();
 
+    const resetField = ()=>{
+        setOwnerName('');
+        setPropertyAdd('');
+    }
+
     useEffect(() => {
+        resetField();
         if (sessionStorage.getItem('user')) {
             setCurrentUser(sessionStorage.getItem('user'));
 
@@ -101,7 +107,6 @@ const AddProjectFile = () => {
 
     const gridHandler = async () => {
         try {
-
             const arrResult = await generateProjectList(currentUser);
             setRowCount(arrResult.length);
             setEle(arrResult);
@@ -115,7 +120,7 @@ const AddProjectFile = () => {
 
     return (<div className='flex justify-center w-full items-center bg-gray-300 min-h-screen'>
 
-        <div className='grid grid-flow-row auto-rows-max place-items-center items-center bg-gray-300 place-items-center' >
+        <div className='grid grid-flow-row auto-rows-max  items-center bg-gray-300 place-items-center' >
             <Header headerText={{ title: 'ADD PROJECT FILE' }} />
 
 
@@ -135,8 +140,6 @@ const AddProjectFile = () => {
             </div>
 
 
-
-
             {isLoading}
             <div className='flex justify-center text-sm py-2 h-10 font-semibold'>Record(s) found : {rowCount}</div>
             <table className="w-80 rounded-lg text-sm text-left text-gray-500 dark:text-gray-400">
@@ -150,6 +153,9 @@ const AddProjectFile = () => {
                         </th>
                         <th scope="col" className="py-3 px-6 text-center">
                             OWNER NAME
+                        </th>
+                        <th scope="col" className="py-3 px-6 text-center">
+                            ADDRESS
                         </th>
 
                     </tr>
@@ -175,6 +181,9 @@ const AddProjectFile = () => {
                                 </td>
                                 <td className="py-3 px-6 text-center">
                                     {item["ownerName"]}
+                                </td>
+                                <td className="py-3 px-6 text-center">
+                                    {item["propertyAddress"]}
                                 </td>
 
                             </tr>
