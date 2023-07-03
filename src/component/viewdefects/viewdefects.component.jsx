@@ -4,12 +4,12 @@ import { GeneralContext } from '../../context/generalcontext.component';
 import { useContext, useState, useEffect } from "react";
 
 import { generateProjectList } from '../../utils/firebase/firebase.utils';
-import {  BUTTONCOLOR, LABELCOLOR, LABELHOVERCOLOR } from '../../utils/theme.js';
+import { BUTTONCOLOR, LABELCOLOR, LABELHOVERCOLOR } from '../../utils/theme.js';
 import {
     Select, Option, Button,
-   
+
 } from "@material-tailwind/react";
-import { retrieveDefectSummary, retrieveLayoutImg,  } from '../../utils/firebase/firebase.utils';
+import { retrieveDefectSummary, retrieveLayoutImg, } from '../../utils/firebase/firebase.utils';
 import { FLOORDD } from "../../utils/theme.js";
 import pin from '../../assets/img/pin-red.svg';
 import spinner from '../../assets/img/spinner.svg';
@@ -77,7 +77,7 @@ const ViewDefects = () => {
                 setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-red-700 items-center bg-red-100 w-72  drop-shadow-md shadow-md'>Searching for records. <img src={spinner} alt='' /></div>);
 
                 if (curFloor) {
-                    const img = await retrieveLayoutImg(curProject + '-' + curFloor);
+                    const img = await retrieveLayoutImg(curProject + '-' + currentUser + '-' + curFloor);
                     setGetImg(img);
 
                 }
@@ -89,9 +89,7 @@ const ViewDefects = () => {
 
                 });
             }
-            // else {
-            //     setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-red-700 items-center bg-red-100 w-72  drop-shadow-md shadow-md'>Please select a project.</div>);
-            // }
+
         }
         catch (error) {
             console.log(`Error :${error.code},${error.message}`);
@@ -126,7 +124,7 @@ const ViewDefects = () => {
     useEffect(() => {
 
         let strJsx = [];
-      
+
         if (curFloor) {
             ele.forEach((rec) => {
                 strJsx.push(<div key={rec["rowcount"]}>

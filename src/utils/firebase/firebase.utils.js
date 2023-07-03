@@ -134,11 +134,11 @@ export async function addDefect(project, floor, area, element, defectCount, defe
     try {
 
         //create new doc with custom id;
-        const docRef = doc(dbPL, project, `${project}-${defectCount}`);
+        const docRef = doc(dbPL, `${project}-${user}`, `${project}-${user}-${defectCount}`);
 
         const newData = {
-            project: project,
-            defectName: project + '-' + defectCount,
+            project: project + '-' + user,
+            defectName: project + '-' + user + '-' + defectCount,
             floor: floor,
             area: area,
             element: element,
@@ -196,6 +196,7 @@ export const generateProjectList = async (user) => {
 export const retrieveDefectListForProject = async (project, user) => {
 
     try {
+
         const docRef = doc(db, "ProjectList", project + '-' + user);
         const docSnap = await getDoc(docRef);
 
@@ -230,7 +231,7 @@ export const retrieveUserStatus = async (user) => {
     }
 }
 
-export const updateDefectListForProject = async (project, count, user) => {
+export const updateDefectListForProject = async (project, user, count) => {
     let arr = [];
     try {
         const docRef = doc(db, "ProjectList", project + '-' + user);
@@ -238,7 +239,7 @@ export const updateDefectListForProject = async (project, count, user) => {
 
         const newArrDefect = docSnap.data().defectlist;
 
-        newArrDefect.push(project + '-' + count);
+        newArrDefect.push(project + '-' + user + '-' + count);
 
         arr = await updateDoc(docRef, { defectlist: newArrDefect })
             .then(() => {
@@ -341,15 +342,18 @@ export const retrieveDefectSummary = async (project, flr, user) => {
     let rowcount = 0;
     let q = '';
     try {
+
         if (flr) {
-            q = query(collection(db, `${project}`), where("floor", "==", flr));
+            q = query(collection(db, `${project}-${user}`), where("floor", "==", flr));
         } else {
-            q = collection(db, `${project}`);
+            q = collection(db, `${project}-${user}`);
         }
 
         const querySnapshot = await getDocs(q);
 
+
         arrDefects.forEach(async (docitem) => {
+
             rowcount++;
             querySnapshot.forEach((doc) => {
 
@@ -385,17 +389,17 @@ export const retrievePDFSummary = async (project, user) => {
     const docRef = doc(db, "ProjectList", project + '-' + user);
     const docSnap = await getDoc(docRef);
     const arrDefects = docSnap.data().defectlist;
-    const grdlayout = docSnap.data().grdfloor;
-    const firstlayout = docSnap.data().firstfloor;
-    const secondlayout = docSnap.data().secondfloor;
-    const thirdlayout = docSnap.data().thirdfloor;
-    const rooflayout = docSnap.data().rooffloor;
+    const grdlayout = docSnap.data().GROUNDFLOOR;
+    const firstlayout = docSnap.data().FIRSTFLOOR;
+    const secondlayout = docSnap.data().SECONDFLOOR;
+    const thirdlayout = docSnap.data().THIRDFLOOR;
+    const rooflayout = docSnap.data().ROOFFLOOR;
 
     const newArrDefects = [];
     let rowcount = 0;
     let q = '';
     try {
-        q = collection(db, `${project}`);
+        q = collection(db, `${project}-${user}`);
 
         const querySnapshot = await getDocs(q);
         arrDefects.forEach(async (docitem) => {

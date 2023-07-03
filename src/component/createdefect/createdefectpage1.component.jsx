@@ -135,7 +135,7 @@ const CreateDefectPage1 = () => {
             setImgLoad(<div className='flex justify-center text-sm py-2 h-5 text-red-700 items-center bg-red-100 w-72  drop-shadow-md shadow-md'>Searching layout <img src={spinner} alt='' /></div>);
             if (curProject) {
 
-                const img = await retrieveLayoutImg(curProject + '-' + value);
+                const img = await retrieveLayoutImg(curProject + '-' + currentUser + '-' + value);
 
                 setTimeout(() => { }, 2000);
 
@@ -226,8 +226,8 @@ const CreateDefectPage1 = () => {
     };
 
 
-    const handleSetCurDefList = async (project, latestDefect) => {
-        const arr = await updateDefectListForProject(project, latestDefect, currentUser);
+    const handleSetCurDefList = async (project, currentUser, latestDefect) => {
+        const arr = await updateDefectListForProject(project, currentUser, latestDefect);
         setCurDefectList(arr);
     };
 
@@ -242,32 +242,17 @@ const CreateDefectPage1 = () => {
 
                 //check if record exist.
                 const projectDefectList = await retrieveDefectListForProject(curProject, currentUser);
-                while (projectDefectList.includes(curProject + '-' + defCount)) {
+                while (projectDefectList.includes(curProject + '-' + currentUser + '-' + defCount)) {
                     defCount = defCount + 1;
                 }
 
-                await storeImg(imgDefect, `${curProject}-${defCount}`)
+                await storeImg(imgDefect, `${curProject}-${currentUser}-${defCount}`)
                     .then(async (urlDefect) => {
                         await addDefect(curProject, curFloor, curArea, curElement, defCount, curDefectDesc.toUpperCase(), xpos, ypos, urlDefect, currentUser)
                     })
-                    .then(handleSetCurDefList(curProject, defCount));
+                    .then(handleSetCurDefList(curProject, currentUser, defCount));
 
-
-                if (typeof imgLayout === 'object') {
-                    await storeImg(imgLayout, `${curProject}-${curFloor}`)
-                        .then(async (urlLayout) => {
-                            await addProjectFlrUrl(curProject, curFloor, urlLayout, currentUser)
-                        })
-                        // .then(fieldreset())
-                        .then(
-                            setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-green-700 items-center bg-green-100 w-72  drop-shadow-md shadow-md'>Defect no. {defCount} Added.</div>)
-                        );
-                } else {
-
-
-                    setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-green-700 items-center bg-green-100 w-72  drop-shadow-md shadow-md'>Defect no. {defCount} Added.</div>);
-
-                }
+                setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-green-700 items-center bg-green-100 w-72  drop-shadow-md shadow-md'>Defect no. {defCount} Added.</div>);
 
             } else {
                 setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-red-700 items-center bg-red-100 w-72 drop-shadow-md shadow-md'>Please input all required fields.</div>);
@@ -288,7 +273,7 @@ const CreateDefectPage1 = () => {
         try {
             if (curFloor) {
 
-                const img = await retrieveLayoutImg(value + '-' + curFloor);
+                const img = await retrieveLayoutImg(value + '-' + currentUser + '-' + curFloor);
 
                 setImgLayout(img);
                 setImgLayoutDisplay(img);
@@ -441,10 +426,7 @@ const CreateDefectPage1 = () => {
 
                     </Select></div>
 
-                {imgLoad}
-                <div className="flex flex-row items-center justify-center p-2"><label><img className='drop-shadow-lg shadow-lg' width={25} height={25} src={cam} alt='' /><input accept="image/png,image/jpeg" type='file' className="filetype" capture='environment' onChange={onImgLayoutChange} style={{ display: 'none' }} /></label></div>
 
-                <div className='text-center'><Header headerText={{ title: 'CLICK ON LAYOUT TO MARK DEFECT LOCATION' }} /></div>
                 {loader ? <Loader /> : <div className="flex justify-center p-2 my-2"><img id='photo' className='drop-shadow-lg shadow-lg' height='400' width='300' src={imgLayoutDisplay ? imgLayoutDisplay : layout} alt='' onClick={showCoords} /></div>}
 
                 {marker}

@@ -86,7 +86,7 @@ const PdfReport = () => {
                 setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-red-700 items-center bg-red-100 w-72  drop-shadow-md shadow-md'>Searching for records. <img src={spinnersvg} alt='' /></div>);
 
                 await retrievePDFSummary(curProject, currentUser).then((arrResult) => {
-
+                    console.log(arrResult);
                     setEle(arrResult);
                     setRowCount(arrResult.length);
                     setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-green-700 items-center bg-green-100 w-72  drop-shadow-md shadow-md'>Summary generated.</div>);
@@ -399,6 +399,7 @@ const PdfReport = () => {
                     let imageY = 20
                     let pageCount = 1;
 
+                    console.log(ele);
                     ele.forEach((rec, index) => {
 
                         doc.text('DEFECT NO :', 20, y, { align: 'left' });
