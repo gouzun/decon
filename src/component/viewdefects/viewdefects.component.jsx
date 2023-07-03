@@ -68,6 +68,18 @@ const ViewDefects = () => {
         generateDropDown();
     }, []);
 
+    useEffect(() => {
+  
+        fieldReset();
+        // setProjectDisplay(curProject);
+    }, []);
+
+    const fieldReset = () =>{
+        setCurFloor('');
+        setCurProject('');
+       
+    }
+
 
 
     const handleSearch = async () => {
@@ -186,12 +198,9 @@ const ViewDefects = () => {
 
     }, [currentUser]);
 
-    useEffect(() => {
-        handleSearch();
-    }, [render]);
-
-
-
+    // useEffect(() => {
+    //     handleSearch();
+    // }, [render]);
 
 
     return (

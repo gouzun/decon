@@ -28,21 +28,20 @@ const PdfMobile = (result) => {
             {result.ele.map((item) => {
                 row++;
                 return (<>
-                    <Card key={item["rowcount"]} className="bg-gradient-to-r from-teal-100 to-cyan-200 w-80 drop-shadow-lg shadow-lg flex-none my-2 mb-8 mx-4">
-                        <CardHeader floated={false} className="">
-                            <div className='flex justify-center bg-gradient-to-r from-teal-300 to-cyan-500'>{row}/{result.ele.length}</div>
-                            <img src={item["url"]} alt="" height="400" width="300"/>
-                        </CardHeader>
-                        <CardBody className='h-96'>
-                         
-                            <Typography className="flex flex-col justify-start text-base mt-4">
-                                <div>FLOOR : {item["floor"]}</div>
-                                <div>AREA : {item["area"]}</div>
-                                <div>ELEMENT : {item["element"]}</div>
-                                <div>DEFECT DESC : {item["defectDesc"].toUpperCase()}</div>
-                            </Typography>
-                        </CardBody>
-                    </Card>
+                    <div className='flex flex-row'>
+                        <div className='flex flex-col' width='400'>
+                            <div><img src={item["layouturl"]} alt="" height="400" width="300"/></div>
+                            <div><img src={item["url"]} alt="" height="400" width="300"/></div>
+                            <div><Typography className="flex flex-col justify-start text-base mt-4">
+                            <div>FLOOR : {item["floor"]}</div>
+                            <div>AREA : {item["area"]}</div>
+                            <div>ELEMENT : {item["element"]}</div>
+                            <div>DEFECT DESC : {item["defectDesc"].toUpperCase()}</div>
+                        </Typography></div>
+                        </div>
+                    </div>
+
+                    
 
                 </>
                 )

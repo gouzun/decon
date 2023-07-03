@@ -6,7 +6,6 @@ import {
     CardFooter,
     Typography,
     Button,
-    Input,
     Select, Option, Dialog,
     DialogHeader,
     DialogBody,
@@ -39,7 +38,6 @@ const PricePage = () => {
 
     const {
         projectList, setProjectList,
-
     } = useContext(GeneralContext);
 
     const handleCreatePayment = async () => {
@@ -97,7 +95,7 @@ const PricePage = () => {
     };
 
     const handleProjectChange = (value) => {
-        console.log('handleProjectChange:', value);
+      
         setSelectedProject(value);
     }
 

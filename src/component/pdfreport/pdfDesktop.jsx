@@ -9,13 +9,13 @@ const PdfDesktop = (result) => {
     let RowBgStyle = '';
     let row = 0;
   
-    return (<><div id='floorChart' className='w-1/4'>{result.ele.length ? <FloorCountChart table={result.ele} /> : ''}</div>
-        <div id='areaChart' className='w-1/4'>{result.ele.length ? <AreaChart table={result.ele} /> : ''}</div>
-        <div id='elementChart' className='w-1/4'>{result.ele.length ? <ElementChart table={result.ele} /> : ''}</div>
+    return (<><div id='floorChart' className='w-3/4'>{result.ele.length ? <FloorCountChart table={result.ele} /> : ''}</div>
+        <div id='areaChart' className='w-3/4'>{result.ele.length ? <AreaChart table={result.ele} /> : ''}</div>
+        <div id='elementChart' className='w-3/4'>{result.ele.length ? <ElementChart table={result.ele} /> : ''}</div>
 
 
-        <div className="flex w-full ">
-            <table id='print' className="w-full rounded-lg text-left text-gray-500 dark:text-gray-400 text-xs">
+        <div className="flex w-full">
+            <table id='print' className="w-full rounded-lg text-left text-gray-500 dark:text-gray-400 text-xs ">
                 <thead className={`rounded-lg text-xs text-gray-700 uppercase ${NAVBARCOLOR} ${LABELCOLOR}`}>
                     <tr>
                         <th scope="col" className="py-1 px-2 text-center">
@@ -68,7 +68,7 @@ const PdfDesktop = (result) => {
                                 <td className="py-2 px-2 relative">
                                     <div className='flex justify-center' style={{ position: 'relative' }}><img id={item["rowcount"]} src={item["layouturl"]} alt='' height="400" width="300"
                                     /></div>
-                                    <div style={{ top: Number(item.defectypos)-28, left: Number(item.defectxpos)+60, zIndex: 1, position: 'absolute' }}>
+                                    <div style={{ top: Number(item.defectypos)-26, left: Number(item.defectxpos)+55, zIndex: 1, position: 'absolute' }}>
                                     <img src={pin} alt='' style={{ width: 35, height: 35 }} /></div>
                                             
                                 </td>
@@ -89,3 +89,10 @@ const PdfDesktop = (result) => {
 }
 export default PdfDesktop;
                  
+// <td className="py-2 px-2 relative">
+//                                     <div className='flex justify-center' style={{ position: 'relative' }}><img id={item["rowcount"]} src={item["layouturl"]} alt='' height="400" width="300"
+//                                     /></div>
+//                                     <div style={{ top: Number(item.defectypos)-26, left: Number(item.defectxpos)+55, zIndex: 1, position: 'absolute' }}>
+//                                     <img src={pin} alt='' style={{ width: 35, height: 35 }} /></div>
+                                            
+//                                 </td>

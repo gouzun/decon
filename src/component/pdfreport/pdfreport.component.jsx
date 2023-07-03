@@ -5,14 +5,14 @@ import { useContext, useState, useEffect, React, Fragment } from "react";
 import { generateProjectList } from '../../utils/firebase/firebase.utils';
 import { BUTTONCOLOR, LABELCOLOR, LABELHOVERCOLOR } from '../../utils/theme.js';
 import { Select, Option, Input, Textarea } from "@material-tailwind/react";
-import { retrievePDFSummary, getUserNameAddress, retrieveUserStatus } from '../../utils/firebase/firebase.utils';
+import { retrievePDFSummary, getUserNameAddress  } from '../../utils/firebase/firebase.utils';
 import jsPDF from "jspdf";
 import spinnersvg from '../../assets/img/spinner.svg';
 import { UserContext } from '../../context/user.context';
 import { useNavigate } from 'react-router-dom';
-import { useMediaQuery } from 'react-responsive';
-import { Link } from 'react-router-dom';
+
 import Loader from '../../utils/Loader';
+import PdfDesktop from "./pdfDesktop";
 
 import PdfMobile from "./pdfMobile";
 import {
@@ -86,7 +86,7 @@ const PdfReport = () => {
                 setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-red-700 items-center bg-red-100 w-72  drop-shadow-md shadow-md'>Searching for records. <img src={spinnersvg} alt='' /></div>);
 
                 await retrievePDFSummary(curProject, currentUser).then((arrResult) => {
-                    console.log(arrResult);
+                    
                     setEle(arrResult);
                     setRowCount(arrResult.length);
                     setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-green-700 items-center bg-green-100 w-72  drop-shadow-md shadow-md'>Summary generated.</div>);
@@ -399,7 +399,7 @@ const PdfReport = () => {
                     let imageY = 20
                     let pageCount = 1;
 
-                    console.log(ele);
+                    
                     ele.forEach((rec, index) => {
 
                         doc.text('DEFECT NO :', 20, y, { align: 'left' });
@@ -557,7 +557,7 @@ const PdfReport = () => {
             <div className='flex justify-center text-sm py-2 h-10 font-semibold'>Record(s) found : {rowCount}</div>
 
 
-            <PdfMobile ele={ele} />
+            <PdfDesktop ele={ele} />
 
             <Footer />
             <Dialog open={open} handler={handleOpen} size='xl' className='flex justify-center flex-col items-center'>
