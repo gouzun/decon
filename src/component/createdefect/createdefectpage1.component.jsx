@@ -43,7 +43,7 @@ const CreateDefectPage1 = () => {
     const [isLoading, setIsLoading] = useState(null);
     const [defects, setDefects] = useState([]);
     const [defectDisplay, setDefectDisplay] = useState('');
-    const [loader,setLoader] = useState(false);
+    const [loader, setLoader] = useState(false);
 
     const fieldreset = () => {
         setXpos(0);
@@ -65,7 +65,7 @@ const CreateDefectPage1 = () => {
 
     const navigate = useNavigate();
 
-     const pageReloadResetField = ()=>{
+    const pageReloadResetField = () => {
         setXpos(0);
         setYpos(0);
         setMarker('');
@@ -84,7 +84,7 @@ const CreateDefectPage1 = () => {
     }
 
     useEffect(() => {
-    
+
         pageReloadResetField();
         if (sessionStorage.getItem('user')) {
             setCurrentUser(sessionStorage.getItem('user'));
@@ -113,7 +113,7 @@ const CreateDefectPage1 = () => {
     };
 
     const onImgLayoutChange = (event) => {
-        
+
         if (event.target.files && event.target.files[0]) {
             const image = event.target.files[0];
             new Compressor(image, {
@@ -148,7 +148,7 @@ const CreateDefectPage1 = () => {
                 setImgLayoutDisplay(layout);
             }
             setImgLoad('');
-        }finally{
+        } finally {
             setLoader(false);
         }
 
@@ -218,7 +218,6 @@ const CreateDefectPage1 = () => {
     };
 
 
-
     const handleGetCurDefList = async (project, user) => {
 
         const tempDefectList = await retrieveDefectListForProject(project, user);
@@ -264,7 +263,7 @@ const CreateDefectPage1 = () => {
                             setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-green-700 items-center bg-green-100 w-72  drop-shadow-md shadow-md'>Defect no. {defCount} Added.</div>)
                         );
                 } else {
-                
+
 
                     setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-green-700 items-center bg-green-100 w-72  drop-shadow-md shadow-md'>Defect no. {defCount} Added.</div>);
 
@@ -275,7 +274,7 @@ const CreateDefectPage1 = () => {
             }
         } catch (e) {
             alert(e.message)
-        }finally{
+        } finally {
             fieldreset();
         }
 
@@ -364,7 +363,7 @@ const CreateDefectPage1 = () => {
         eleY = document.getElementById('photo').offsetTop;
         corX = x - eleX;
         corY = y - eleY;
-      
+
         setMarker(<div><div style={{ position: "absolute", top: y - 37, left: x - 17 }} ><img src={pin} alt='' style={{ width: 35, height: 35 }} /></div>
             <div style={{ position: "absolute", top: y - 37 + 3, left: x - 17 + 10 }} >
                 <div style={{
@@ -389,7 +388,7 @@ const CreateDefectPage1 = () => {
     //     eleY = document.getElementById('photo').offsetTop;
     //     corX = x - eleX;
     //     corY = y - eleY;
-      
+
     //     setMarker(<div><div style={{ position: "absolute", top: y - 37, left: x - 17 }} ><img src={pin} alt='' style={{ width: 35, height: 35 }} /></div>
     //         <div style={{ position: "absolute", top: y - 37 + 3, left: x - 17 + 10 }} >
     //             <div style={{
@@ -419,7 +418,7 @@ const CreateDefectPage1 = () => {
         return () => window.removeEventListener('resize', updateSize);
     }, [xpos, ypos]);
 
- 
+
 
     return (
 
@@ -443,11 +442,11 @@ const CreateDefectPage1 = () => {
                     </Select></div>
 
                 {imgLoad}
-                <div className="flex flex-col items-center justify-center p-2"><label><img className='drop-shadow-lg shadow-lg' width={25} height={25} src={cam} alt='' /><input accept="image/png,image/jpeg" type='file' className="filetype" capture='environment' onChange={onImgLayoutChange} style={{ display: 'none' }} /></label></div>
+                <div className="flex flex-row items-center justify-center p-2"><label><img className='drop-shadow-lg shadow-lg' width={25} height={25} src={cam} alt='' /><input accept="image/png,image/jpeg" type='file' className="filetype" capture='environment' onChange={onImgLayoutChange} style={{ display: 'none' }} /></label></div>
 
                 <div className='text-center'><Header headerText={{ title: 'CLICK ON LAYOUT TO MARK DEFECT LOCATION' }} /></div>
-{loader?<Loader/>:<div className="flex justify-center p-2 my-2"><img id='photo' className='drop-shadow-lg shadow-lg' height='400' width='300' src={imgLayoutDisplay ? imgLayoutDisplay : layout} alt='' onClick={showCoords} /></div>}
-                
+                {loader ? <Loader /> : <div className="flex justify-center p-2 my-2"><img id='photo' className='drop-shadow-lg shadow-lg' height='400' width='300' src={imgLayoutDisplay ? imgLayoutDisplay : layout} alt='' onClick={showCoords} /></div>}
+
                 {marker}
                 <div id='area' className="w-80 flex justify-center p-2 my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-30">
                     <Select label="AREA [*required]" onChange={handleAreaDD} onClick={handleAreaIndex} value={curArea}>

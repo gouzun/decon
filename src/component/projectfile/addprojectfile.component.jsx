@@ -22,7 +22,7 @@ const AddProjectFile = () => {
     const { currentUser, setCurrentUser } = useContext(UserContext);
     const navigate = useNavigate();
 
-    const resetField = ()=>{
+    const resetField = () => {
         setOwnerName('');
         setPropertyAdd('');
     }
@@ -146,7 +146,7 @@ const AddProjectFile = () => {
                 <thead className={`rounded-lg text-xs text-gray-700 uppercase ${NAVBARCOLOR} ${LABELCOLOR}`}>
                     <tr>
                         <th scope="col" className="py-3 px-6 text-center">
-                            No
+                            NO
                         </th>
                         <th scope="col" className="py-3 px-6 text-center">
                             PROPERTY NAME

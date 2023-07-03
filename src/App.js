@@ -1,5 +1,5 @@
 import { React, useContext, useEffect, useState } from 'react';
-import { Routes, Route} from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import CreateDefectPage1 from './component/createdefect/createdefectpage1.component';
 
@@ -20,7 +20,7 @@ import ContentNavBar from './navigation/navbar/contentnavbar.component';
 import PricePage from './component/price/pricepage';
 import PaymentRedirect from './component/price/paymentredirect';
 import AccountPage from './component/account/accountpage';
-
+import AddLayout from './component/layout/addlayout';
 const App = () => {
   const { currentUser, setCurrentUser } = useContext(UserContext);
   const [logged, setLogged] = useState(false);
@@ -43,6 +43,7 @@ const App = () => {
           <Route path='/pricing' element={<PricePage />} />
           <Route path='/account' element={<AccountPage />} />
           <Route path='/payment-redirect' element={<PaymentRedirect />} />
+          <Route path='/addlayout' element={<AddLayout />} />
 
         </Route >
       </Routes >);
@@ -78,9 +79,9 @@ const App = () => {
   }, []);
 
   return (<>
-   
+
     {logged}
- 
+
   </>
 
   );

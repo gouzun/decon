@@ -63,11 +63,11 @@ export const createUserDocumentFromAuth = async (userAuth) => {
     if (!userSnapshot.exists()) {
         const { email } = userAuth;
         const createAt = new Date();
-        const substatus = false;
-        const subtype = "none";
-        const subdate = '';
+        // const substatus = false;
+        // const subtype = "none";
+        // const subdate = '';
         try {
-            await setDoc(userDocRef, { email, createAt, substatus, subtype, subdate })
+            await setDoc(userDocRef, { email, createAt })
         } catch (error) {
             console.log('error creating user', error.message);
         }
@@ -97,21 +97,21 @@ export async function addProject(propertyName, ownerName, propertyAddress, user)
     try {
         //create new doc with custom id;
         const docRef = doc(dbPL, "ProjectList", `${propertyName}-${ownerName}-${user}`);
-        
+
         let newData = {};
 
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-          
+
             const existingData = docSnap.data();
             newData = {
-                ...existingData,propertyAddress: propertyAddress,              
+                ...existingData, propertyAddress: propertyAddress,
             }
-            
+
             await updateDoc(docRef, newData);
-        } else {            
-           
+        } else {
+
             newData = {
                 propertyName: propertyName,
                 ownerName: ownerName,
@@ -176,6 +176,11 @@ export const generateProjectList = async (user) => {
                 ownerName: doc.get('ownerName'),
                 propertyAddress: doc.get('propertyAddress'),
                 defectlist: doc.get('defectlist'),
+                groundfloor: doc.get('GROUNDFLOOR'),
+                firstfloor: doc.get('FIRSTFLOOR'),
+                secondfloor: doc.get('SECONDFLOOR'),
+                thirdfloor: doc.get('THIRDFLOOR'),
+                rooffloor: doc.get('ROOFFLOOR'),
             }
             rowcount++;
             return result.push(record);
@@ -270,27 +275,27 @@ export const addProjectFlrUrl = async (project, floor, url, user) => {
         let data = '';
         if (floor === 'GROUND FLOOR') {
             data = {
-                grdfloor: url
+                GROUNDFLOOR: url
             }
         }
         if (floor === 'FIRST FLOOR') {
             data = {
-                firstfloor: url
+                FIRSTFLOOR: url
             }
         }
         if (floor === 'SECOND FLOOR') {
             data = {
-                secondfloor: url
+                SECONDFLOOR: url
             }
         }
         if (floor === 'THIRD FLOOR') {
             data = {
-                thirdfloor: url
+                THIRDFLOOR: url
             }
         }
         if (floor === 'ROOF') {
             data = {
-                rooffloor: url
+                ROOF: url
             }
         }
         //put javascrip switch case ehre
@@ -303,13 +308,28 @@ export const addProjectFlrUrl = async (project, floor, url, user) => {
 
 export const retrieveLayoutImg = async (project) => {
     try {
+
         const storage = getStorage();
-        const url = await getDownloadURL(ref(storage, project));
-        return url;
+        const refPath = ref(storage, project);
+        const snapshot = await getDownloadURL(refPath);
+
+        if (snapshot) {
+            const url = snapshot;
+            return url;
+        } else {
+
+            return null; // Or you can return a default URL or handle the case as needed.
+        }
     } catch (error) {
-        console.log(`Error :${error.code},${error.message}`);
+        if (error.code === 'storage/object-not-found') {
+            // console.log('Snapshot does not exist or is empty.');
+        } else {
+            console.log(`Error: ${error.code}, ${error.message}`);
+        }
+        return null; // Return null or handle the error as needed.
     }
 }
+
 
 export const retrieveDefectSummary = async (project, flr, user) => {
 

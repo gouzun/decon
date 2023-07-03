@@ -24,9 +24,9 @@ import { useNavigate } from 'react-router-dom';
 const AccountPage = () => {
     const [spinner, setSpinner] = useState('');
     const [logged, setLogged] = useState(false);
-    const [ele,setEle] = useState([]);
+    const [ele, setEle] = useState([]);
 
-    const TABLE_HEAD = ["Trans ID", "Amount", "Paid Date", "Project","Status"];
+    const TABLE_HEAD = ["Trans ID", "Amount", "Paid Date", "Project", "Status"];
 
     // const TABLE_ROWS = [
     //     {
@@ -70,7 +70,7 @@ const AccountPage = () => {
         setSpinner(true);
         try {
             //node
-           
+
             const response = await fetch('https://inspectmynode.onrender.com/api/v1/account', {
                 method: 'POST',
                 headers: {
@@ -81,7 +81,7 @@ const AccountPage = () => {
             });
             if (response.ok) {
                 const result = await response.json();
-                
+
                 setEle(result.data);
                 // window.location.href = result.url;
                 // window.open(result.url, '_blank');
@@ -96,7 +96,7 @@ const AccountPage = () => {
     }
 
     const handleURL = (url) => {
-        
+
         window.open(url, '_blank');
     }
 
@@ -110,13 +110,13 @@ const AccountPage = () => {
             setLogged(false);
             navigate('/');
         }
-       
+
     }, [])
 
     return (
         <div className={`flex flex-col justify-center items-center bg-gray-300 min-h-screen w-full pt-20 ${BGCOLOR} text-center`}>
             <Header headerText={{ title: 'ACCOUNT DETAILS' }} />
-            
+
             {spinner ? (<Loader />) : (<><Card className="h-full  w-full px-2 py-4">
                 <CardHeader floated={false} shadow={false} className="rounded-none">
                     <div className="mb-4 flex flex-col justify-center gap-8 md:flex-row md:items-center">
@@ -125,7 +125,7 @@ const AccountPage = () => {
                                 Recent Transactions
                             </Typography>
                             <Typography color="gray" className="mt-1 font-normal">
-                            ACCOUNT :  {sessionStorage.getItem('user')}
+                                ACCOUNT :  {sessionStorage.getItem('user')}
                             </Typography>
                         </div>
                     </div>
@@ -148,8 +148,8 @@ const AccountPage = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {ele?(ele.map(
-                                ({ id, amount, paid_at, state,project,url }, index) => {
+                            {ele ? (ele.map(
+                                ({ id, amount, paid_at, state, project, url }, index) => {
                                     const isLast = index === ele.length - 1;
                                     const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
 
@@ -164,7 +164,7 @@ const AccountPage = () => {
                                             </td>
                                             <td className={classes}>
                                                 <Typography variant="small" color="blue-gray" className="font-normal">
-                                                    {(amount/100).toFixed(2)}
+                                                    {(amount / 100).toFixed(2)}
                                                 </Typography>
                                             </td>
                                             <td className={classes}>
@@ -179,25 +179,25 @@ const AccountPage = () => {
                                             </td>
                                             <td className={classes}>
                                                 <div className="w-max">
-                                                   {state==='paid'?(<Chip
-                                                    size="sm"
-                                                    variant="ghost"
-                                                    value={state}
-                                                    color={"green"}
-                                                />):(<Button                                                    
-                                                    color={"amber"}
-                                                    onClick={()=>handleURL(url)}
-                                                >MAKE PAYMENT</Button>)}
-                                                    
+                                                    {state === 'paid' ? (<Chip
+                                                        size="sm"
+                                                        variant="filled"
+                                                        value={state}
+                                                        color={"green"}
+                                                    />) : (<Button
+                                                        color={"amber"}
+                                                        onClick={() => handleURL(url)}
+                                                    >MAKE PAYMENT</Button>)}
 
-                                                    
+
+
                                                 </div>
                                             </td>
 
                                         </tr>
                                     );
                                 },
-                            )):''}
+                            )) : ''}
                         </tbody>
                     </table>
                 </CardBody>
