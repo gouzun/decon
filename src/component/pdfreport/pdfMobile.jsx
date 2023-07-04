@@ -22,22 +22,22 @@ const PdfMobile = (result) => {
         <div className={`flex items-top w-full drop-shadow-lg shadow-lg overflow-x-auto shrink-0 `}>
 
 
-            {result.ele.map((item) => {
+            {result.ele.map((item,index) => {
                 row++;
                 return (<>
-                    <Card id={item["rowcount"]} className="drop-shadow-lg shadow-lg flex-none my-2 mb-8 mx-4 bg-gradient-to-r from-teal-100 to-cyan-200" style={{ width: 360 }}>
-                        <CardBody id={item["rowcount"]} className="card-body h-auto">
+                    <Card id={index} className="drop-shadow-lg shadow-lg flex-none my-2 mb-8 mx-4 bg-gradient-to-r from-teal-100 to-cyan-200" style={{ width: 360 }}>
+                        <CardBody id={index} className="card-body h-auto">
                             <div className="flex justify-center pb-2">
                                 {row}/{result.ele.length}
                             </div>
 
                             <div className='card-image object-contain shadow-xl shadow-blue-gray-900/50 flex justify-center' style={{ position: 'relative' }}><img id={item["rowcount"]} src={item["layouturl"]} alt='' style={{ width: 300, height: 400 }}
                             /></div>
-                            <div style={{ top: Number(item.defectypos) + 20, left: Number(item.defectxpos) + 12.5, zIndex: 1, position: 'absolute' }}>
-                                <img src={pin} alt='' style={{ width: 35, height: 35 }} /></div>
+                            <div id={index} style={{ top: Number(item.defectypos) + 20, left: Number(item.defectxpos) + 12.5, zIndex: 1, position: 'absolute' }}>
+                                <img id={index} src={pin} alt='' style={{ width: 35, height: 35 }} /></div>
 
 
-                            <div className="flex flex-col justify-center text-base py-4">
+                            <div id={index} className="flex flex-col justify-center text-base py-4">
                                 <div className='py-3 font-bold h-12 flex flex-row'>
                                     <div className='w-28 '>FLOOR : </div><div className=''>{item["floor"]}</div></div>
 

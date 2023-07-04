@@ -450,17 +450,18 @@ const PdfReport = () => {
                             doc.text(rec.defectDesc, 20, y, { align: 'left' });
                         }
 
-
                         y += 15;
-                        console.log(rec.layouturl);
-                        let layoutUrl = rec.layouturl
+                                     
+                        const layoutUrl = encodeURIComponent(rec.layouturl);
                         doc.addImage(layoutUrl, 'JPEG', 110, imageY, 40, 53); // adjust the coordinates and dimensions as needed
-                        console.log(rec.url);
-                        let defectUrl = rec.url
+                                           
+                        const defectUrl = encodeURIComponent(rec.url);
                         doc.addImage(defectUrl, 'JPEG', 155, imageY, 40, 53); // adjust the coordinates and dimensions as needed
 
+                        // let pin = 'https://firebasestorage.googleapis.com/v0/b/defixdb.appspot.com/o/redpin.png?alt=media&token=8869a2c5-d959-48bd-be9c-393a36b78efe';
+                        // doc.addImage(pin, 'PNG', 110 + (rec.defectxpos * 0.1325) - 4.7, imageY + (rec.defectypos * 0.1325) - 10.2, 5, 5);
                         let pin = 'https://firebasestorage.googleapis.com/v0/b/defixdb.appspot.com/o/redpin.png?alt=media&token=8869a2c5-d959-48bd-be9c-393a36b78efe';
-                        doc.addImage(pin, 'PNG', 110 + (rec.defectxpos * 0.1325) - 4.7, imageY + (rec.defectypos * 0.1325) - 10.2, 10, 10);
+                        doc.addImage(pin, 'PNG', 110 + (rec.defectxpos * 0.1325) - 2.3, imageY + (rec.defectypos * 0.1325) - 5.2, 5, 5);
 
                         y += 3;
                         doc.line(20, y, 200, y);
