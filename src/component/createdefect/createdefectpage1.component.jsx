@@ -39,10 +39,9 @@ const CreateDefectPage1 = () => {
     } = useContext(GeneralContext);
     const [marker, setMarker] = useState('');
     const { currentUser, setCurrentUser } = useContext(UserContext);
-    const [imgLoad, setImgLoad] = useState('');
+
     const [isLoading, setIsLoading] = useState(null);
     const [defects, setDefects] = useState([]);
-    const [defectDisplay, setDefectDisplay] = useState('');
     const [loader, setLoader] = useState(false);
 
     const fieldreset = () => {
@@ -54,7 +53,7 @@ const CreateDefectPage1 = () => {
         setCurDefectDesc('');
         setCurElement('');
         setProjectDisplay('');
-        setDefectDisplay('');
+
         setDefects([]);
         setCurArea('');
         // setImgLayout('');
@@ -74,7 +73,6 @@ const CreateDefectPage1 = () => {
         setCurDefectDesc('');
         setCurElement('');
         setProjectDisplay('');
-        setDefectDisplay('');
         setDefects([]);
         setCurArea('');
         setImgLayout('');
@@ -112,42 +110,40 @@ const CreateDefectPage1 = () => {
         }
     };
 
-    const onImgLayoutChange = (event) => {
+    // const onImgLayoutChange = (event) => {
 
-        if (event.target.files && event.target.files[0]) {
-            const image = event.target.files[0];
-            new Compressor(image, {
-                quality: 0.2, // 0.6 can also be used, but its not recommended to go below.
-                success: (compressedResult) => {
-                    // compressedResult has the compressed file.
-                    // Use the compressed file to upload the images to your server.        
-                    setImgLayout(compressedResult);
-                },
-            });
-            setImgLayoutDisplay(URL.createObjectURL(event.target.files[0]));
-        }
-    };
+    //     if (event.target.files && event.target.files[0]) {
+    //         const image = event.target.files[0];
+    //         new Compressor(image, {
+    //             quality: 0.2, // 0.6 can also be used, but its not recommended to go below.
+    //             success: (compressedResult) => {
+    //                 // compressedResult has the compressed file.
+    //                 // Use the compressed file to upload the images to your server.        
+    //                 setImgLayout(compressedResult);
+    //             },
+    //         });
+    //         setImgLayoutDisplay(URL.createObjectURL(event.target.files[0]));
+    //     }
+    // };
 
     const handleFloorDD = async (value) => {
         setLoader(true);
         setCurFloor(value);
         try {
-            setImgLoad(<div className='flex justify-center text-sm py-2 h-5 text-red-700 items-center bg-red-100 w-72  drop-shadow-md shadow-md'>Searching layout <img src={spinner} alt='' /></div>);
+
             if (curProject) {
 
-                const img = await retrieveLayoutImg(curProject + '-' + currentUser + '-' + value);
-
-                setTimeout(() => { }, 2000);
+                const img = await retrieveLayoutImg(curProject, currentUser, value);
 
                 setImgLayout(img);
                 setImgLayoutDisplay(img);
-                setImgLoad('');
+
             }
         } catch (e) {
             if (e.code === 'storage/object-not-found') {
                 setImgLayoutDisplay(layout);
             }
-            setImgLoad('');
+
         } finally {
             setLoader(false);
         }
@@ -213,7 +209,7 @@ const CreateDefectPage1 = () => {
 
 
     const handleDefectDesc = (value) => {
-        // setDefectDisplay(value => value);
+
         setCurDefectDesc(value);
     };
 
@@ -246,7 +242,7 @@ const CreateDefectPage1 = () => {
                     defCount = defCount + 1;
                 }
 
-                await storeImg(imgDefect, `${curProject}-${currentUser}-${defCount}`)
+                await storeImg(imgDefect, curProject, currentUser, defCount)
                     .then(async (urlDefect) => {
                         await addDefect(curProject, curFloor, curArea, curElement, defCount, curDefectDesc.toUpperCase(), xpos, ypos, urlDefect, currentUser)
                     })

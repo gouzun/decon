@@ -69,15 +69,15 @@ const ViewDefects = () => {
     }, []);
 
     useEffect(() => {
-  
+
         fieldReset();
         // setProjectDisplay(curProject);
     }, []);
 
-    const fieldReset = () =>{
+    const fieldReset = () => {
         setCurFloor('');
         setCurProject('');
-       
+
     }
 
 
@@ -89,7 +89,7 @@ const ViewDefects = () => {
                 setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-red-700 items-center bg-red-100 w-72  drop-shadow-md shadow-md'>Searching for records. <img src={spinner} alt='' /></div>);
 
                 if (curFloor) {
-                    const img = await retrieveLayoutImg(curProject + '-' + currentUser + '-' + curFloor);
+                    const img = await retrieveLayoutImg(curProject, currentUser, curFloor);
                     setGetImg(img);
 
                 }

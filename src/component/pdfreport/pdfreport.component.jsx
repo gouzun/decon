@@ -5,7 +5,7 @@ import { useContext, useState, useEffect, React, Fragment } from "react";
 import { generateProjectList } from '../../utils/firebase/firebase.utils';
 import { BUTTONCOLOR, LABELCOLOR, LABELHOVERCOLOR } from '../../utils/theme.js';
 import { Select, Option, Input, Textarea } from "@material-tailwind/react";
-import { retrievePDFSummary, getUserNameAddress  } from '../../utils/firebase/firebase.utils';
+import { retrievePDFSummary, getUserNameAddress } from '../../utils/firebase/firebase.utils';
 import jsPDF from "jspdf";
 import spinnersvg from '../../assets/img/spinner.svg';
 import { UserContext } from '../../context/user.context';
@@ -86,7 +86,7 @@ const PdfReport = () => {
                 setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-red-700 items-center bg-red-100 w-72  drop-shadow-md shadow-md'>Searching for records. <img src={spinnersvg} alt='' /></div>);
 
                 await retrievePDFSummary(curProject, currentUser).then((arrResult) => {
-                    
+
                     setEle(arrResult);
                     setRowCount(arrResult.length);
                     setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-green-700 items-center bg-green-100 w-72  drop-shadow-md shadow-md'>Summary generated.</div>);
@@ -161,7 +161,7 @@ const PdfReport = () => {
 
             });
             const result = await response.json();
-            console.log(result.message);
+
             if (response.ok) {
                 return true;
             } else {
@@ -183,15 +183,11 @@ const PdfReport = () => {
         try {
             setSpinner(true);
             const status = await getProjectPaymentStatus();
-            console.log('status:', status);
+
             if (status) {
                 if (ownerName && propertyAdd) {
 
                     const doc = new jsPDF('portrait');
-
-                    let pinimg = new Image();
-
-                    pinimg.src = 'https://firebasestorage.googleapis.com/v0/b/defixdb.appspot.com/o/redpin.png?alt=media&token=8869a2c5-d959-48bd-be9c-393a36b78efe';
 
                     //get user project and address
                     // let arrResult = await getUserNameAddress(curProject, currentUser);
@@ -393,17 +389,17 @@ const PdfReport = () => {
 
                     doc.text('DEFECT LIST', 110, 15, { align: 'center' });
                     doc.line(20, 22, 200, 22);
-                    doc.setFontSize(12);
+                    doc.setFontSize(10);
 
                     let y = 30;
                     let imageY = 20
                     let pageCount = 1;
 
-                    
+
                     ele.forEach((rec, index) => {
 
                         doc.text('DEFECT NO :', 20, y, { align: 'left' });
-                        doc.text((rec.rowcount).toString(), 55, y, { align: 'left' });
+                        doc.text((rec.rowcount).toString(), 50, y, { align: 'left' });
                         imageY = y - 5;
                         y += 5;
 
@@ -412,15 +408,15 @@ const PdfReport = () => {
                         y += 5;
 
                         doc.text('FLOOR :', 20, y, { align: 'left' });
-                        doc.text(rec.floor, 55, y, { align: 'left' });
+                        doc.text(rec.floor, 50, y, { align: 'left' });
                         y += 5;
 
                         doc.text('AREA :', 20, y, { align: 'left' });
-                        doc.text(rec.area, 55, y, { align: 'left' });
+                        doc.text(rec.area, 50, y, { align: 'left' });
                         y += 5;
 
                         doc.text('ELEMENT :', 20, y, { align: 'left' });
-                        doc.text(rec.element, 55, y, { align: 'left' });
+                        doc.text(rec.element, 50, y, { align: 'left' });
                         y += 5;
 
                         doc.text('DESCRIPTION :', 20, y, { align: 'left' });
@@ -456,14 +452,14 @@ const PdfReport = () => {
 
 
                         y += 15;
-
+                        console.log(rec.layouturl);
                         let layoutUrl = rec.layouturl
                         doc.addImage(layoutUrl, 'JPEG', 110, imageY, 40, 53); // adjust the coordinates and dimensions as needed
-
+                        console.log(rec.url);
                         let defectUrl = rec.url
                         doc.addImage(defectUrl, 'JPEG', 155, imageY, 40, 53); // adjust the coordinates and dimensions as needed
 
-                        let pin = 'https://res.cloudinary.com/drpsfwq3y/image/upload/v1685584139/decon/pin_n4gkso.png';
+                        let pin = 'https://firebasestorage.googleapis.com/v0/b/defixdb.appspot.com/o/redpin.png?alt=media&token=8869a2c5-d959-48bd-be9c-393a36b78efe';
                         doc.addImage(pin, 'PNG', 110 + (rec.defectxpos * 0.1325) - 4.7, imageY + (rec.defectypos * 0.1325) - 10.2, 10, 10);
 
                         y += 3;
@@ -483,7 +479,7 @@ const PdfReport = () => {
 
                     doc.text('Page ' + pageCount, 100, y + 20, { align: 'left' });
                     doc.text('End of Report', 95, y + 25, { align: 'left' });
-                    let documentname = 'test.pdf'
+                    let documentname = ownerName + '.pdf'
 
                     doc.save(documentname);
                     setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-green-700 items-center bg-green-100 w-72  drop-shadow-md shadow-md'>Pdf report generated.</div>);
@@ -557,7 +553,7 @@ const PdfReport = () => {
             <div className='flex justify-center text-sm py-2 h-10 font-semibold'>Record(s) found : {rowCount}</div>
 
 
-            <PdfDesktop ele={ele} />
+            <PdfMobile ele={ele} />
 
             <Footer />
             <Dialog open={open} handler={handleOpen} size='xl' className='flex justify-center flex-col items-center'>

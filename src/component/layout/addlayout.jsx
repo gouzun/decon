@@ -55,7 +55,7 @@ const AddLayout = () => {
 
             if (curProject) {
                 // console.log('handleFloorDD :', curProject + '-' + currentUser + '-' + value);
-                const img = await retrieveLayoutImg(curProject + '-' + currentUser + '-' + value);
+                const img = await retrieveLayoutImg(curProject, currentUser, value);
                 if (img !== null) {
                     // setTimeout(() => { }, 2000);
 
@@ -83,7 +83,7 @@ const AddLayout = () => {
         try {
             if (curFloor) {
                 // console.log('handlePDD :', value + '-' + currentUser + '-' + curFloor);
-                const img = await retrieveLayoutImg(value + '-' + currentUser + '-' + curFloor);
+                const img = await retrieveLayoutImg(value, currentUser, curFloor);
 
                 // if (exist) {
                 setImgLayout(img);
@@ -130,7 +130,7 @@ const AddLayout = () => {
     const handleAddFlrLayout = async () => {
 
         //check if layout already exisit
-        const img = await retrieveLayoutImg(curProject + '-' + currentUser + '-' + curFloor);
+        const img = await retrieveLayoutImg(curProject, currentUser, curFloor);
         console.log('img:', img);
         if (img !== null) {
             console.log('img exist');
@@ -152,7 +152,7 @@ const AddLayout = () => {
     const addLayout = async () => {
 
         if (typeof imgLayout === 'object') {
-            await storeImg(imgLayout, `${curProject}-${currentUser}-${curFloor}`)
+            await storeImg(imgLayout, curProject, currentUser, curFloor)
                 .then(async (urlLayout) => {
                     await addProjectFlrUrl(curProject, curFloor, urlLayout, currentUser)
                 })

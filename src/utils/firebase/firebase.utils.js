@@ -252,19 +252,22 @@ export const updateDefectListForProject = async (project, user, count) => {
     }
 }
 
-export const storeImg = async (file, filename) => {
+export const storeImg = async (file, project, user, floor) => {
     let url = '';
+    let filename = project + '-' + user + '-' + floor;
+    let folderName = project + '-' + user;
+
     const storage = getStorage();
-    const storageRef = ref(storage, filename);
+    const storageRef = ref(storage, folderName + '/' + filename);
+
     try {
-
         await uploadBytes(storageRef, file);
-
 
     } catch (error) {
         console.log(`Error :${error.code},${error.message}`);
     } finally {
-        url = await getDownloadURL(ref(storage, filename));
+        // url = await getDownloadURL(ref(storage, filename));
+        url = await getDownloadURL(storageRef);
         return url;
     }
 
@@ -307,11 +310,14 @@ export const addProjectFlrUrl = async (project, floor, url, user) => {
     }
 }
 
-export const retrieveLayoutImg = async (project) => {
+export const retrieveLayoutImg = async (project, user, floor) => {
     try {
 
         const storage = getStorage();
-        const refPath = ref(storage, project);
+        const folderPath = project + '-' + user; // Specify the folder path
+        const filename = project + '-' + user + '-' + floor;
+        const filePath = folderPath + '/' + filename; // Combine folder path and filename
+        const refPath = ref(storage, filePath);
         const snapshot = await getDownloadURL(refPath);
 
         if (snapshot) {
@@ -454,12 +460,13 @@ export const retrievePDFSummary = async (project, user) => {
 export async function deleteDefect(project, defectName, user) {
 
     try {
+        console.log(project, defectName, user);
         //delete document
-        await deleteDoc(doc(db, project, defectName));
+        await deleteDoc(doc(db, project + '-' + user, defectName));
 
         //delete image
         const storage = getStorage();
-        const desertRef = ref(storage, defectName);
+        const desertRef = ref(storage, project + '-' + user + '/' + defectName);
         await deleteObject(desertRef);
 
         //update array to remove deleted defect
