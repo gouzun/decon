@@ -6,7 +6,7 @@ import cam from '../../assets/img/camera.svg';
 
 import { GeneralContext } from '../../context/generalcontext.component';
 import { Select, Option } from "@material-tailwind/react";
-import { Button } from "@material-tailwind/react";
+import { Button, Textarea } from "@material-tailwind/react";
 import Header from '../header/header.component';
 import Footer from '../footer/footer.component';
 import { addDefect, retrieveDefectListForProject, updateDefectListForProject, storeImg, generateProjectList, addProjectFlrUrl } from '../../utils/firebase/firebase.utils';
@@ -43,6 +43,7 @@ const CreateDefectPage1 = () => {
     const [isLoading, setIsLoading] = useState(null);
     const [defects, setDefects] = useState([]);
     const [loader, setLoader] = useState(false);
+    const [inputDesc, setInputDesc] = useState('');
 
     const fieldreset = () => {
         setXpos(0);
@@ -56,6 +57,7 @@ const CreateDefectPage1 = () => {
 
         setDefects([]);
         setCurArea('');
+        setInputDesc('');
         // setImgLayout('');
         // setImgLayoutDisplay('');
         // setCurProject('');
@@ -399,6 +401,10 @@ const CreateDefectPage1 = () => {
         return () => window.removeEventListener('resize', updateSize);
     }, [xpos, ypos]);
 
+    const handleInputDesc = (e) => {
+        setInputDesc(e.target.value);
+    }
+
 
 
     return (
@@ -442,6 +448,10 @@ const CreateDefectPage1 = () => {
                     <Select label="DEFECT DESCRIPTION [*required]" onChange={handleDefectDesc} size="lg" onClick={handleDefectReload}>
                         {defects.map((item) => (<Option className='text-sm' key={item} value={item.toUpperCase()}>{item.toUpperCase()}</Option>))}
                     </Select>
+                </div>
+                <div className="w-80 flex justify-center p-2 my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-30">
+                    <Textarea label="DEFECT DESCRIPTION" value={inputDesc} onChange={handleInputDesc}>
+                    </Textarea >
                 </div>
 
                 <div className="flex justify-center p-2 my-2 gap-2">{isLoading}</div>

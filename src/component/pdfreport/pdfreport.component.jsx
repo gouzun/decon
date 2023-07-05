@@ -451,10 +451,10 @@ const PdfReport = () => {
                         }
 
                         y += 15;
-                                     
+
                         const layoutUrl = encodeURIComponent(rec.layouturl);
                         doc.addImage(layoutUrl, 'JPEG', 110, imageY, 40, 53); // adjust the coordinates and dimensions as needed
-                                           
+
                         const defectUrl = encodeURIComponent(rec.url);
                         doc.addImage(defectUrl, 'JPEG', 155, imageY, 40, 53); // adjust the coordinates and dimensions as needed
 

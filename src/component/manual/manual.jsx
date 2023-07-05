@@ -8,6 +8,9 @@ import defect from '../../assets/img/defect2.png';
 import manual from '../../assets/img/manual.png';
 import logout from '../../assets/img/signout.png';
 import logo from '../../assets/img/INSPECTMY.png';
+import layout from '../../assets/img/layout.png';
+import pricing from '../../assets/img/pricing.png';
+import account from '../../assets/img/account.png';
 
 import { useEffect, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
@@ -45,15 +48,24 @@ const Manual = () => {
             <br /><br />
             By providing a user-friendly and efficient platform for defect inspection, InspectMY aims to enhance the overall quality and productivity of defect management in the construction industry.
         </div>
-        <Header headerText={{ title: 'HOW TO USE' }} />
+        <Header headerText={{ title: 'ICON FUNCTION' }} />
         <div className='w-80 flex justify-center text-base py-4'><div>NAVIGATION BAR </div></div>
-        <div className='w-80 md:w-screen flex justify-start md:justify-center text-sm py-4'><img alt='' className='w-18 h-8 px-2 ' src={menu} /><div>Main Menu - This page will show all available functions of InspectMY app.</div></div>
-        <div className='w-80 md:w-screen flex justify-start md:justify-center text-sm py-4'><img alt='' className='w-18 h-8 px-2 ' src={project} /><div>Add Project - This page is to let user to create new project.Project refers as property unit where defect inspection will be conducted.</div></div>
-        <div className='w-80 md:w-screen flex justify-start md:justify-center text-sm py-4'><img alt='' className='w-18 h-8 px-2 ' src={defect} /><div>Add Defect - User can raise new defect by stating floor, area, element and attach with detail layout plan and photos.</div></div>
-        <div className='w-80 md:w-screen flex justify-start md:justify-center text-sm py-4'><img alt='' className='w-18 h-8 px-2 ' src={summary} /><div>View Defects - This page will display all raised defects in summary view.User can perform deletion in this page as well.</div></div>
-        <div className='w-80 md:w-screen flex justify-start md:justify-center text-sm py-4'><img alt='' className='w-18 h-8 px-2 ' src={pdf} /><div>PDF - This page is to let user to list defect summary in table view and chart view.User can also export defect list in pdf file. </div></div>
-        <div className='w-80 md:w-screen flex justify-start md:justify-center text-sm py-4'><img alt='' className='w-18 h-8 px-2 ' src={manual} /><div>Manual - This page will show a brief explanation for each icon functionality.</div></div>
-        <div className='w-80 md:w-screen flex justify-start md:justify-center text-sm py-4'><img alt='' className='w-18 h-8 px-2 ' src={logout} /><div>Log Out - User can proceed to log out here.</div></div>
+
+        <div className='w-80 md:w-screen flex justify-center md:justify-start text-sm py-4 md:px-44 '><img alt='' className='w-18 h-8 px-2 ' src={menu} /><div>Main Menu - This page will show all available functions of InspectMY app.</div></div>
+        <div className='w-80 md:w-screen flex justify-center text-sm py-4 md:px-44 md:justify-start'><img alt='' className='w-18 h-8 px-2 ' src={project} /><div>Add Project - This page allows users to establish new projects, which represent individual property units where defect inspections will be conducted.</div></div>
+
+        <div className='w-80 md:w-screen flex justify-center text-sm py-4 md:px-44 md:justify-start'><img alt='' className='w-18 h-8 px-2 ' src={layout} /><div>Add Layout - This page enables users to add or modify the layout plan of a property to align it with the corresponding floor layout. The updated layout plan serves as a reference for pinpointing the location of any defects within the property.</div></div>
+
+        <div className='w-80 md:w-screen flex justify-center text-sm py-4 md:px-44 md:justify-start'><img alt='' className='w-18 h-8 px-2 ' src={defect} /><div>Add Defect - Users have the ability to raise new defect reports by specifying the floor, area, and element affected. They can also attach a detailed layout plan and accompanying photos to provide additional context and information.</div></div>
+        <div className='w-80 md:w-screen flex justify-center text-sm py-4 md:px-44 md:justify-start'><img alt='' className='w-18 h-8 px-2 ' src={summary} /><div>View Defects - On this page, users can view a comprehensive summary of all raised defects. They have the option to delete defects directly from this page, allowing for convenient management and organization of reported issues.</div></div>
+        <div className='w-80 md:w-screen flex justify-center text-sm py-4 md:px-44 md:justify-start'><img alt='' className='w-18 h-8 px-2 ' src={pdf} /><div>PDF -  This page offers users the ability to list defect summaries in both table view and chart view. They can conveniently navigate thru visual representations to gain insights into the reported issues. Additionally, users have the option to export the defect list as a PDF file for easy sharing and documentation purposes. </div></div>
+
+
+        <div className='w-80 md:w-screen flex md:justify-start justify-center text-sm py-4 md:px-44 '><img alt='' className='w-18 h-8 px-2 ' src={pricing} /><div>Pricing -  This page provides users with a comprehensive list of available pricing packages. Users can explore and select the package that suits their needs and make purchases accordingly. It offers a seamless process for users to choose and acquire the desired pricing package.</div></div>
+
+        <div className='w-80 md:w-screen flex md:justify-start justify-center text-sm py-4 md:px-44 '><img alt='' className='w-18 h-8 px-2 ' src={account} /><div>Account - This page displays a complete record of all transactions related to the user's project. Users can conveniently view their transaction history and check the payment status for each transaction. It provides a clear and organized overview of the financial activities associated with the user's project.</div></div>
+
+        <div className='w-80 md:w-screen flex md:justify-start justify-center text-sm py-4 md:px-44 '><img alt='' className='w-18 h-8 px-2 ' src={logout} /><div>Log Out - User can proceed to log out here.</div></div>
 
         <Footer />
     </div>);
