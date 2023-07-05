@@ -67,6 +67,10 @@ const CreateDefectPage1 = () => {
         setDefects([]);
         setCurArea('');
         setInputDesc('');
+        setTextareaColor('');
+        setSelectColor('');
+        setAreaAreaColor('');
+        setSelectAreaColor('');
 
     }
 

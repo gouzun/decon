@@ -113,6 +113,7 @@ const PdfReport = () => {
         setRowCount(0);
         setIsLoading('');
         setProjectList([]);
+        
 
     };
 
