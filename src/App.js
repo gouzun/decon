@@ -21,6 +21,7 @@ import PricePage from './component/price/pricepage';
 import PaymentRedirect from './component/price/paymentredirect';
 import AccountPage from './component/account/accountpage';
 import AddLayout from './component/layout/addlayout';
+import TestPage from './component/pdfreport/testpage';
 const App = () => {
   const { currentUser, setCurrentUser } = useContext(UserContext);
   const [logged, setLogged] = useState(false);
@@ -43,6 +44,7 @@ const App = () => {
           <Route path='/pricing' element={<PricePage />} />
           <Route path='/account' element={<AccountPage />} />
           <Route path='/payment-redirect' element={<PaymentRedirect />} />
+          <Route path='/testpage' element={<TestPage />} />
           <Route path='/addlayout' element={<AddLayout />} />
 
         </Route >
