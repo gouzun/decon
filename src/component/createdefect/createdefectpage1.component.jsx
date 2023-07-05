@@ -2,14 +2,17 @@ import React, { useEffect, useContext, useState } from 'react';
 import pin from '../../assets/img/pin-red.svg';
 import layout from '../../assets/img/imglayout.jpg';
 import defect from '../../assets/img/imgdefect.jpg';
-import cam from '../../assets/img/camera.svg';
 
 import { GeneralContext } from '../../context/generalcontext.component';
-import { Select, Option } from "@material-tailwind/react";
-import { Button, Textarea } from "@material-tailwind/react";
+import {
+    Select, Option,
+} from "@material-tailwind/react";
+import {
+    Button, Textarea,
+} from "@material-tailwind/react";
 import Header from '../header/header.component';
 import Footer from '../footer/footer.component';
-import { addDefect, retrieveDefectListForProject, updateDefectListForProject, storeImg, generateProjectList, addProjectFlrUrl } from '../../utils/firebase/firebase.utils';
+import { addDefect, retrieveDefectListForProject, updateDefectListForProject, storeImg, generateProjectList } from '../../utils/firebase/firebase.utils';
 import { FLOORDD, AREADD, ELEMENTDD, FLOORDEFECTS, INTERNALWALLDEFECTS, CEILINGDEFECTS, DOORDEFECTS, WINDOWSDEFECTS, INTERNALFIXTURESDEFECTS, ROOFDEFECTS, EXTERNALWALLDEFECTS, PERIMETREDEFECTS, CARPARKDEFECTS, MEDEFECTS, FENCINGANDDATEDEFECTS } from '../../utils/theme';
 import Compressor from 'compressorjs';
 import { retrieveLayoutImg } from '../../utils/firebase/firebase.utils';
@@ -44,6 +47,12 @@ const CreateDefectPage1 = () => {
     const [defects, setDefects] = useState([]);
     const [loader, setLoader] = useState(false);
     const [inputDesc, setInputDesc] = useState('');
+    const [selectColor, setSelectColor] = useState('');
+    const [textareColor, setTextareaColor] = useState('');
+    const [areaArea, setAreaArea] = useState('');
+
+    const [selectAreaColor, setSelectAreaColor] = useState('');
+    const [areaAreaColor, setAreaAreaColor] = useState('');
 
     const fieldreset = () => {
         setXpos(0);
@@ -58,10 +67,7 @@ const CreateDefectPage1 = () => {
         setDefects([]);
         setCurArea('');
         setInputDesc('');
-        // setImgLayout('');
-        // setImgLayoutDisplay('');
-        // setCurProject('');
-        // setCurFloor('');
+
     }
 
     const navigate = useNavigate();
@@ -81,6 +87,10 @@ const CreateDefectPage1 = () => {
         setImgLayoutDisplay('');
         setCurProject('');
         setCurFloor('');
+        setTextareaColor('');
+        setSelectColor('');
+        setAreaAreaColor('');
+        setSelectAreaColor('');
     }
 
     useEffect(() => {
@@ -154,17 +164,33 @@ const CreateDefectPage1 = () => {
 
     const handleAreaDD = (value) => {
         setCurArea(value);
+        setAreaArea('');
+        setAreaAreaColor('error');
+        setSelectAreaColor('success');
     };
 
+    const handleAreaArea = (e) => {
+        setCurArea(e.target.value);
+        setAreaArea(e.target.value);
+        setAreaAreaColor('success');
+        setSelectAreaColor('error');
+    }
+
     let DEFECTDD = [];
+
     const handleElementDD = (value) => {
         setCurElement(value);
         setCurDefectDesc('');
-        setDefects([]);
+
     };
+
+    useEffect(() => {
+        handleDefectReload();
+    }, [curElement])
 
 
     const handleDefectReload = () => {
+
         switch (curElement) {
             case 'FLOOR':
                 DEFECTDD = FLOORDEFECTS;
@@ -211,8 +237,9 @@ const CreateDefectPage1 = () => {
 
 
     const handleDefectDesc = (value) => {
-
-        setCurDefectDesc(value);
+        setTextareaColor('error');
+        setSelectColor('success');
+        setInputDesc('');
     };
 
 
@@ -403,8 +430,10 @@ const CreateDefectPage1 = () => {
 
     const handleInputDesc = (e) => {
         setInputDesc(e.target.value);
+        setTextareaColor('success');
+        setSelectColor('error');
+        setCurDefectDesc(e.target.value);
     }
-
 
 
     return (
@@ -428,15 +457,28 @@ const CreateDefectPage1 = () => {
 
                     </Select></div>
 
-
+                <Header headerText={{ title: 'CLICK ON IMAGE BELOW TO MAKE DEFECT PIN' }} />
                 {loader ? <Loader /> : <div className="flex justify-center p-2 my-2"><img id='photo' className='drop-shadow-lg shadow-lg' height='400' width='300' src={imgLayoutDisplay ? imgLayoutDisplay : layout} alt='' onClick={showCoords} /></div>}
 
                 {marker}
-                <div id='area' className="w-80 flex justify-center p-2 my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-30">
-                    <Select label="AREA [*required]" onChange={handleAreaDD} onClick={handleAreaIndex} value={curArea}>
-                        {AREADD.sort().map((item) => (<Option key={item} value={item}>{item}</Option>))}
-                    </Select></div>
+                <Header headerText={{ title: 'SELECT OR KEY IN AREA [*chose either one]' }} />
 
+                <div id='area' className="w-80 flex justify-center p-2 my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-50">
+                    {selectAreaColor === 'success' ? (<Select label="SELECT FROM AREA LIST[*]" onChange={handleAreaDD} onClick={handleAreaIndex} value={curArea} success>
+                        {AREADD.sort().map((item) => (<Option key={item} value={item}>{item}</Option>))}
+                    </Select>) : (selectAreaColor === '' ? (<Select label="SELECT FROM AREA LIST[*]" onChange={handleAreaDD} onClick={handleAreaIndex} value={curArea}>
+                        {AREADD.sort().map((item) => (<Option key={item} value={item}>{item}</Option>))}
+                    </Select>) : (<Select label="SELECT FROM AREA LIST[*]" onChange={handleAreaDD} onClick={handleAreaIndex} value={curArea} error>
+                        {AREADD.sort().map((item) => (<Option key={item} value={item}>{item}</Option>))}
+                    </Select>))}
+                </div>
+
+                <div id='area' className="w-80 flex justify-center p-2 my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100">
+                    {areaAreaColor === 'success' ? (<Textarea label="KEY IN AREA [*]" onChange={handleAreaArea} value={areaArea} success>
+                    </Textarea>) : (areaAreaColor === '' ? (<Textarea label="KEY IN AREA [*]" onChange={handleAreaArea} value={areaArea}>
+                    </Textarea>) : (<Textarea label="KEY IN AREA [*]" onChange={handleAreaArea} value={areaArea} error>
+                    </Textarea>))}
+                </div>
                 <div id='element' className="w-80 flex justify-center p-2 my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-40">
                     <Select label="ELEMENT [*required]" onChange={handleElementDD} onClick={handleElementIndex} value={curElement}>
                         {ELEMENTDD.sort().map((item) => (<Option key={item} value={item}>{item}</Option>))}
@@ -444,15 +486,26 @@ const CreateDefectPage1 = () => {
                 <Header headerText={{ title: 'CLICK ON IMAGE BELOW TO TAKE IMAGE' }} />
                 <div className="flex justify-center p-2 my-2"><label><img className='drop-shadow-lg shadow-lg' height='400' width='300' src={imgDefectDisplay ? imgDefectDisplay : defect} alt='' /><input accept='image/*”' type='file' className="filetype" capture='environment' onChange={onImgDefectChange} style={{ display: 'none' }} /></label></div>
 
+                <Header headerText={{ title: 'SELECT OR KEY IN A DEFECT [*chose either one]' }} />
+
+
                 <div className="w-80 flex justify-center p-2 my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-40">
-                    <Select label="DEFECT DESCRIPTION [*required]" onChange={handleDefectDesc} size="lg" onClick={handleDefectReload}>
+                    {selectColor === 'success' ? (<Select label="SELECT FROM DEFECT LIST [*]" onChange={handleDefectDesc} size="lg" success value={curDefectDesc} >
                         {defects.map((item) => (<Option className='text-sm' key={item} value={item.toUpperCase()}>{item.toUpperCase()}</Option>))}
-                    </Select>
+                    </Select>) : (selectColor === '' ? (<Select label="SELECT FROM DEFECT LIST [*]" onChange={handleDefectDesc} size="lg" value={curDefectDesc}>
+                        {defects.map((item) => (<Option className='text-sm' key={item} value={item.toUpperCase()}>{item.toUpperCase()}</Option>))}
+                    </Select>) : (<Select label="SELECT FROM DEFECT LIST [*]" onChange={handleDefectDesc} size="lg" error value={curDefectDesc}>
+                        {defects.map((item) => (<Option className='text-sm' key={item} value={item.toUpperCase()}>{item.toUpperCase()}</Option>))}
+                    </Select>))}
+
                 </div>
+
                 <div className="w-80 flex justify-center p-2 my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-30">
-                    <Textarea label="DEFECT DESCRIPTION" value={inputDesc} onChange={handleInputDesc}>
-                    </Textarea >
+                    {textareColor === 'success' ? <Textarea label="KEY IN DEFECT DESCRIPTION [*]" value={inputDesc} onChange={handleInputDesc} success>
+                    </Textarea > : (textareColor === '' ? (<Textarea label="KEY IN DEFECT DESCRIPTION [*]" value={inputDesc} onChange={handleInputDesc} ></Textarea >) : (<Textarea label="KEY IN DEFECT [*]" value={inputDesc} onChange={handleInputDesc} error></Textarea>)
+                    )}
                 </div>
+
 
                 <div className="flex justify-center p-2 my-2 gap-2">{isLoading}</div>
                 <div className="flex justify-center p-2 my-2 gap-2">
