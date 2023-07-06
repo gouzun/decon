@@ -5,33 +5,15 @@ import pin from '../../assets/img/pin-red.svg';
 import { Resizable } from 're-resizable';
 
 const TestPage = () => {
-    const [holder, setHolder] = useState({
-        activeDrags: 0,
-        deltaPosition: {
-            x: 0,
-            y: 0
-        },
-        controlledPosition: {
-            x: 200,
-            y: 200
-        }
-    });
 
     const onStart = () => {
         console.log('onStart');
-        setHolder((prevState) => ({
-            ...prevState,
-            activeDrags: prevState.activeDrags + 1
-        }));
-    };
 
+    };
     const onStop = (e, data) => {
         console.log('onStop');
         console.log('Mouse location:', { x: data.x, y: data.y });
-        setHolder((prevState) => ({
-            ...prevState,
-            activeDrags: prevState.activeDrags - 1
-        }));
+
     };
 
 

@@ -2,7 +2,8 @@ import React, { useEffect, useContext, useState } from 'react';
 import pin from '../../assets/img/pin-red.svg';
 import layout from '../../assets/img/imglayout.jpg';
 import defect from '../../assets/img/imgdefect.jpg';
-
+import Draggable, { DraggableCore } from 'react-draggable'; // Both at the same time
+import { Resizable } from 're-resizable';
 import { GeneralContext } from '../../context/generalcontext.component';
 import {
     Select, Option,
@@ -53,6 +54,16 @@ const CreateDefectPage1 = () => {
 
     const [selectAreaColor, setSelectAreaColor] = useState('');
     const [areaAreaColor, setAreaAreaColor] = useState('');
+
+    const onStart = () => {
+        console.log('onStart');
+
+    };
+    const onStop = (e, data) => {
+        console.log('onStop');
+        console.log('Mouse location:', { x: data.x, y: data.y });
+
+    };
 
     const fieldreset = () => {
         setXpos(0);
@@ -369,28 +380,7 @@ const CreateDefectPage1 = () => {
     let eleX = 0;
     let eleY = 0;
 
-    const setNewMarker = () => {
-        try {
-            eleX = document.getElementById('photo').offsetLeft;
-            eleY = document.getElementById('photo').offsetTop;
-            console.log('eleX', eleX);
-            console.log('eleY', eleY);
-            setMarker(<div><div style={{ position: "absolute", top: y - 37, left: x - 17 }} ><img src={pin} alt='' style={{ width: 35, height: 35 }} /></div>
-                <div style={{ position: "absolute", top: y - 37 + 3, left: x - 17 + 10 }} >
-                    <div style={{
-                        color: { PINTEXTBLACK }, fontWeight: 700
-                    }}  >{1 + curDefectList.length}</div></div></div>);
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
-    useEffect(() => {
-        console.log('1');
-        setNewMarker();
-        console.log('2');
-    }, [imgLayoutDisplay])
-
+    const dragHandlers = { onStart, onStop };
     const showCoords = (event) => {
 
         x = event.pageX;
@@ -403,7 +393,24 @@ const CreateDefectPage1 = () => {
         console.log('corX:', corX);
         console.log('corY:', corY);
 
-        setMarker(<div><div style={{ position: "absolute", top: y - 37, left: x - 17 }} ><img src={pin} alt='' style={{ width: 35, height: 35 }} /></div>
+        setMarker(<div><div style={{ position: "absolute", top: y - 37, left: x - 17 }} ><Draggable bounds={{ top: -100, left: -100, right: 100, bottom: 100 }} {...dragHandlers}
+        >
+            <Resizable
+                defaultSize={{
+                    width: 35,
+                    height: 35
+                }}
+                style={{
+                    background: `url(${pin})`,
+                    backgroundSize: 'contain',
+                    backgroundRepeat: 'no-repeat'
+                }}
+                lockAspectRatio={true}
+                enable={{ top: false, right: false, bottom: false, left: false, topRight: false, bottomRight: false, bottomLeft: false, topLeft: false }}
+            >
+            </Resizable>
+
+        </Draggable></div>
             <div style={{ position: "absolute", top: y - 37 + 3, left: x - 17 + 10 }} >
                 <div style={{
                     color: { PINTEXTBLACK }, fontWeight: 700
