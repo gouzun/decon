@@ -369,6 +369,28 @@ const CreateDefectPage1 = () => {
     let eleX = 0;
     let eleY = 0;
 
+    const setNewMarker = () => {
+        try {
+            eleX = document.getElementById('photo').offsetLeft;
+            eleY = document.getElementById('photo').offsetTop;
+            console.log('eleX', eleX);
+            console.log('eleY', eleY);
+            setMarker(<div><div style={{ position: "absolute", top: y - 37, left: x - 17 }} ><img src={pin} alt='' style={{ width: 35, height: 35 }} /></div>
+                <div style={{ position: "absolute", top: y - 37 + 3, left: x - 17 + 10 }} >
+                    <div style={{
+                        color: { PINTEXTBLACK }, fontWeight: 700
+                    }}  >{1 + curDefectList.length}</div></div></div>);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    useEffect(() => {
+        console.log('1');
+        setNewMarker();
+        console.log('2');
+    }, [imgLayoutDisplay])
+
     const showCoords = (event) => {
 
         x = event.pageX;
@@ -377,6 +399,9 @@ const CreateDefectPage1 = () => {
         eleY = document.getElementById('photo').offsetTop;
         corX = x - eleX;
         corY = y - eleY;
+
+        console.log('corX:', corX);
+        console.log('corY:', corY);
 
         setMarker(<div><div style={{ position: "absolute", top: y - 37, left: x - 17 }} ><img src={pin} alt='' style={{ width: 35, height: 35 }} /></div>
             <div style={{ position: "absolute", top: y - 37 + 3, left: x - 17 + 10 }} >
