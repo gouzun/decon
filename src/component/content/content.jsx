@@ -33,7 +33,7 @@ const Content = () => {
             <div className='md:h-screen w-2/4 flex justify-left items-left flex-col pt-10 pl-5 flex-wrap'>
                 <div className='md:h-48'></div>
 
-                <div className=' py-4 pr-8 md:text-3xl text-lg font-bold flex flex-wrap'><img src={LOGO} alt='' />  THE WEB BASED DEFECT INSPECTION TOOL.</div>
+                <div className=' py-4 pr-8 md:text-3xl text-lg font-bold flex flex-wrap'><img src={LOGO} alt='' /></div><div className='md:text-3xl text-lg font-bold'>  THE WEB BASED DEFECT INSPECTION TOOL.</div>
                 <div>Allowing you to carry out your defect inspection process with ease! </div>
             </div>
         </div>

@@ -411,10 +411,7 @@ const CreateDefectPage1 = () => {
             </Resizable>
 
         </Draggable></div>
-            <div style={{ position: "absolute", top: y - 37 + 3, left: x - 17 + 10 }} >
-                <div style={{
-                    color: { PINTEXTBLACK }, fontWeight: 700
-                }}  >{1 + curDefectList.length}</div></div></div>);
+        </div>);
 
         // const xPercentage = corX / document.getElementById('photo').clientWidth * 100
         // const yPercentage = corY / document.getElementById('photo').clientWidth * 100
