@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext, useState, useRef } from 'react';
 import pin from '../../assets/img/pin-red.svg';
 import layout from '../../assets/img/imglayout.jpg';
 import defect from '../../assets/img/imgdefect.jpg';
@@ -54,16 +54,6 @@ const CreateDefectPage1 = () => {
 
     const [selectAreaColor, setSelectAreaColor] = useState('');
     const [areaAreaColor, setAreaAreaColor] = useState('');
-
-    const onStart = () => {
-        console.log('onStart');
-
-    };
-    const onStop = (e, data) => {
-        console.log('onStop');
-        console.log('Mouse location:', { x: data.x, y: data.y });
-
-    };
 
     const fieldreset = () => {
         setXpos(0);
@@ -164,7 +154,7 @@ const CreateDefectPage1 = () => {
 
                 setImgLayout(img);
                 setImgLayoutDisplay(img);
-
+            
             }
         } catch (e) {
             if (e.code === 'storage/object-not-found') {
@@ -313,11 +303,11 @@ const CreateDefectPage1 = () => {
         try {
             if (curFloor) {
 
-                const img = await retrieveLayoutImg(value + '-' + currentUser + '-' + curFloor);
+                const img = await retrieveLayoutImg(value, currentUser,curFloor);
 
                 setImgLayout(img);
                 setImgLayoutDisplay(img);
-
+                
             }
         } catch (e) {
             if (e.code === 'storage/object-not-found') {
@@ -380,7 +370,6 @@ const CreateDefectPage1 = () => {
     let eleX = 0;
     let eleY = 0;
 
-    const dragHandlers = { onStart, onStop };
     const showCoords = (event) => {
 
         x = event.pageX;
@@ -468,6 +457,40 @@ const CreateDefectPage1 = () => {
         setCurDefectDesc(e.target.value);
     }
 
+    const onStart = () => {
+        console.log('onStart');
+
+    };
+    const onStop = (e, data) => {
+        console.log('onStop');
+        console.log('Mouse location:', { x: data.x, y: data.y });
+
+    };
+
+    const dragHandlers = { onStart, onStop };
+    const imageRef = useRef(null);
+    const [position, setPosition] = useState({ top: '', left: '' });
+
+    const getImageStartPosition = () => {
+        const imageElement = imageRef.current;
+        if (imageElement) {
+          const { top, left } = imageElement.getBoundingClientRect();
+          const { naturalWidth, naturalHeight } = imageElement;
+          console.log('Image starting position:', top, left);
+          console.log('Image width:', naturalWidth);
+          console.log('Image height:', naturalHeight);
+          setPosition({ top, left, width: naturalWidth, height: naturalHeight });
+        }
+      };
+      
+
+    useEffect(() => {
+        getImageStartPosition();
+    }, []);
+
+
+    
+
 
     return (
 
@@ -491,7 +514,35 @@ const CreateDefectPage1 = () => {
                     </Select></div>
 
                 <Header headerText={{ title: 'CLICK ON IMAGE BELOW TO MAKE DEFECT PIN' }} />
-                {loader ? <Loader /> : <div className="flex justify-center p-2 my-2"><img id='photo' className='drop-shadow-lg shadow-lg' height='400' width='300' src={imgLayoutDisplay ? imgLayoutDisplay : layout} alt='' onClick={showCoords} /></div>}
+                {loader ? <Loader /> : (<>
+                    {imgLayoutDisplay ? (<><div className='z-10' style={{ position: 'absolute', left: position.left - 17.5, top: position.top - 35 }}>
+                        <Draggable {...dragHandlers} bounds={{ top: 0, left: 0, right: 298, bottom: 398 }}
+                        >
+                            <Resizable
+                                defaultSize={{
+                                    width: 35,
+                                    height: 35
+                                }}
+                                style={{
+                                    background: `url(${pin})`,
+                                    backgroundSize: 'contain',
+                                    backgroundRepeat: 'no-repeat'
+                                }}
+                                lockAspectRatio={true}
+                                enable={{ top: false, right: false, bottom: false, left: false, topRight: false, bottomRight: false, bottomLeft: false, topLeft: false }}
+                            >
+                            </Resizable>
+
+                        </Draggable>
+
+                    </div>
+                        <div className="flex justify-center p-2 my-2">
+                            <img id='photo' className='drop-shadow-lg shadow-lg' height='400' width='300' src={imgLayoutDisplay ? imgLayoutDisplay : layout} alt='' ref={imageRef} /></div></>) :
+
+                        (<>
+                            <div className="flex justify-center p-2 my-2">
+                                <img id='photo' className='drop-shadow-lg shadow-lg' height='400' width='300' src={imgLayoutDisplay ? imgLayoutDisplay : layout} alt='' ref={imageRef} /></div></>)}
+                </>)}
 
                 {marker}
                 <Header headerText={{ title: 'SELECT OR KEY IN AREA [*chose either one]' }} />
