@@ -53,8 +53,7 @@ const ViewMobile = (result) => {
 
     }
 
-    let desc = '';
-    let desc2 = '';
+  
 
     return (<>
         <div className='text-base flex justify-center my-2 text-gray-600'>Scroll right to view more defects.</div>

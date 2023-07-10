@@ -251,7 +251,10 @@ const PdfReport = () => {
                     doc.line(80, 170, 140, 170);
                     doc.line(150, 170, 200, 170);
 
+                    doc.addPage();
+                    doc.setFontSize(16);
 
+//charts
                     let flrcounts = [];
                     ele.forEach((record) => {
                         flrcounts[record.floor] = (flrcounts[record.floor] || 0) + 1;

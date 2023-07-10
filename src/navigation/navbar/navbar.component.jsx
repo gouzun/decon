@@ -46,8 +46,7 @@ const NavBar = () => {
                 <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/pricing'><img alt='' className='w-15 h-8 px-3' src={pricing} /><div>PRICING</div></Link>
                 <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/account'><img alt='' className='w-15 h-8 px-3' src={account} /><div>ACCOUNT</div></Link>
                 <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/logout'><img alt='' className='w-15 h-8 px-4' src={logout} /><div>LOG OUT</div></Link>
-                <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/testpage'><img alt='' className='w-15 h-8 px-4' src={logout} /><div>TEST</div></Link>
-
+                
             </div>
             <Outlet />
 

@@ -127,22 +127,6 @@ const CreateDefectPage1 = () => {
         }
     };
 
-    // const onImgLayoutChange = (event) => {
-
-    //     if (event.target.files && event.target.files[0]) {
-    //         const image = event.target.files[0];
-    //         new Compressor(image, {
-    //             quality: 0.2, // 0.6 can also be used, but its not recommended to go below.
-    //             success: (compressedResult) => {
-    //                 // compressedResult has the compressed file.
-    //                 // Use the compressed file to upload the images to your server.        
-    //                 setImgLayout(compressedResult);
-    //             },
-    //         });
-    //         setImgLayoutDisplay(URL.createObjectURL(event.target.files[0]));
-    //     }
-    // };
-
     const handleFloorDD = async (value) => {
         setLoader(true);
         setCurFloor(value);
@@ -154,7 +138,7 @@ const CreateDefectPage1 = () => {
 
                 setImgLayout(img);
                 setImgLayoutDisplay(img);
-            
+
             }
         } catch (e) {
             if (e.code === 'storage/object-not-found') {
@@ -186,7 +170,6 @@ const CreateDefectPage1 = () => {
     const handleElementDD = (value) => {
         setCurElement(value);
         setCurDefectDesc('');
-
     };
 
     useEffect(() => {
@@ -241,11 +224,14 @@ const CreateDefectPage1 = () => {
     }
 
 
+
     const handleDefectDesc = (value) => {
         setTextareaColor('error');
-        setSelectColor('success');
         setInputDesc('');
+        setCurDefectDesc(value);
+        setSelectColor('success');
     };
+
 
 
     const handleGetCurDefList = async (project, user) => {
@@ -264,7 +250,9 @@ const CreateDefectPage1 = () => {
     const handleAddDefect = async () => {
         //to check if input are empty or only space, if all no empty only proceed to create
         try {
-            if (curProject && curFloor && curArea && curElement && imgLayoutDisplay && curDefectDesc && imgDefectDisplay && marker) {
+
+            if (curProject && curFloor && curArea && curElement && imgLayoutDisplay && curDefectDesc && imgDefectDisplay) {
+
 
                 let defCount = 1 + curDefectList.length;
 
@@ -278,7 +266,7 @@ const CreateDefectPage1 = () => {
 
                 await storeImg(imgDefect, curProject, currentUser, defCount)
                     .then(async (urlDefect) => {
-                        await addDefect(curProject, curFloor, curArea, curElement, defCount, curDefectDesc.toUpperCase(), xpos, ypos, urlDefect, currentUser)
+                        await addDefect(curProject, curFloor, curArea, curElement, defCount, curDefectDesc.toUpperCase(), xpos, ypos + 2, urlDefect, currentUser)
                     })
                     .then(handleSetCurDefList(curProject, currentUser, defCount));
 
@@ -303,11 +291,11 @@ const CreateDefectPage1 = () => {
         try {
             if (curFloor) {
 
-                const img = await retrieveLayoutImg(value, currentUser,curFloor);
+                const img = await retrieveLayoutImg(value, currentUser, curFloor);
 
                 setImgLayout(img);
                 setImgLayoutDisplay(img);
-                
+
             }
         } catch (e) {
             if (e.code === 'storage/object-not-found') {
@@ -437,24 +425,14 @@ const CreateDefectPage1 = () => {
     // }
 
 
-    useEffect(() => {
-        function updateSize() {
-            setMarker(<div><div style={{ position: "absolute", top: document.getElementById('photo').offsetTop + (document.getElementById('photo').clientWidth * ypos / 100) - 37, left: document.getElementById('photo').offsetLeft + (document.getElementById('photo').clientWidth * xpos / 100) - 17, zIndex: '100' }}>
-                <img id='1' src={pin} alt='' style={{ width: 35, height: 35 }} /></div>
-                <div style={{ position: "absolute", top: document.getElementById('photo').offsetTop + (document.getElementById('photo').clientWidth * ypos / 100) - 37 + 5, left: document.getElementById('photo').offsetLeft + (document.getElementById('photo').clientWidth * xpos / 100) - 17 + 10, zIndex: '100' }}>
-                    <div style={{
-                        color: { PINTEXTBLACK }, fontWeight: 700
-                    }}>{1 + curDefectList.length}</div></div ></div>);
-        }
-        window.addEventListener('resize', updateSize);
-        return () => window.removeEventListener('resize', updateSize);
-    }, [xpos, ypos]);
+
 
     const handleInputDesc = (e) => {
+        setCurDefectDesc(e.target.value);
         setInputDesc(e.target.value);
         setTextareaColor('success');
         setSelectColor('error');
-        setCurDefectDesc(e.target.value);
+        
     }
 
     const onStart = () => {
@@ -464,7 +442,8 @@ const CreateDefectPage1 = () => {
     const onStop = (e, data) => {
         console.log('onStop');
         console.log('Mouse location:', { x: data.x, y: data.y });
-
+        setXpos(data.x);
+        setYpos(data.y);
     };
 
     const dragHandlers = { onStart, onStop };
@@ -474,22 +453,46 @@ const CreateDefectPage1 = () => {
     const getImageStartPosition = () => {
         const imageElement = imageRef.current;
         if (imageElement) {
-          const { top, left } = imageElement.getBoundingClientRect();
-          const { naturalWidth, naturalHeight } = imageElement;
-          console.log('Image starting position:', top, left);
-          console.log('Image width:', naturalWidth);
-          console.log('Image height:', naturalHeight);
-          setPosition({ top, left, width: naturalWidth, height: naturalHeight });
+            const { top, left } = imageElement.getBoundingClientRect();
+            const { naturalWidth, naturalHeight } = imageElement;
+            const { scrollX, scrollY } = window;
+            const currentPosition = {
+                top: top + scrollY,
+                left: left + scrollX,
+                width: naturalWidth,
+                height: naturalHeight
+            };
+            console.log('Image current position:', currentPosition);
+            setPosition(currentPosition);
         }
-      };
-      
+    };
 
     useEffect(() => {
-        getImageStartPosition();
+        const updateSize = () => {
+            console.log('updateSize');
+            getImageStartPosition();
+        };
+
+        const imageElement = imageRef.current;
+        if (imageElement && imageElement.complete) {
+            // Image is already loaded, call getImageStartPosition immediately
+            getImageStartPosition();
+        } else {
+            // Image is not loaded yet, set onload event
+            imageElement.onload = () => {
+                getImageStartPosition();
+            };
+        }
+
+        window.addEventListener('resize', updateSize);
+
+        return () => window.removeEventListener('resize', updateSize);
     }, []);
 
 
-    
+    // useEffect(() => {
+    //     getImageStartPosition();
+    // }, [imgLayoutDisplay]);
 
 
     return (
@@ -515,13 +518,13 @@ const CreateDefectPage1 = () => {
 
                 <Header headerText={{ title: 'CLICK ON IMAGE BELOW TO MAKE DEFECT PIN' }} />
                 {loader ? <Loader /> : (<>
-                    {imgLayoutDisplay ? (<><div className='z-10' style={{ position: 'absolute', left: position.left - 17.5, top: position.top - 35 }}>
-                        <Draggable {...dragHandlers} bounds={{ top: 0, left: 0, right: 298, bottom: 398 }}
+                    {imgLayoutDisplay ? (<><div className='z-10' style={{ position: 'absolute', left: position.left - 27.5, top: position.top - 55 }}>
+                        <Draggable {...dragHandlers} bounds={{ top: 0, left: 0, right: 299, bottom: 399 }}
                         >
                             <Resizable
                                 defaultSize={{
-                                    width: 35,
-                                    height: 35
+                                    width: 55,
+                                    height: 55
                                 }}
                                 style={{
                                     background: `url(${pin})`,
@@ -537,14 +540,14 @@ const CreateDefectPage1 = () => {
 
                     </div>
                         <div className="flex justify-center p-2 my-2">
-                            <img id='photo' className='drop-shadow-lg shadow-lg' height='400' width='300' src={imgLayoutDisplay ? imgLayoutDisplay : layout} alt='' ref={imageRef} /></div></>) :
+                            <img id='photo' className='drop-shadow-lg shadow-lg' style={{ height: '400px', width: '300px' }} src={imgLayoutDisplay ? imgLayoutDisplay : layout} alt='' ref={imageRef} /></div></>) :
 
                         (<>
                             <div className="flex justify-center p-2 my-2">
-                                <img id='photo' className='drop-shadow-lg shadow-lg' height='400' width='300' src={imgLayoutDisplay ? imgLayoutDisplay : layout} alt='' ref={imageRef} /></div></>)}
+                                <img id='photo' className='drop-shadow-lg shadow-lg' style={{ height: '400px', width: '300px' }} src={imgLayoutDisplay ? imgLayoutDisplay : layout} alt='' ref={imageRef} /></div></>)}
                 </>)}
 
-                {marker}
+
                 <Header headerText={{ title: 'SELECT OR KEY IN AREA [*chose either one]' }} />
 
                 <div id='area' className="w-80 flex justify-center p-2 my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-50">
@@ -574,11 +577,11 @@ const CreateDefectPage1 = () => {
 
 
                 <div className="w-80 flex justify-center p-2 my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-40">
-                    {selectColor === 'success' ? (<Select label="SELECT FROM DEFECT LIST [*]" onChange={handleDefectDesc} size="lg" success value={curDefectDesc} >
+                    {selectColor === 'success' ? (<Select label="SELECT FROM DEFECT LIST [*]" onChange={handleDefectDesc} size="lg" success defaultValue={curDefectDesc} >
                         {defects.map((item) => (<Option className='text-sm' key={item} value={item.toUpperCase()}>{item.toUpperCase()}</Option>))}
-                    </Select>) : (selectColor === '' ? (<Select label="SELECT FROM DEFECT LIST [*]" onChange={handleDefectDesc} size="lg" value={curDefectDesc}>
+                    </Select>) : (selectColor === '' ? (<Select label="SELECT FROM DEFECT LIST [*]" onChange={handleDefectDesc} size="lg" defaultValue={curDefectDesc}>
                         {defects.map((item) => (<Option className='text-sm' key={item} value={item.toUpperCase()}>{item.toUpperCase()}</Option>))}
-                    </Select>) : (<Select label="SELECT FROM DEFECT LIST [*]" onChange={handleDefectDesc} size="lg" error value={curDefectDesc}>
+                    </Select>) : (<Select label="SELECT FROM DEFECT LIST [*]" onChange={handleDefectDesc} size="lg" error defaultValue={curDefectDesc}>
                         {defects.map((item) => (<Option className='text-sm' key={item} value={item.toUpperCase()}>{item.toUpperCase()}</Option>))}
                     </Select>))}
 
@@ -589,8 +592,7 @@ const CreateDefectPage1 = () => {
                     </Textarea > : (textareColor === '' ? (<Textarea label="KEY IN DEFECT DESCRIPTION [*]" value={inputDesc} onChange={handleInputDesc} ></Textarea >) : (<Textarea label="KEY IN DEFECT [*]" value={inputDesc} onChange={handleInputDesc} error></Textarea>)
                     )}
                 </div>
-
-
+           
                 <div className="flex justify-center p-2 my-2 gap-2">{isLoading}</div>
                 <div className="flex justify-center p-2 my-2 gap-2">
                     <Button className={`drop-shadow-lg shadow-lg ${BUTTONCOLOR} ${LABELHOVERCOLOR}`} variant="gradient" onClick={handleAddDefect}>ADD</Button>

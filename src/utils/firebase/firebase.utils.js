@@ -317,9 +317,7 @@ export const retrieveLayoutImg = async (project, user, floor) => {
         const folderPath = project + '-' + user; // Specify the folder path
         const filename = project + '-' + user + '-' + floor;
         const filePath = folderPath + '/' + filename; // Combine folder path and filename
-        console.log(folderPath, folderPath);
-        console.log(filename, filename);
-        console.log(filePath, filePath);
+       
         const refPath = ref(storage, filePath);
         const snapshot = await getDownloadURL(refPath);
 

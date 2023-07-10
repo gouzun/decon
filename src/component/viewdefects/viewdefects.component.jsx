@@ -198,9 +198,9 @@ const ViewDefects = () => {
 
     }, [currentUser]);
 
-    // useEffect(() => {
-    //     handleSearch();
-    // }, [render]);
+    useEffect(() => {
+        handleSearch();
+    }, [render]);
 
 
     return (
