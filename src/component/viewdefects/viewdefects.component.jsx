@@ -77,22 +77,18 @@ const ViewDefects = () => {
     const fieldReset = () => {
         setCurFloor('');
         setCurProject('');
-
+        setEle('');
     }
-
-
 
     const handleSearch = async () => {
         try {
             setMarker('');
-            if (curProject) {
+            if (curProject && curFloor) {
                 setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-red-700 items-center bg-red-100 w-72  drop-shadow-md shadow-md'>Searching for records. <img src={spinner} alt='' /></div>);
 
-                if (curFloor) {
-                    const img = await retrieveLayoutImg(curProject, currentUser, curFloor);
-                    setGetImg(img);
+                const img = await retrieveLayoutImg(curProject, currentUser, curFloor);
+                setGetImg(img);
 
-                }
                 await retrieveDefectSummary(curProject, curFloor, currentUser).then((arrResult) => {
 
                     setEle(arrResult);
@@ -195,12 +191,13 @@ const ViewDefects = () => {
 
     useEffect(() => {
         generateDropDown();
-
     }, [currentUser]);
 
-    useEffect(() => {
-        handleSearch();
-    }, [render]);
+    // useEffect(() => {
+    //     console.log('ere');
+    //     handleSearch();
+
+    // }, [render]);
 
 
     return (
@@ -219,8 +216,6 @@ const ViewDefects = () => {
                     </Select></div>
                 {isLoading}
 
-
-
                 <div className="w-72 flex justify-center p-2 my-2 gap-2">
                     <Button className={`drop-shadow-lg shadow-lg ${BUTTONCOLOR} ${LABELCOLOR} ${LABELHOVERCOLOR}`} variant="gradient" type="submit" onClick={handleSearch}>SEARCH</Button>
                     <Button className={`drop-shadow-lg shadow-lg ${BUTTONCOLOR} ${LABELCOLOR} ${LABELHOVERCOLOR}`} variant="gradient" type="submit" onClick={handleInit}>RESET</Button>
@@ -228,12 +223,12 @@ const ViewDefects = () => {
                 </div>
 
                 <div className='flex justify-center text-sm py-2 h-10 font-semibold'>Record(s) found : {rowCount}</div>
-                {getImg ? <div className="flex justify-center p-2 my-2 w-full "><img id='photo' className='drop-shadow-lg shadow-lg' height='400' width='300' src={getImg} alt='' /></div> : <div className="flex justify-center p-2 my-2 w-full "></div>}
+                {getImg ? <div className="flex justify-center p-2 my-2 w-full "><img id='photo' className='drop-shadow-lg shadow-lg' style={{ height: '400px', width: '300px' }} src={getImg} alt='' /></div> : <div className="flex justify-center p-2 my-2 w-full "></div>}
 
 
                 {marker}
 
-                {isMobile ? <ViewMobile ele={ele} /> : <ViewDesktop ele={ele} />}
+                {ele ? (isMobile ? <ViewMobile ele={ele} /> : <ViewDesktop ele={ele} />) : ''}
 
 
                 <Footer />

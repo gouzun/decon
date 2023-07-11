@@ -113,7 +113,6 @@ const PdfReport = () => {
         setRowCount(0);
         setIsLoading('');
         setProjectList([]);
-        
 
     };
 
@@ -173,6 +172,39 @@ const PdfReport = () => {
             return false;
         }
     }
+
+    const searchAllLayout = async () => {
+        try {
+            const arrResult = await generateProjectList(currentUser);
+
+            let result = [];
+            arrResult.forEach((item, index) => {
+                const property = item.propertyName || "";
+                let splitted = curProject.split('-');
+
+                if (property === splitted[0]) { // Add this condition to filter by propertyName
+                    for (const key in item) {
+                        if (key.includes("floor") && item[key]) {
+                            const floor = key.replace(/floor/gi, "").toUpperCase();
+                            const layout = item[key];
+
+                            result.push({
+                                FLOOR: floor,
+                                LAYOUT: layout,
+                            });
+                        }
+                    }
+                }
+            });
+
+            return result;
+        } catch (e) {
+            console.log(e);
+            alert(e.message);
+            return null;
+        }
+    }
+
 
 
     const pdf = async () => {
@@ -251,10 +283,25 @@ const PdfReport = () => {
                     doc.line(80, 170, 140, 170);
                     doc.line(150, 170, 200, 170);
 
-                    doc.addPage();
-                    doc.setFontSize(16);
 
-//charts
+                    doc.setFontSize(16);
+                    //layout plan image
+                    let floors = await searchAllLayout() ?? [];
+
+                    floors.forEach((item) => {
+                        doc.addPage();
+                        let flrlayout = encodeURIComponent(item.LAYOUT);
+                        doc.text(item.FLOOR + " FLOOR LAYOUT PLAN", 110, 20, { align: 'center' });
+                        let ratio = 300 / 400; // Aspect ratio (width / height)
+                        let desiredHeight = 200; // Desired height
+                        let desiredWidth = desiredHeight * ratio; // Calculate width based on the ratio
+
+                        doc.addImage(flrlayout, 'JPEG', 30, 35, desiredWidth, desiredHeight);
+
+                    })
+
+
+                    //charts
                     let flrcounts = [];
                     ele.forEach((record) => {
                         flrcounts[record.floor] = (flrcounts[record.floor] || 0) + 1;

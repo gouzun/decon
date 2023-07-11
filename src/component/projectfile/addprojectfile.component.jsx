@@ -5,9 +5,10 @@ import { addProject, generateProjectList } from '../../utils/firebase/firebase.u
 import { useContext, useState, useEffect } from "react";
 import { GeneralContext } from "../../context/generalcontext.component";
 import { NAVBARCOLOR, BUTTONCOLOR, LABELCOLOR, LABELHOVERCOLOR } from '../../utils/theme.js';
-
 import { UserContext } from '../../context/user.context';
 import { useNavigate } from 'react-router-dom';
+import Loader from '../../utils/Loader';
+
 const AddProjectFile = () => {
 
     const { propertyName, setPropertyName,
@@ -17,6 +18,8 @@ const AddProjectFile = () => {
     const [isLoading, setIsLoading] = useState(null);
     const [rowCount, setRowCount] = useState(0);
     const [ele, setEle] = useState([]);
+    const [load, setLoad] = useState(false);
+
     let RowBgStyle = '';
     let row = 0;
     const { currentUser, setCurrentUser } = useContext(UserContext);
@@ -107,12 +110,15 @@ const AddProjectFile = () => {
 
     const gridHandler = async () => {
         try {
+            setLoad(true);
             const arrResult = await generateProjectList(currentUser);
             setRowCount(arrResult.length);
             setEle(arrResult);
         } catch (e) {
             console.log(e);
             alert(e.message);
+        } finally {
+            setLoad('');
         }
 
     }
@@ -142,6 +148,7 @@ const AddProjectFile = () => {
 
             {isLoading}
             <div className='flex justify-center text-sm py-2 h-10 font-semibold'>Record(s) found : {rowCount}</div>
+            {load ? <Loader /> : ''}
             <table className="w-80 rounded-lg text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead className={`rounded-lg text-xs text-gray-700 uppercase ${NAVBARCOLOR} ${LABELCOLOR}`}>
                     <tr>
@@ -160,6 +167,7 @@ const AddProjectFile = () => {
 
                     </tr>
                 </thead>
+
                 <tbody>
                     {ele.map((item) => {
                         row = row + 1

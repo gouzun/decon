@@ -432,16 +432,14 @@ const CreateDefectPage1 = () => {
         setInputDesc(e.target.value);
         setTextareaColor('success');
         setSelectColor('error');
-        
+
     }
 
     const onStart = () => {
-        console.log('onStart');
 
     };
+
     const onStop = (e, data) => {
-        console.log('onStop');
-        console.log('Mouse location:', { x: data.x, y: data.y });
         setXpos(data.x);
         setYpos(data.y);
     };
@@ -462,7 +460,7 @@ const CreateDefectPage1 = () => {
                 width: naturalWidth,
                 height: naturalHeight
             };
-            console.log('Image current position:', currentPosition);
+            // console.log('Image current position:', currentPosition);
             setPosition(currentPosition);
         }
     };
@@ -592,7 +590,7 @@ const CreateDefectPage1 = () => {
                     </Textarea > : (textareColor === '' ? (<Textarea label="KEY IN DEFECT DESCRIPTION [*]" value={inputDesc} onChange={handleInputDesc} ></Textarea >) : (<Textarea label="KEY IN DEFECT [*]" value={inputDesc} onChange={handleInputDesc} error></Textarea>)
                     )}
                 </div>
-           
+
                 <div className="flex justify-center p-2 my-2 gap-2">{isLoading}</div>
                 <div className="flex justify-center p-2 my-2 gap-2">
                     <Button className={`drop-shadow-lg shadow-lg ${BUTTONCOLOR} ${LABELHOVERCOLOR}`} variant="gradient" onClick={handleAddDefect}>ADD</Button>

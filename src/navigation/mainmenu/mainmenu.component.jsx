@@ -7,6 +7,15 @@ import { BUTTONCOLOR, LABELHOVERCOLOR, MAINMENU, MAINMENUBTN } from "../../utils
 import { UserContext } from '../../context/user.context';
 
 import { useNavigate } from 'react-router-dom';
+import {
+    Timeline,
+    TimelineItem,
+    TimelineConnector,
+    TimelineHeader,
+    TimelineIcon,
+    TimelineBody,
+    Typography,
+} from "@material-tailwind/react";
 
 const MainMenu = () => {
 
@@ -29,9 +38,7 @@ const MainMenu = () => {
         <div className='flex justify-center w-full min-h-screen flex-col bg-gray-300' >
             <div className='grid grid-flow-row auto-rows-max items-center'>
                 <Header headerText={{ title: 'MAIN MENU' }} />
-                <div className="w-[32rem]">
-               
-                </div>
+
                 <Footer />
             </div></div>
         <Outlet /></>);

@@ -28,45 +28,10 @@ const AccountPage = () => {
 
     const TABLE_HEAD = ["Trans ID", "Amount", "Paid Date", "Project", "Status"];
 
-    // const TABLE_ROWS = [
-    //     {
-    //         id: "asdasd1",
-    //         amount: "5555",
-    //         date: "Wed 3:00pm",
-    //         status: "paid",
-    //         project: "defect project",
-
-    //     },
-    //     {
-    //         id: "asdasd2",
-    //         amount: "5555",
-    //         date: "Wed 3:00pm",
-    //         status: "paid",
-    //         project: "defect project",
-
-    //     },
-    //     {
-    //         id: "asdasd3",
-    //         amount: "5555",
-    //         date: "Wed 3:00pm",
-    //         status: "paid",
-    //         project: "defect project",
-
-    //     },
-    //     {
-    //         id: "asdasd4",
-    //         amount: "5555",
-    //         date: "Wed 3:00pm",
-    //         status: "paid",
-    //         project: "defect project",
-
-    //     },
-
-    // ];
     const navigate = useNavigate();
 
     const handleAccCheck = async () => {
-        console.log('in');
+
         setSpinner(true);
         try {
             //node

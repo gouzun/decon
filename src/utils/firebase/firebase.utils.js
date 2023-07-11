@@ -317,7 +317,7 @@ export const retrieveLayoutImg = async (project, user, floor) => {
         const folderPath = project + '-' + user; // Specify the folder path
         const filename = project + '-' + user + '-' + floor;
         const filePath = folderPath + '/' + filename; // Combine folder path and filename
-       
+
         const refPath = ref(storage, filePath);
         const snapshot = await getDownloadURL(refPath);
 
@@ -461,7 +461,7 @@ export const retrievePDFSummary = async (project, user) => {
 export async function deleteDefect(project, defectName, user) {
 
     try {
-        console.log(project, defectName, user);
+
         //delete document
         await deleteDoc(doc(db, project + '-' + user, defectName));
 
