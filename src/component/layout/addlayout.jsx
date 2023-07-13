@@ -4,7 +4,7 @@ import Header from '../header/header.component';
 import Footer from '../footer/footer.component';
 
 import { Input, Textarea, Button } from "@material-tailwind/react";
-import { addProject, generateProjectList, retrieveLayoutImg, storeImg, addProjectFlrUrl } from '../../utils/firebase/firebase.utils';
+import { addProject, generateProjectList, retrieveLayoutImg, storeImg, addProjectFlrUrl,retrieveDefectSummary } from '../../utils/firebase/firebase.utils';
 import { useContext, useState, useEffect } from "react";
 import { GeneralContext } from "../../context/generalcontext.component";
 import { NAVBARCOLOR, BUTTONCOLOR, LABELCOLOR, LABELHOVERCOLOR } from '../../utils/theme.js';
@@ -45,6 +45,7 @@ const AddLayout = () => {
     const navigate = useNavigate();
     const [rowCount, setRowCount] = useState(0);
     const [ele, setEle] = useState([]);
+    const [lock,setLock] = useState(0);
     let RowBgStyle = '';
     let row = 0;
 
@@ -58,10 +59,11 @@ const AddLayout = () => {
                 const img = await retrieveLayoutImg(curProject, currentUser, value);
                 if (img !== null) {
                     // setTimeout(() => { }, 2000);
-
+                    let count =await handleSearchDefectCount();
+                    setLock(prevLock => count);
                     setImgLayout(img);
                     setImgLayoutDisplay(img);
-
+                    
                 } else {
                     console.log('layout not exist yet.');
                     setImgLayoutDisplay(layout);
@@ -85,11 +87,12 @@ const AddLayout = () => {
                 // console.log('handlePDD :', value + '-' + currentUser + '-' + curFloor);
                 const img = await retrieveLayoutImg(value, currentUser, curFloor);
 
-                // if (exist) {
+                let count =await handleSearchDefectCount();
+          
+                setLock(prevLock => count);
                 setImgLayout(img);
                 setImgLayoutDisplay(img);
-                // }
-
+      
             }
         } catch (e) {
             if (e.code === 'storage/object-not-found') {
@@ -203,11 +206,7 @@ const AddLayout = () => {
 
     }
 
-    // useEffect(() => {
-    //     generateDropDown();
-    //     gridHandler();
-    //     // setProjectDisplay(curProject);
-    // }, [currentUser]);
+  
 
     useEffect(() => {
         generateDropDown();
@@ -229,6 +228,23 @@ const AddLayout = () => {
 
     }, []);
 
+    const handleSearchDefectCount = async () => {
+        try { 
+            let count = 0;     
+            if (curProject && curFloor) {              
+
+                const defectlist = await retrieveDefectSummary(curProject, curFloor, currentUser);
+                count = defectlist.length;
+            }
+            return count;
+
+        }
+        catch (error) {
+            console.log(`Error :${error.code},${error.message}`);           
+        }
+
+    };
+
 
     return (<>
         <div className='flex flex-col w-full items-center bg-gray-300 min-h-screen'>
@@ -244,7 +260,7 @@ const AddLayout = () => {
                     })}
                 </Select>
             </div>
-
+{lock}
             <div id='fdd' className="w-80 flex justify-center p-2  my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-10">
                 <Select label="FLOOR [*required]" value={curFloor} onChange={handleFloorDD}>
 

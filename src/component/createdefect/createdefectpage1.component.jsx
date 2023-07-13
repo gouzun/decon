@@ -135,9 +135,10 @@ const CreateDefectPage1 = () => {
             if (curProject) {
 
                 const img = await retrieveLayoutImg(curProject, currentUser, value);
-
+               
                 setImgLayout(img);
                 setImgLayoutDisplay(img);
+             
 
             }
         } catch (e) {
@@ -390,43 +391,13 @@ const CreateDefectPage1 = () => {
         </Draggable></div>
         </div>);
 
-        // const xPercentage = corX / document.getElementById('photo').clientWidth * 100
-        // const yPercentage = corY / document.getElementById('photo').clientWidth * 100
         setXpos(corX);
         setYpos(corY);
 
-        // setXpos(corX);
-        // setYpos(corY);
+    
     }
 
-    //orig code back up
-    // const showCoords = (event) => {
-
-    //     x = event.pageX;
-    //     y = event.pageY;
-    //     eleX = document.getElementById('photo').offsetLeft;
-    //     eleY = document.getElementById('photo').offsetTop;
-    //     corX = x - eleX;
-    //     corY = y - eleY;
-
-    //     setMarker(<div><div style={{ position: "absolute", top: y - 37, left: x - 17 }} ><img src={pin} alt='' style={{ width: 35, height: 35 }} /></div>
-    //         <div style={{ position: "absolute", top: y - 37 + 3, left: x - 17 + 10 }} >
-    //             <div style={{
-    //                 color: { PINTEXTBLACK }, fontWeight: 700
-    //             }}  >{1 + curDefectList.length}</div></div></div>);
-
-    //     // const xPercentage = corX / document.getElementById('photo').clientWidth * 100
-    //     // const yPercentage = corY / document.getElementById('photo').clientWidth * 100
-    //     setXpos(corX);
-    //     setYpos(corY);
-
-    //     // setXpos(corX);
-    //     // setYpos(corY);
-    // }
-
-
-
-
+    
     const handleInputDesc = (e) => {
         setCurDefectDesc(e.target.value);
         setInputDesc(e.target.value);
@@ -514,7 +485,7 @@ const CreateDefectPage1 = () => {
 
                     </Select></div>
 
-                <Header headerText={{ title: 'CLICK ON IMAGE BELOW TO MAKE DEFECT PIN' }} />
+                <Header headerText={{ title: 'DRAG PIN ON DEFECT POSITION' }} />
                 {loader ? <Loader /> : (<>
                     {imgLayoutDisplay ? (<><div className='z-10' style={{ position: 'absolute', left: position.left - 27.5, top: position.top - 55 }}>
                         <Draggable {...dragHandlers} bounds={{ top: 0, left: 0, right: 299, bottom: 399 }}
@@ -542,7 +513,7 @@ const CreateDefectPage1 = () => {
 
                         (<>
                             <div className="flex justify-center p-2 my-2">
-                                <img id='photo' className='drop-shadow-lg shadow-lg' style={{ height: '400px', width: '300px' }} src={imgLayoutDisplay ? imgLayoutDisplay : layout} alt='' ref={imageRef} /></div></>)}
+                                <img id='photo' className='drop-shadow-lg shadow-lg' style={{ height: '300px', width: '300px' }} src={imgLayoutDisplay ? imgLayoutDisplay : layout} alt='' ref={imageRef} /></div></>)}
                 </>)}
 
 
@@ -568,10 +539,10 @@ const CreateDefectPage1 = () => {
                     <Select label="ELEMENT [*required]" onChange={handleElementDD} onClick={handleElementIndex} value={curElement}>
                         {ELEMENTDD.sort().map((item) => (<Option key={item} value={item}>{item}</Option>))}
                     </Select></div>
-                <Header headerText={{ title: 'CLICK ON IMAGE BELOW TO TAKE IMAGE' }} />
+                <Header headerText={{ title: 'CLICK BELOW TO TAKE IMAGE' }} />
                 <div className="flex justify-center p-2 my-2"><label><img className='drop-shadow-lg shadow-lg' height='400' width='300' src={imgDefectDisplay ? imgDefectDisplay : defect} alt='' /><input accept='image/*”' type='file' className="filetype" capture='environment' onChange={onImgDefectChange} style={{ display: 'none' }} /></label></div>
 
-                <Header headerText={{ title: 'SELECT OR KEY IN A DEFECT [*chose either one]' }} />
+                <Header headerText={{ title: 'SELECT OR KEY IN A DEFECT [*chose one]' }} />
 
 
                 <div className="w-80 flex justify-center p-2 my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-40">
