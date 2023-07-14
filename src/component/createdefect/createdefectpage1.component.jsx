@@ -135,10 +135,10 @@ const CreateDefectPage1 = () => {
             if (curProject) {
 
                 const img = await retrieveLayoutImg(curProject, currentUser, value);
-               
+
                 setImgLayout(img);
                 setImgLayoutDisplay(img);
-             
+
 
             }
         } catch (e) {
@@ -224,15 +224,12 @@ const CreateDefectPage1 = () => {
         setDefects(DEFECTDD);
     }
 
-
-
     const handleDefectDesc = (value) => {
         setTextareaColor('error');
         setInputDesc('');
         setCurDefectDesc(value);
         setSelectColor('success');
     };
-
 
 
     const handleGetCurDefList = async (project, user) => {
@@ -251,6 +248,20 @@ const CreateDefectPage1 = () => {
     const handleAddDefect = async () => {
         //to check if input are empty or only space, if all no empty only proceed to create
         try {
+            const stateFields = [
+                { state: curProject, label: 'Project' },
+                { state: curFloor, label: 'Floor' },
+                { state: curArea, label: 'Area' },
+                { state: curElement, label: 'Element' },
+                { state: imgLayoutDisplay, label: 'Layout Image' },
+                { state: curDefectDesc, label: 'Defect Description' },
+                { state: imgDefectDisplay, label: 'Defect Image' },
+            ];
+
+            // Function to check if a state is empty
+            const isEmpty = (state) => {
+                return state === null || state === undefined || state === '';
+            };
 
             if (curProject && curFloor && curArea && curElement && imgLayoutDisplay && curDefectDesc && imgDefectDisplay) {
 
@@ -270,16 +281,23 @@ const CreateDefectPage1 = () => {
                         await addDefect(curProject, curFloor, curArea, curElement, defCount, curDefectDesc.toUpperCase(), xpos, ypos + 2, urlDefect, currentUser)
                     })
                     .then(handleSetCurDefList(curProject, currentUser, defCount));
-
+                fieldreset();
                 setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-green-700 items-center bg-green-100 w-72  drop-shadow-md shadow-md'>Defect no. {defCount} Added.</div>);
 
             } else {
-                setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-red-700 items-center bg-red-100 w-72 drop-shadow-md shadow-md'>Please input all required fields.</div>);
+
+                let emptyValue = [];
+                for (const field of stateFields) {
+                    if (isEmpty(field.state)) {
+
+                        emptyValue.push(field.label);
+                    }
+                }
+
+                setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-red-700 items-center w-72 '> Please input required fields: {emptyValue.join(', ')}.</div>);
             }
         } catch (e) {
             alert(e.message)
-        } finally {
-            fieldreset();
         }
 
     }
@@ -394,10 +412,10 @@ const CreateDefectPage1 = () => {
         setXpos(corX);
         setYpos(corY);
 
-    
+
     }
 
-    
+
     const handleInputDesc = (e) => {
         setCurDefectDesc(e.target.value);
         setInputDesc(e.target.value);
@@ -438,7 +456,6 @@ const CreateDefectPage1 = () => {
 
     useEffect(() => {
         const updateSize = () => {
-            console.log('updateSize');
             getImageStartPosition();
         };
 

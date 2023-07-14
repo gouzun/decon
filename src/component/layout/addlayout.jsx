@@ -4,7 +4,7 @@ import Header from '../header/header.component';
 import Footer from '../footer/footer.component';
 
 import { Input, Textarea, Button } from "@material-tailwind/react";
-import { addProject, generateProjectList, retrieveLayoutImg, storeImg, addProjectFlrUrl,retrieveDefectSummary } from '../../utils/firebase/firebase.utils';
+import { addProject, generateProjectList, retrieveLayoutImg, storeImg, addProjectFlrUrl, retrieveDefectSummary } from '../../utils/firebase/firebase.utils';
 import { useContext, useState, useEffect } from "react";
 import { GeneralContext } from "../../context/generalcontext.component";
 import { NAVBARCOLOR, BUTTONCOLOR, LABELCOLOR, LABELHOVERCOLOR } from '../../utils/theme.js';
@@ -45,7 +45,7 @@ const AddLayout = () => {
     const navigate = useNavigate();
     const [rowCount, setRowCount] = useState(0);
     const [ele, setEle] = useState([]);
-    const [lock,setLock] = useState(0);
+    const [lock, setLock] = useState(0);
     let RowBgStyle = '';
     let row = 0;
 
@@ -59,11 +59,10 @@ const AddLayout = () => {
                 const img = await retrieveLayoutImg(curProject, currentUser, value);
                 if (img !== null) {
                     // setTimeout(() => { }, 2000);
-                    let count =await handleSearchDefectCount();
-                    setLock(prevLock => count);
+
                     setImgLayout(img);
                     setImgLayoutDisplay(img);
-                    
+
                 } else {
                     console.log('layout not exist yet.');
                     setImgLayoutDisplay(layout);
@@ -87,12 +86,12 @@ const AddLayout = () => {
                 // console.log('handlePDD :', value + '-' + currentUser + '-' + curFloor);
                 const img = await retrieveLayoutImg(value, currentUser, curFloor);
 
-                let count =await handleSearchDefectCount();
-          
-                setLock(prevLock => count);
+                // let count =await handleSearchDefectCount();
+
+                // setLock(prevLock => count);
                 setImgLayout(img);
                 setImgLayoutDisplay(img);
-      
+
             }
         } catch (e) {
             if (e.code === 'storage/object-not-found') {
@@ -134,8 +133,10 @@ const AddLayout = () => {
 
         //check if layout already exisit
         const img = await retrieveLayoutImg(curProject, currentUser, curFloor);
+        let count = await handleSearchDefectCount();
+        console.log(count);
         console.log('img:', img);
-        if (img !== null) {
+        if (img !== null && count > 0) {
             console.log('img exist');
             handleOpen();
         } else {
@@ -206,7 +207,7 @@ const AddLayout = () => {
 
     }
 
-  
+
 
     useEffect(() => {
         generateDropDown();
@@ -229,9 +230,9 @@ const AddLayout = () => {
     }, []);
 
     const handleSearchDefectCount = async () => {
-        try { 
-            let count = 0;     
-            if (curProject && curFloor) {              
+        try {
+            let count = 0;
+            if (curProject && curFloor) {
 
                 const defectlist = await retrieveDefectSummary(curProject, curFloor, currentUser);
                 count = defectlist.length;
@@ -240,7 +241,7 @@ const AddLayout = () => {
 
         }
         catch (error) {
-            console.log(`Error :${error.code},${error.message}`);           
+            console.log(`Error :${error.code},${error.message}`);
         }
 
     };
@@ -260,7 +261,7 @@ const AddLayout = () => {
                     })}
                 </Select>
             </div>
-{lock}
+
             <div id='fdd' className="w-80 flex justify-center p-2  my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-10">
                 <Select label="FLOOR [*required]" value={curFloor} onChange={handleFloorDD}>
 
@@ -338,7 +339,7 @@ const AddLayout = () => {
             <Dialog open={open} handler={handleOpen}>
                 <DialogHeader>Layout Plan Exists</DialogHeader>
                 <DialogBody divider>
-                    Please note that there is already a layout plan existing in the database. Replacing the existing layout plan will have an impact on all the existing defect information stored in the database.This changes cannot be reverted.
+                    Please note that there is already a layout plan existing in the database. Replacing the existing layout plan will have an impact on all the existing defect information stored in the database.This changes cannot be proceed.
                 </DialogBody>
                 <DialogFooter>
                     <Button
@@ -349,9 +350,7 @@ const AddLayout = () => {
                     >
                         <span>Cancel</span>
                     </Button>
-                    <Button variant="gradient" color="green" onClick={handleAddLayout}>
-                        <span>Confirm Replace</span>
-                    </Button>
+
                 </DialogFooter>
             </Dialog>
         </Fragment></>
