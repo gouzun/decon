@@ -14,7 +14,8 @@ const defaultFormFields = {
     displayName: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    contact:'',
 }
 
 const SignUpForm = () => {
@@ -22,7 +23,7 @@ const SignUpForm = () => {
     const navigate = useNavigate();
     const [formFields, setFormFields] = useState(defaultFormFields);
 
-    const { email, password, confirmPassword } = formFields;
+    const { email, password, confirmPassword,contact } = formFields;
     const { setCurrentUser } = useContext(UserContext);
     const resetFormFields = () => {
         setFormFields(defaultFormFields);
@@ -35,7 +36,7 @@ const SignUpForm = () => {
                 setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-red-700 items-center bg-red-100 w-72  drop-shadow-md shadow-md'>Creating account. Please wait. <img src={spinner} alt='' /></div>);
 
                 const { user } = await createAuthUserWithEmailAndPassword(email, password);
-                await createUserDocumentFromAuth(user).then(
+                await createUserDocumentFromAuth(user,contact).then(
                     setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-green-700 items-center bg-green-100 w-72  drop-shadow-md shadow-md'>Account created.</div>))
                     .then(setCurrentUser(email))
                     .then(sessionStorage.setItem('user', email))
@@ -57,8 +58,15 @@ const SignUpForm = () => {
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-        setFormFields({ ...formFields, [name]: value })
-    };
+      
+        // Only allow numbers for the 'contact' field
+        if (name === 'contact') {
+          const cleanedInput = value.replace(/\D/g, '');
+          setFormFields({ ...formFields, [name]: cleanedInput });
+        } else {
+          setFormFields({ ...formFields, [name]: value });
+        }
+      };
 
     return (
 
@@ -67,6 +75,8 @@ const SignUpForm = () => {
             <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center'>
 
                 <div className="w-72 flex justify-center p-2 my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100"><Input label="Email*" type="email" required onChange={handleChange} name='email' value={email} /></div>
+                <div className="w-72 flex justify-center p-2 my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100"><Input label="Contact*" type="number" required onChange={handleChange} name='contact' value={contact} /></div>
+              
                 <div className="w-72 flex justify-center p-2 my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100"><Input label="Password*" type="password" required onChange={handleChange} name='password' value={password} /></div>
                 <div className="w-72 flex justify-center p-2 my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100"><Input label="Confirm Password*" type="password" required onChange={handleChange} name='confirmPassword' value={confirmPassword} /></div>
                 {isLoading}

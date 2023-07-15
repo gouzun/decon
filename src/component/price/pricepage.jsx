@@ -46,7 +46,7 @@ const PricePage = () => {
         }
         else {
             console.log('in');
-            
+
             try {
                 //node
                 let obj = {
@@ -95,7 +95,7 @@ const PricePage = () => {
     };
 
     const handleProjectChange = (value) => {
-      
+
         setSelectedProject(value);
     }
 
@@ -113,10 +113,19 @@ const PricePage = () => {
         }
     }, []);
 
+    const Mailto = ({ email, subject, body, ...props }) => {
+        return (
+            <a href={`mailto:${email}?subject=${subject || ""}&body=${body || ""}`}>
+                {props.children}
+            </a>
+        );
+    }
+
     return (<>
         <div className={`flex flex-col justify-center items-center bg-gray-300 min-h-screen w-full pt-20 ${BGCOLOR} text-center`}>
             <Header headerText={{ title: 'PRICE RATE (RM)' }} />
-            <div className="flex md:flex-row flex-col gap-6">
+
+            <div className="flex md:flex-row flex-col gap-6 pb-8">
                 <Card color="indigo" variant="gradient" className="w-full max-w-[20rem] p-8">
                     <CardHeader
                         floated={false}
@@ -136,36 +145,48 @@ const PricePage = () => {
                             color="white"
                             className="mt-6 flex justify-center gap-1 text-7xl font-normal"
                         >
-                            <span className="mt-2 text-4xl">RM</span>15{" "}
+                            <span className="mt-2 text-4xl">RM</span>20{" "}
                             <span className="self-end text-2xl">/project</span>
                         </Typography>
                     </CardHeader>
                     <CardBody className="p-0">
                         <ul className="flex flex-col gap-4">
+                            <li className="flex items-center gap-4 justify-center">What you will get :</li>
                             <li className="flex items-center gap-4">
                                 <span className="rounded-full border border-white/20 bg-white/20 p-1">
                                     <CheckIcon strokeWidth={2} className="h-3 w-3" />
                                 </span>
-                                <Typography className="font-normal">Ads free</Typography>
-                            </li>
-
-                            <li className="flex items-center gap-4">
-                                <span className="rounded-full border border-white/20 bg-white/20 p-1">
-                                    <CheckIcon strokeWidth={2} className="h-3 w-3" />
-                                </span>
-                                <Typography className="font-normal">Summary graph included</Typography>
+                                <Typography className="font-normal">Defect report with images</Typography>
                             </li>
                             <li className="flex items-center gap-4">
                                 <span className="rounded-full border border-white/20 bg-white/20 p-1">
                                     <CheckIcon strokeWidth={2} className="h-3 w-3" />
                                 </span>
-                                <Typography className="font-normal">A4 printable pdf report</Typography>
+                                <Typography className="font-normal">Defect Summary graph</Typography>
                             </li>
                             <li className="flex items-center gap-4">
                                 <span className="rounded-full border border-white/20 bg-white/20 p-1">
                                     <CheckIcon strokeWidth={2} className="h-3 w-3" />
                                 </span>
-                                <Typography className="font-normal">Technical support provided</Typography>
+                                <Typography className="font-normal">A4 size pdf report</Typography>
+                            </li>
+                            <li className="flex items-center gap-4">
+                                <span className="rounded-full border border-white/20 bg-white/20 p-1">
+                                    <CheckIcon strokeWidth={2} className="h-3 w-3" />
+                                </span>
+                                <Typography className="font-normal">Ebook for How-To-Inspect</Typography>
+                            </li>
+                            <li className="flex items-center gap-4">
+                                <span className="rounded-full border border-white/20 bg-white/20 p-1">
+                                    <CheckIcon strokeWidth={2} className="h-3 w-3" />
+                                </span>
+                                <Typography className="font-normal">Guidance provided</Typography>
+                            </li>
+                            <li className="flex items-center gap-4">
+                                <span className="rounded-full border border-white/20 bg-white/20 p-1">
+                                    <CheckIcon strokeWidth={2} className="h-3 w-3" />
+                                </span>
+                                <Typography className="font-normal">Technical support</Typography>
                             </li>
                         </ul>
                     </CardBody>
@@ -182,7 +203,7 @@ const PricePage = () => {
                                 <div>
                                     <input
                                         type="text"
-                                        className="px-6 py-2 border border-gray-300 bg-white text-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        className="w-full px-6 py-2 border border-gray-300 bg-white text-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         placeholder="Buyer name"
                                         onChange={handleBuyerName}
                                         value={buyerName}
@@ -212,8 +233,112 @@ const PricePage = () => {
 
                     </CardFooter>
                 </Card>
+                <Card color="blue" variant="gradient" className="w-full max-w-[20rem] p-8">
+                <CardHeader
+                    floated={false}
+                    shadow={false}
+                    color="transparent"
+                    className="m-0 mb-8 rounded-none border-b border-white/10 pb-8 text-center"
+                >
+                    <Typography
+                        variant="small"
+                        color="white"
+                        className="font-normal uppercase"
+                    >
+                        FOR DEFECT INSPECTOR/CONTRACTOR/PROPERTY AGENT
+                    </Typography>
+                    <Typography
+                            variant="h1"
+                            color="white"
+                            className="mt-6 flex justify-center gap-1 text-7xl font-normal"
+                        >
+                            <span className="mt-2 text-4xl">TO BE QUOTED</span>
+                            <span className="self-end text-2xl">/month</span>
+                        </Typography>
+                </CardHeader>
+                <CardBody className="p-0">
+                    <ul className="flex flex-col gap-4">
+                        <li className="flex items-center gap-4 justify-center">What you will get :</li>
+                        <li className="flex items-center gap-4">
+                            <span className="rounded-full border border-white/20 bg-white/20 p-1">
+                                <CheckIcon strokeWidth={2} className="h-3 w-3" />
+                            </span>
+                            <Typography className="font-normal">Unlimited project creation</Typography>
+                        </li>
+                        <li className="flex items-center gap-4">
+                            <span className="rounded-full border border-white/20 bg-white/20 p-1">
+                                <CheckIcon strokeWidth={2} className="h-3 w-3" />
+                            </span>
+                            <Typography className="font-normal">Customize report with logo</Typography>
+                        </li>
+                        <li className="flex items-center gap-4">
+                            <span className="rounded-full border border-white/20 bg-white/20 p-1">
+                                <CheckIcon strokeWidth={2} className="h-3 w-3" />
+                            </span>
+                            <Typography className="font-normal">Multiple users at once</Typography>
+                        </li>
+                        <li className="flex items-center gap-4">
+                            <span className="rounded-full border border-white/20 bg-white/20 p-1">
+                                <CheckIcon strokeWidth={2} className="h-3 w-3" />
+                            </span>
+                            <Typography className="font-normal">Defect report with images</Typography>
+                        </li>
+                        <li className="flex items-center gap-4">
+                            <span className="rounded-full border border-white/20 bg-white/20 p-1">
+                                <CheckIcon strokeWidth={2} className="h-3 w-3" />
+                            </span>
+                            <Typography className="font-normal">Defect Summary graph</Typography>
+                        </li>
+                        <li className="flex items-center gap-4">
+                            <span className="rounded-full border border-white/20 bg-white/20 p-1">
+                                <CheckIcon strokeWidth={2} className="h-3 w-3" />
+                            </span>
+                            <Typography className="font-normal">A4 size pdf report</Typography>
+                        </li>
+                        
+                        <li className="flex items-center gap-4">
+                            <span className="rounded-full border border-white/20 bg-white/20 p-1">
+                                <CheckIcon strokeWidth={2} className="h-3 w-3" />
+                            </span>
+                            <Typography className="font-normal">Guidance provided</Typography>
+                        </li>
+                        <li className="flex items-center gap-4">
+                            <span className="rounded-full border border-white/20 bg-white/20 p-1">
+                                <CheckIcon strokeWidth={2} className="h-3 w-3" />
+                            </span>
+                            <Typography className="font-normal">Technical support</Typography>
+                        </li>
+                    </ul>
+                </CardBody>
+                <CardFooter className="mt-12 p-0">
+                    {logged ? (<>
+                        <Mailto email="checkandinspectmy@gmail.com" subject="Inquiry for INSPECTMY monthly service." body="">
+                       
+                    
+                        <Button
+                            size="lg"
+                            color="white"
+                            className="text-blue-500 hover:scale-[1.02] focus:scale-[1.02] active:scale-100"
+                            ripple={false}
+                            fullWidth={true}
+                            
+                        >
+                            EMAIL US
+                            {loading ? <Loader /> : ''}
+                        </Button></Mailto></>) : (<Link to='/signin' className={`${NAVBARTEXTHOVER}`}><Button
+                            size="lg"
+                            color="white"
+                            className="text-blue-500 hover:scale-[1.02] focus:scale-[1.02] active:scale-100"
+                            ripple={false}
+                            fullWidth={true}
+                        >
+                            Login/Sign Up Now
+                        </Button></Link>)}
 
+                </CardFooter>
+            </Card>
             </div>
+           
             <Footer />
         </div>
         <Fragment>
@@ -221,10 +346,10 @@ const PricePage = () => {
             <Dialog open={open} handler={handleOpen}>
                 <DialogHeader>Insufficient Information</DialogHeader>
                 <DialogBody divider>
-                    Please select a project and input your name.                 
+                    Please select a project and input your name.
                 </DialogBody>
                 <DialogFooter>
-                    
+
                     <Button variant="gradient" color="green" onClick={handleOpen}>
                         <span>OK</span>
                     </Button>
@@ -234,10 +359,10 @@ const PricePage = () => {
             <Dialog open={openExist} handler={handleOpenExist}>
                 <DialogHeader>Bill Already Exists</DialogHeader>
                 <DialogBody divider>
-                Bill for selected project already exists. Please go to account to check status.
+                    Bill for selected project already exists. Please go to account to check status.
                 </DialogBody>
                 <DialogFooter>
-                    
+
                     <Button variant="gradient" color="green" onClick={handleOpenExist}>
                         <span>OK</span>
                     </Button>

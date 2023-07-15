@@ -38,10 +38,10 @@ const PdfMobile = (result) => {
 
 
                             <div id={index} className="flex flex-col justify-center text-base py-4">
-                                <div className='py-3 font-bold h-12 flex flex-row'>
+                                <div className='py-3 font-bold h-8 flex flex-row'>
                                     <div className='w-28 '>FLOOR : </div><div className=''>{item["floor"]}</div></div>
 
-                                <div className='py-3 font-bold h-12 flex flex-row'>
+                                <div className='py-3 font-bold h-8 flex flex-row'>
                                     <div className='w-28 '>AREA : </div><div className=''>{item["area"]}</div></div>
 
                                 <div className='py-3 font-bold h-12 flex flex-row'>

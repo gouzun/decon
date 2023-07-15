@@ -7,12 +7,11 @@ const ContentNavBar = () => {
 
     return (
         <Fragment>
-            <div className={`flex flex-row items-center w-full h-16 drop-shadow-lg shadow-lg ${CONTENTNAVBARCOLOR} overflow-x-auto gap-5 pr-8 fixed z-50 `} >
-
-                <div className={`flex justify-start items-center pl-4 pt-2`} >
-                    <img src={LOGO} alt='' height='70' width='100' /></div>
-                <div className={`flex justify-end ${NAVBARTEXT} items-center w-full overflow-x-auto gap-5 pr-4`} >
-              
+            <div className={`flex flex-row items-center w-full min-h-16 drop-shadow-lg shadow-lg ${CONTENTNAVBARCOLOR} overflow-x-auto gap-5 pr-8 fixed z-50`}>
+                <div className={`flex justify-start items-center pl-4 pt-2`}>
+                    <img src={LOGO} alt='' height='70' width='100' />
+                </div>
+                <div className={`flex justify-end ${NAVBARTEXT} items-center w-full overflow-x-auto gap-5 pr-4`}>
                     <Link to='/app' className={`${NAVBARTEXTHOVER}`}>APP</Link>
                     <Link to='/signin' className={`${NAVBARTEXTHOVER}`}>LOGIN</Link>
                     <Link to='/pricing' className={`${NAVBARTEXTHOVER}`}>PRICING</Link>
@@ -20,7 +19,6 @@ const ContentNavBar = () => {
                 </div>
             </div>
             <Outlet />
-
         </Fragment>
     );
 };
