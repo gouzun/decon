@@ -3,8 +3,8 @@ import Loader from '../../utils/Loader';
 import Header from '../header/header.component';
 import Footer from '../footer/footer.component';
 
-import { Input, Textarea, Button } from "@material-tailwind/react";
-import { addProject, generateProjectList, retrieveLayoutImg, storeImg, addProjectFlrUrl, retrieveDefectSummary } from '../../utils/firebase/firebase.utils';
+import { Button } from "@material-tailwind/react";
+import { generateProjectList, retrieveLayoutImg, storeImg, addProjectFlrUrl, retrieveDefectSummary,retrieveProjectLock } from '../../utils/firebase/firebase.utils';
 import { useContext, useState, useEffect } from "react";
 import { GeneralContext } from "../../context/generalcontext.component";
 import { NAVBARCOLOR, BUTTONCOLOR, LABELCOLOR, LABELHOVERCOLOR } from '../../utils/theme.js';
@@ -45,7 +45,7 @@ const AddLayout = () => {
     const navigate = useNavigate();
     const [rowCount, setRowCount] = useState(0);
     const [ele, setEle] = useState([]);
-    const [lock, setLock] = useState(0);
+ 
     let RowBgStyle = '';
     let row = 0;
 
@@ -133,9 +133,8 @@ const AddLayout = () => {
 
         //check if layout already exisit
         const img = await retrieveLayoutImg(curProject, currentUser, curFloor);
-        let count = await handleSearchDefectCount();
-        console.log(count);
-        console.log('img:', img);
+        let count = await retrieveProjectLock(curProject, currentUser);
+      
         if (img !== null && count > 0) {
             console.log('img exist');
             handleOpen();

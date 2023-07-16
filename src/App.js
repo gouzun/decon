@@ -15,7 +15,6 @@ import SignOut from './component/signout/signout-component';
 import Manual from './component/manual/manual';
 import { UserContext } from '../src/context/user.context';
 import Content from '../src/component/content/content';
-import ContactUs from '../src/component/contactus/contactus.component';
 import ContentNavBar from './navigation/navbar/contentnavbar.component';
 import PricePage from './component/price/pricepage';
 import PaymentRedirect from './component/price/paymentredirect';
@@ -57,8 +56,7 @@ const App = () => {
           <Route path='/menu' element={<MainMenu />} />
           <Route path='/signin' element={<SignInForm />} />
           <Route path='/signup' element={<SignUpForm />} />
-          <Route path='/app' element={<Content />} />
-          <Route path='/contactus' element={<ContactUs />} />
+          <Route path='/app' element={<Content />} />         
           <Route path='/pricing' element={<PricePage />} />
           <Route path='/payment-redirect' element={<PaymentRedirect />} />
         </Route>

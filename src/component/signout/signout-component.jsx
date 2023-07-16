@@ -7,7 +7,6 @@ import { UserContext } from '../../context/user.context';
 import { signOutUser } from "../../utils/firebase/firebase.utils";
 import { GeneralContext } from "../../context/generalcontext.component";
 
-import ContactUs from "../contactus/contactus.component";
 const SignOut = () => {
     const { setCurrentUser } = useContext(UserContext);
     const { setXpos, setYpos,

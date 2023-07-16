@@ -13,14 +13,13 @@ import {
 } from "@material-tailwind/react";
 import Header from '../header/header.component';
 import Footer from '../footer/footer.component';
-import { addDefect, retrieveDefectListForProject, updateDefectListForProject, storeImg, generateProjectList } from '../../utils/firebase/firebase.utils';
+import { addDefect, retrieveDefectListForProject, updateDefectListForProject, storeImg, generateProjectList,addProjectLock } from '../../utils/firebase/firebase.utils';
 import { FLOORDD, AREADD, ELEMENTDD, FLOORDEFECTS, INTERNALWALLDEFECTS, CEILINGDEFECTS, DOORDEFECTS, WINDOWSDEFECTS, INTERNALFIXTURESDEFECTS, ROOFDEFECTS, EXTERNALWALLDEFECTS, PERIMETREDEFECTS, CARPARKDEFECTS, MEDEFECTS, FENCINGANDDATEDEFECTS } from '../../utils/theme';
 import Compressor from 'compressorjs';
 import { retrieveLayoutImg } from '../../utils/firebase/firebase.utils';
 import spinner from '../../assets/img/spinner.svg'
 import { UserContext } from '../../context/user.context';
 import { useNavigate } from 'react-router-dom';
-import { PINTEXTBLACK } from "../../utils/theme";
 import { BUTTONCOLOR, LABELHOVERCOLOR } from '../../utils/theme';
 import Loader from '../../utils/Loader';
 
@@ -245,6 +244,7 @@ const CreateDefectPage1 = () => {
         setCurDefectList(arr);
     };
 
+
     const handleAddDefect = async () => {
         //to check if input are empty or only space, if all no empty only proceed to create
         try {
@@ -280,7 +280,8 @@ const CreateDefectPage1 = () => {
                     .then(async (urlDefect) => {
                         await addDefect(curProject, curFloor, curArea, curElement, defCount, curDefectDesc.toUpperCase(), xpos, ypos + 2, urlDefect, currentUser)
                     })
-                    .then(handleSetCurDefList(curProject, currentUser, defCount));
+                    .then(handleSetCurDefList(curProject, currentUser, defCount))
+                    .then(addProjectLock(curProject,curFloor,currentUser));
                 fieldreset();
                 setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-green-700 items-center bg-green-100 w-72  drop-shadow-md shadow-md'>Defect no. {defCount} Added.</div>);
 

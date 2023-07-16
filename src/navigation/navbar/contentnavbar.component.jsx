@@ -15,7 +15,7 @@ const ContentNavBar = () => {
                     <Link to='/app' className={`${NAVBARTEXTHOVER}`}>APP</Link>
                     <Link to='/signin' className={`${NAVBARTEXTHOVER}`}>LOGIN</Link>
                     <Link to='/pricing' className={`${NAVBARTEXTHOVER}`}>PRICING</Link>
-                    <Link to='/contactus' className={`${NAVBARTEXTHOVER}`}>CONTACT US</Link>
+                   
                 </div>
             </div>
             <Outlet />

@@ -234,20 +234,20 @@ const PricePage = () => {
                     </CardFooter>
                 </Card>
                 <Card color="blue" variant="gradient" className="w-full max-w-[20rem] p-8">
-                <CardHeader
-                    floated={false}
-                    shadow={false}
-                    color="transparent"
-                    className="m-0 mb-8 rounded-none border-b border-white/10 pb-8 text-center"
-                >
-                    <Typography
-                        variant="small"
-                        color="white"
-                        className="font-normal uppercase"
+                    <CardHeader
+                        floated={false}
+                        shadow={false}
+                        color="transparent"
+                        className="m-0 mb-8 rounded-none border-b border-white/10 pb-8 text-center"
                     >
-                        FOR DEFECT INSPECTOR/CONTRACTOR/PROPERTY AGENT
-                    </Typography>
-                    <Typography
+                        <Typography
+                            variant="small"
+                            color="white"
+                            className="font-normal uppercase"
+                        >
+                            FOR DEFECT INSPECTOR/CONTRACTOR/PROPERTY AGENT
+                        </Typography>
+                        <Typography
                             variant="h1"
                             color="white"
                             className="mt-6 flex justify-center gap-1 text-7xl font-normal"
@@ -255,90 +255,77 @@ const PricePage = () => {
                             <span className="mt-2 text-4xl">TO BE QUOTED</span>
                             <span className="self-end text-2xl">/month</span>
                         </Typography>
-                </CardHeader>
-                <CardBody className="p-0">
-                    <ul className="flex flex-col gap-4">
-                        <li className="flex items-center gap-4 justify-center">What you will get :</li>
-                        <li className="flex items-center gap-4">
-                            <span className="rounded-full border border-white/20 bg-white/20 p-1">
-                                <CheckIcon strokeWidth={2} className="h-3 w-3" />
-                            </span>
-                            <Typography className="font-normal">Unlimited project creation</Typography>
-                        </li>
-                        <li className="flex items-center gap-4">
-                            <span className="rounded-full border border-white/20 bg-white/20 p-1">
-                                <CheckIcon strokeWidth={2} className="h-3 w-3" />
-                            </span>
-                            <Typography className="font-normal">Customize report with logo</Typography>
-                        </li>
-                        <li className="flex items-center gap-4">
-                            <span className="rounded-full border border-white/20 bg-white/20 p-1">
-                                <CheckIcon strokeWidth={2} className="h-3 w-3" />
-                            </span>
-                            <Typography className="font-normal">Multiple users at once</Typography>
-                        </li>
-                        <li className="flex items-center gap-4">
-                            <span className="rounded-full border border-white/20 bg-white/20 p-1">
-                                <CheckIcon strokeWidth={2} className="h-3 w-3" />
-                            </span>
-                            <Typography className="font-normal">Defect report with images</Typography>
-                        </li>
-                        <li className="flex items-center gap-4">
-                            <span className="rounded-full border border-white/20 bg-white/20 p-1">
-                                <CheckIcon strokeWidth={2} className="h-3 w-3" />
-                            </span>
-                            <Typography className="font-normal">Defect Summary graph</Typography>
-                        </li>
-                        <li className="flex items-center gap-4">
-                            <span className="rounded-full border border-white/20 bg-white/20 p-1">
-                                <CheckIcon strokeWidth={2} className="h-3 w-3" />
-                            </span>
-                            <Typography className="font-normal">A4 size pdf report</Typography>
-                        </li>
-                        
-                        <li className="flex items-center gap-4">
-                            <span className="rounded-full border border-white/20 bg-white/20 p-1">
-                                <CheckIcon strokeWidth={2} className="h-3 w-3" />
-                            </span>
-                            <Typography className="font-normal">Guidance provided</Typography>
-                        </li>
-                        <li className="flex items-center gap-4">
-                            <span className="rounded-full border border-white/20 bg-white/20 p-1">
-                                <CheckIcon strokeWidth={2} className="h-3 w-3" />
-                            </span>
-                            <Typography className="font-normal">Technical support</Typography>
-                        </li>
-                    </ul>
-                </CardBody>
-                <CardFooter className="mt-12 p-0">
-                    {logged ? (<>
-                        <Mailto email="checkandinspectmy@gmail.com" subject="Inquiry for INSPECTMY monthly service." body="">
-                       
-                    
-                        <Button
-                            size="lg"
-                            color="white"
-                            className="text-blue-500 hover:scale-[1.02] focus:scale-[1.02] active:scale-100"
-                            ripple={false}
-                            fullWidth={true}
-                            
-                        >
-                            EMAIL US
-                            {loading ? <Loader /> : ''}
-                        </Button></Mailto></>) : (<Link to='/signin' className={`${NAVBARTEXTHOVER}`}><Button
-                            size="lg"
-                            color="white"
-                            className="text-blue-500 hover:scale-[1.02] focus:scale-[1.02] active:scale-100"
-                            ripple={false}
-                            fullWidth={true}
-                        >
-                            Login/Sign Up Now
-                        </Button></Link>)}
+                    </CardHeader>
+                    <CardBody className="p-0">
+                        <ul className="flex flex-col gap-4">
+                            <li className="flex items-center gap-4 justify-center">What you will get :</li>
+                            <li className="flex items-center gap-4">
+                                <span className="rounded-full border border-white/20 bg-white/20 p-1">
+                                    <CheckIcon strokeWidth={2} className="h-3 w-3" />
+                                </span>
+                                <Typography className="font-normal">Unlimited project creation</Typography>
+                            </li>
+                            <li className="flex items-center gap-4">
+                                <span className="rounded-full border border-white/20 bg-white/20 p-1">
+                                    <CheckIcon strokeWidth={2} className="h-3 w-3" />
+                                </span>
+                                <Typography className="font-normal">Customize report with logo</Typography>
+                            </li>
+                            <li className="flex items-center gap-4">
+                                <span className="rounded-full border border-white/20 bg-white/20 p-1">
+                                    <CheckIcon strokeWidth={2} className="h-3 w-3" />
+                                </span>
+                                <Typography className="font-normal">Multiple users</Typography>
+                            </li>
+                            <li className="flex items-center gap-4">
+                                <span className="rounded-full border border-white/20 bg-white/20 p-1">
+                                    <CheckIcon strokeWidth={2} className="h-3 w-3" />
+                                </span>
+                                <Typography className="font-normal">Defect report with images</Typography>
+                            </li>
+                            <li className="flex items-center gap-4">
+                                <span className="rounded-full border border-white/20 bg-white/20 p-1">
+                                    <CheckIcon strokeWidth={2} className="h-3 w-3" />
+                                </span>
+                                <Typography className="font-normal">Defect Summary graph</Typography>
+                            </li>
+                            <li className="flex items-center gap-4">
+                                <span className="rounded-full border border-white/20 bg-white/20 p-1">
+                                    <CheckIcon strokeWidth={2} className="h-3 w-3" />
+                                </span>
+                                <Typography className="font-normal">A4 size pdf report</Typography>
+                            </li>
 
-                </CardFooter>
-            </Card>
+                            <li className="flex items-center gap-4">
+                                <span className="rounded-full border border-white/20 bg-white/20 p-1">
+                                    <CheckIcon strokeWidth={2} className="h-3 w-3" />
+                                </span>
+                                <Typography className="font-normal">Guidance provided</Typography>
+                            </li>
+                            <li className="flex items-center gap-4">
+                                <span className="rounded-full border border-white/20 bg-white/20 p-1">
+                                    <CheckIcon strokeWidth={2} className="h-3 w-3" />
+                                </span>
+                                <Typography className="font-normal">Technical support</Typography>
+                            </li>
+                        </ul>
+                    </CardBody>
+                    <CardFooter className="mt-12 p-0">
+                        <Mailto email="checkandinspectmy@gmail.com" subject="Inquiry for INSPECTMY monthly service." body="" target="_blank">
+                            <Button
+                                size="lg"
+                                color="white"
+                                className="text-blue-500 hover:scale-[1.02] focus:scale-[1.02] active:scale-100"
+                                ripple={false}
+                                fullWidth={true}
+                            >
+                                EMAIL US
+                                {loading ? <Loader /> : ''}
+                            </Button></Mailto>
+                    </CardFooter>
+                </Card>
             </div>
-           
+
             <Footer />
         </div>
         <Fragment>

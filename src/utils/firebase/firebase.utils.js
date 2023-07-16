@@ -194,6 +194,8 @@ export const generateProjectList = async (user) => {
     }
 }
 
+
+
 export const retrieveDefectListForProject = async (project, user) => {
 
     try {
@@ -311,6 +313,19 @@ export const addProjectFlrUrl = async (project, floor, url, user) => {
     }
 }
 
+export const addProjectLock = async (project, floor, user) => {
+    try {
+        const docRef = doc(db, "ProjectList", project + '-' + user);
+        let data = {
+            lock: true
+        }   
+
+        await updateDoc(docRef, data);
+    } catch (error) {
+        console.log(`Error :${error.code},${error.message}`);
+    }
+}
+
 export const retrieveLayoutImg = async (project, user, floor) => {
     try {
 
@@ -339,6 +354,19 @@ export const retrieveLayoutImg = async (project, user, floor) => {
     }
 }
 
+export const retrieveProjectLock = async (project, user) => {
+
+    const docRef = doc(db, "ProjectList", project + '-' + user);
+    const docSnap = await getDoc(docRef);
+    const lock  = docSnap.data().lock;
+    
+    if(lock){
+        return 1;
+    }else{
+        return 0;
+    }
+    
+}
 
 export const retrieveDefectSummary = async (project, flr, user) => {
 
