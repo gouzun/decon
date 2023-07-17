@@ -147,7 +147,8 @@ export async function addDefect(project, floor, area, element, defectCount, defe
             defectxpos: defectxpos,
             defectypos: defectypos,
             url: urldefect,
-            user: user
+            user: user,
+            status:'PENDING',
         }
 
         await setDoc(docRef, newData);
@@ -406,7 +407,9 @@ export const retrieveDefectSummary = async (project, flr, user) => {
                         defectypos: doc.get('defectypos'),
                         element: doc.get('element'),
                         floor: doc.get('floor'),
-                        url: doc.get('url')
+                        url: doc.get('url'),
+                        status:doc.get('status'),
+
                     };
                     newArrDefects.push(data);
 

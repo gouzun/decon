@@ -228,7 +228,7 @@ const ViewDefects = () => {
 
                 {marker}
 
-                {ele ? (isMobile ? <ViewMobile ele={ele} /> : <ViewDesktop ele={ele} />) : ''}
+                {ele ? <ViewMobile ele={ele} /> : ''}
 
 
                 <Footer />

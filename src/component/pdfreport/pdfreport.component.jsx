@@ -128,17 +128,17 @@ const PdfReport = () => {
         let obj = sortedObject;
         let desc = '';
         if (status === 'floor') {
-            desc += `There are total of ${totalCount} defects on this inspected property.`
+            desc += `There are total of ${totalCount} defect(s) on this inspected property.`
         }
         if (status === 'area') {
-            desc += `The total of ${totalCount} defects are divided by area, and each area will have their individual defect count as well.As defect count grouped into area,`
+            desc += `The total of ${totalCount} defect(s) are divided by area, and each area will have their individual defect count as well.As defect count grouped into area,`
         }
         if (status === 'ele') {
-            desc += `Defects can also be grouped into each different type of element defect as well. From the total of ${totalCount} defects,`
+            desc += `Defects can also be grouped into each different type of element defect as well. From the total of ${totalCount} defect(s),`
         }
 
         Object.keys(obj).map((key) => {
-            desc += ` ${(obj[key] / totalCount * 100).toFixed(2)}% of defects are ${str} ${key}, which are total of ${obj[key]} defects.`
+            desc += ` ${(obj[key] / totalCount * 100).toFixed(2)}% of defect(s) are ${str} ${key}, which are total of ${obj[key]} defect(s).`
         });
 
         return desc;

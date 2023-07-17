@@ -1,5 +1,7 @@
 import { NAVBARCOLOR, BUTTONCOLOR, LABELCOLOR, LABELHOVERCOLOR } from '../../utils/theme.js';
 import dustbin from '../../assets/img/dustbin.png';
+import pending from '../../assets/img/pending.png';
+import completed from '../../assets/img/complete.png';
 import { deleteDefect } from '../../utils/firebase/firebase.utils';
 import { useState, useContext } from 'react';
 import { GeneralContext } from '../../context/generalcontext.component';
@@ -57,28 +59,42 @@ const ViewMobile = (result) => {
 
     return (<>
         <div className='text-base flex justify-center my-2 text-gray-600'>Scroll right to view more defects.</div>
-        <div className={`flex items-center w-full drop-shadow-lg shadow-lg overflow-x-auto shrink-0 `}>
+        <div className={`flex items-top w-full drop-shadow-lg shadow-lg overflow-x-auto shrink-0 `}>
             {result.ele.map((item) => {
                 row++;
+                let bghead='';
+                let bgbody='';
+                if(item.status==='pending'){
+                     bghead ='bg-yellow-500';
+                     bgbody='bg-yellow-100';
+                }else{
+                     bghead ='bg-green-500';
+                     bgbody='bg-green-100';
+                }
                 return (
-                    <Card className="w-80 drop-shadow-lg shadow-lg flex-none my-2 mb-8 mx-4 bg-gradient-to-r from-teal-100 to-cyan-200">
-                        <CardHeader id={item["rowcount"]} floated={false} className="">
-                            <div className="flex justify-center bg-gradient-to-r from-teal-300 to-cyan-500">
+                    
+                    <Card id={item["rowcount"]} className={`w-80 drop-shadow-lg shadow-lg flex-none my-2 mb-8 mx-4 ${bgbody}`}>
+                        <CardHeader id={item["rowcount"]} floated={false} style={{ height: '400px', width: '300px' }} className=''>
+                            <div className={`flex justify-center ${bghead}`}>
                                 {row}/{result.ele.length}
                             </div>
-                            <img src={item["url"]} alt="" className="card-image object-contain" height="400" width="300" />
+                            <img src={item["url"]} alt="" className="card-image object-contain" style={{ height: '400px', width: '300px' }} />
                         </CardHeader>
                         <CardBody id={item["rowcount"]} className="card-body h-80">
-                            <Typography id={item["rowcount"]} className="flex flex-col justify-start text-base">
+                            <Typography id={item["rowcount"]} className="flex flex-col justify-start text-base gap-2">
                                 <div>DEFECT INDEX: {item["rowcount"]}</div>
                                 <div>FLOOR: {item["floor"]}</div>
                                 <div>AREA: {item["area"]}</div>
                                 <div>ELEMENT: {item["element"]}</div>
                                 <div>DEFECT DESC: {item["defectDesc"].toUpperCase()}</div>
+                                {item["status"]?(<div>DEFECT STATUS: {item["status"].toUpperCase()}</div>):''}
                             </Typography>
                         </CardBody>
-                        <CardFooter id={item["rowcount"]} divider className="flex items-center justify-center">
+                        <CardFooter id={item["rowcount"]} divider className="flex items-center justify-center gap-4">
+                            <img src={completed} alt="" className="cursor-pointer" height="30" width="30" onClick={() => confirmDelete(item["defectName"])} />
+                            <img src={pending} alt="" className="cursor-pointer" height="30" width="30" onClick={() => confirmDelete(item["defectName"])} />
                             <img src={dustbin} alt="" className="cursor-pointer" height="30" width="30" onClick={() => confirmDelete(item["defectName"])} />
+                            
                         </CardFooter>
                     </Card>
                 )

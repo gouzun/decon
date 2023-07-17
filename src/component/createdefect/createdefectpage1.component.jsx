@@ -159,8 +159,8 @@ const CreateDefectPage1 = () => {
     };
 
     const handleAreaArea = (e) => {
-        setCurArea(e.target.value);
-        setAreaArea(e.target.value);
+        setCurArea(e.target.value.toUpperCase());
+        setAreaArea(e.target.value.toUpperCase());
         setAreaAreaColor('success');
         setSelectAreaColor('error');
     }
@@ -226,7 +226,7 @@ const CreateDefectPage1 = () => {
     const handleDefectDesc = (value) => {
         setTextareaColor('error');
         setInputDesc('');
-        setCurDefectDesc(value);
+        setCurDefectDesc(value.toUpperCase());
         setSelectColor('success');
     };
 
