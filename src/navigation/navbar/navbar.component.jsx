@@ -36,7 +36,7 @@ const NavBar = () => {
         <Fragment>
             <div className={`flex ${LABELCOLOR}font-bold text-xs uppercase items-center w-full h-16 drop-shadow-lg shadow-lg ${NAVBARCOLOR} overflow-x-auto`} style={{ pointerEvents: disableNavBar }}>
                 <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/menu'><img alt='' className='w-32 h-14 pl-3' src={logo} /></Link>
-                <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/menu'><img alt='' className='w-15 h-8 ' src={menu} /><div>MAIN MENU</div></Link>
+                <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/menu'><img alt='' className='w-15 h-8 ' src={menu} /><div>HOW TO USE</div></Link>
                 <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/addprojectfile'><img alt='' className='w-15 h-8 ' src={project} /><div>ADD PROJECT</div></Link>
                 <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/addlayout'><img alt='' className='w-15 h-8 ' src={layout} /><div>ADD LAYOUT</div></Link>
                 <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/adddefect'><img alt='' className='w-15 h-8 ' src={defect} /><div>ADD DEFECT</div></Link>
@@ -46,7 +46,7 @@ const NavBar = () => {
                 <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/pricing'><img alt='' className='w-15 h-8 px-3' src={pricing} /><div>PRICING</div></Link>
                 <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/account'><img alt='' className='w-15 h-8 px-3' src={account} /><div>ACCOUNT</div></Link>
                 <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/logout'><img alt='' className='w-15 h-8 px-4' src={logout} /><div>LOG OUT</div></Link>
-                
+
             </div>
             <Outlet />
 
