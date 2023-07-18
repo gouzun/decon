@@ -22,7 +22,7 @@ const PdfMobile = (result) => {
         <div className={`flex items-top w-full drop-shadow-lg shadow-lg overflow-x-auto shrink-0 `}>
 
 
-            {result.ele.map((item,index) => {
+            {result.ele.map((item, index) => {
                 row++;
                 return (<>
                     <Card id={index} className="drop-shadow-lg shadow-lg flex-none my-2 mb-8 mx-4 bg-gradient-to-r from-teal-100 to-cyan-200" style={{ width: 360 }}>
@@ -50,7 +50,9 @@ const PdfMobile = (result) => {
                                 <div className='py-3 font-bold h-32 flex flex-col gap-2'>
                                     <div className='w-28 '>DEFECTS : </div>
                                     <div className='flex justfiy-left'>{item["defectDesc"]}</div></div>
-                                <div className='flex justify-center'>
+                                <div className='py-3 font-bold h-8 flex flex-row'>
+                                    <div className='w-28 '>STATUS : </div><div className=''>{item["status"]}</div></div>
+                                <div className='pt-3 flex justify-center'>
                                     <img src={item["url"]} alt="" className=" rounded-lg shadow-xl shadow-blue-gray-900/50" height="400" width="300" />
                                 </div>
 

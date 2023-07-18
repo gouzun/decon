@@ -471,6 +471,10 @@ const PdfReport = () => {
                         doc.text('DEFECT NO :', 20, y, { align: 'left' });
                         // doc.text((rec.rowcount).toString(), 50, y, { align: 'left' });
                         doc.text((index + 1).toString(), 50, y, { align: 'left' });
+
+                        doc.text('STATUS :', 70, y, { align: 'left' });
+                        // doc.text((rec.rowcount).toString(), 50, y, { align: 'left' });
+                        doc.text(rec.status, 86, y, { align: 'left' });
                         imageY = y - 5;
                         y += 5;
 

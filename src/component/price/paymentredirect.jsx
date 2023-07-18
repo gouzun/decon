@@ -43,26 +43,26 @@ const PaymentRedirect = () => {
 
                     });
                     if (response.ok) {
-                        // const result = await response.json();
+                        const result = await response.json();
 
-                        const data = {
-                            billplzid
-                                :
-                                "5il95qcc",
-                            billplzpaid
-                                :
-                                "true",
-                            billplzpaid_at
-                                :
-                                "2023-06-28 12:44:55 +0800",
-                            billplztransaction_id
-                                :
-                                "7AB89CE9ABCA",
-                            billplztransaction_status
-                                :
-                                "completed",
-                        }
-                        let result = {data};
+                        // const data = {
+                        //     billplzid
+                        //         :
+                        //         "5il95qcc",
+                        //     billplzpaid
+                        //         :
+                        //         "true",
+                        //     billplzpaid_at
+                        //         :
+                        //         "2023-06-28 12:44:55 +0800",
+                        //     billplztransaction_id
+                        //         :
+                        //         "7AB89CE9ABCA",
+                        //     billplztransaction_status
+                        //         :
+                        //         "completed",
+                        // }
+                        // let result = {data};
 
                      
                         

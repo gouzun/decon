@@ -2,7 +2,7 @@ import { NAVBARCOLOR, BUTTONCOLOR, LABELCOLOR, LABELHOVERCOLOR } from '../../uti
 import dustbin from '../../assets/img/dustbin.png';
 import pending from '../../assets/img/pending.png';
 import completed from '../../assets/img/complete.png';
-import { deleteDefect } from '../../utils/firebase/firebase.utils';
+import { deleteDefect,updateProjectStatus } from '../../utils/firebase/firebase.utils';
 import { useState, useContext } from 'react';
 import { GeneralContext } from '../../context/generalcontext.component';
 import { UserContext } from '../../context/user.context';
@@ -24,7 +24,10 @@ const ViewMobile = (result) => {
     let RowBgStyle = '';
     let row = 0;
     const [itemToDelete, setItemToDelete] = useState('');
+    const [defToSet, setDefToSet] = useState('');
+    const [status, setStatus] = useState('');
     const [open, setOpen] = useState(false);
+    const [openStatus, setOpenStatus] = useState(false);
     const { currentUser } = useContext(UserContext);
     const {
         render, setRender,
@@ -33,6 +36,9 @@ const ViewMobile = (result) => {
 
     const handleOpen = (value) => {
         setOpen(!open);
+    }
+    const handleOpenStatus = (value) => {
+        setOpenStatus(!openStatus);
     }
 
     const confirmDelete = (invToDelete) => {
@@ -55,6 +61,22 @@ const ViewMobile = (result) => {
 
     }
 
+    const confirmSetStatus = (def,status) => {
+        setDefToSet(def);
+        setStatus(status);
+        setOpenStatus(status);
+        handleOpenStatus();
+    }
+
+    const handleSetStatus = ()=>{
+        if (defToSet) {
+            updateProjectStatus(curProject, defToSet,status,currentUser);
+            // setItemToDelete('');
+        }
+        setRender(!render);
+        handleOpenStatus();
+    }
+
   
 
     return (<>
@@ -64,7 +86,7 @@ const ViewMobile = (result) => {
                 row++;
                 let bghead='';
                 let bgbody='';
-                if(item.status==='pending'){
+                if(item.status.toUpperCase()==='PENDING'){
                      bghead ='bg-yellow-500';
                      bgbody='bg-yellow-100';
                 }else{
@@ -81,18 +103,18 @@ const ViewMobile = (result) => {
                             <img src={item["url"]} alt="" className="card-image object-contain" style={{ height: '400px', width: '300px' }} />
                         </CardHeader>
                         <CardBody id={item["rowcount"]} className="card-body h-80">
-                            <Typography id={item["rowcount"]} className="flex flex-col justify-start text-base gap-2">
-                                <div>DEFECT INDEX: {item["rowcount"]}</div>
-                                <div>FLOOR: {item["floor"]}</div>
-                                <div>AREA: {item["area"]}</div>
-                                <div>ELEMENT: {item["element"]}</div>
-                                <div>DEFECT DESC: {item["defectDesc"].toUpperCase()}</div>
-                                {item["status"]?(<div>DEFECT STATUS: {item["status"].toUpperCase()}</div>):''}
+                            <Typography id={item["rowcount"]} className="flex flex-col justify-start text-base ">
+                                <div className='pb-3'>DEFECT INDEX: {item["rowcount"]}</div>
+                                <div className='pb-3'>FLOOR: {item["floor"]}</div>
+                                <div className='pb-3'>AREA: {item["area"]}</div>
+                                <div className=' h-14'>ELEMENT: {item["element"]}</div>
+                                <div className=' h-24'>DEFECT DESC: {item["defectDesc"].toUpperCase()}</div>
+                                {item["status"]==='COMPLETED'?(<div className=' text-light-green-800  font-bold'>DEFECT STATUS: {item["status"].toUpperCase()}</div>):(<div className=' text-red-800  font-bold'>DEFECT STATUS: {item["status"].toUpperCase()}</div>)}
                             </Typography>
                         </CardBody>
                         <CardFooter id={item["rowcount"]} divider className="flex items-center justify-center gap-4">
-                            <img src={completed} alt="" className="cursor-pointer" height="30" width="30" onClick={() => confirmDelete(item["defectName"])} />
-                            <img src={pending} alt="" className="cursor-pointer" height="30" width="30" onClick={() => confirmDelete(item["defectName"])} />
+                            {item["status"]==='COMPLETED'?<img src={pending} alt="" className="cursor-pointer" height="30" width="30" onClick={() => confirmSetStatus(item["defectName"],item["status"])} />:
+                            <img src={completed} alt="" className="cursor-pointer" height="30" width="30" onClick={() => confirmSetStatus(item["defectName"],item["status"])} />}
                             <img src={dustbin} alt="" className="cursor-pointer" height="30" width="30" onClick={() => confirmDelete(item["defectName"])} />
                             
                         </CardFooter>
@@ -116,6 +138,25 @@ const ViewMobile = (result) => {
                     <span>Cancel</span>
                 </Button>
                 <Button variant="gradient" color="green" onClick={handleDelete}>
+                    <span>Confirm</span>
+                </Button>
+            </DialogFooter>
+        </Dialog>
+        <Dialog open={openStatus} handler={handleOpenStatus} size='xl'>
+            <DialogHeader className='bg-red-100'>Update status?</DialogHeader>
+            <DialogBody divider>
+                This will update defect status to {status==='COMPLETED'?'PENDING':'COMPLETED'}.Click confirm to proceed.
+            </DialogBody>
+            <DialogFooter>
+                <Button
+                    variant="text"
+                    color="red"
+                    onClick={handleOpenStatus}
+                    className="mr-1"
+                >
+                    <span>Cancel</span>
+                </Button>
+                <Button variant="gradient" color="green" onClick={handleSetStatus}>
                     <span>Confirm</span>
                 </Button>
             </DialogFooter>

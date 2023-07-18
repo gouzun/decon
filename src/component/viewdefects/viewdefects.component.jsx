@@ -193,11 +193,11 @@ const ViewDefects = () => {
         generateDropDown();
     }, [currentUser]);
 
-    // useEffect(() => {
-    //     console.log('ere');
-    //     handleSearch();
+    useEffect(() => {
+        console.log('ere');
+        handleSearch();
 
-    // }, [render]);
+    }, [render]);
 
 
     return (

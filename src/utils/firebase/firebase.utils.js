@@ -55,7 +55,7 @@ export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googlePro
 
 export const db = getFirestore();
 
-export const createUserDocumentFromAuth = async (userAuth,contactnumber) => {
+export const createUserDocumentFromAuth = async (userAuth, contactnumber) => {
     if (!userAuth) return;
     const userDocRef = doc(db, 'USERS', userAuth.uid);
     const userSnapshot = await getDoc(userDocRef);
@@ -68,7 +68,7 @@ export const createUserDocumentFromAuth = async (userAuth,contactnumber) => {
         // const subtype = "none";
         // const subdate = '';
         try {
-            await setDoc(userDocRef, { email, createAt,contact })
+            await setDoc(userDocRef, { email, createAt, contact })
         } catch (error) {
             console.log('error creating user', error.message);
         }
@@ -148,7 +148,7 @@ export async function addDefect(project, floor, area, element, defectCount, defe
             defectypos: defectypos,
             url: urldefect,
             user: user,
-            status:'PENDING',
+            status: 'PENDING',
         }
 
         await setDoc(docRef, newData);
@@ -319,7 +319,30 @@ export const addProjectLock = async (project, floor, user) => {
         const docRef = doc(db, "ProjectList", project + '-' + user);
         let data = {
             lock: true
-        }   
+        }
+
+        await updateDoc(docRef, data);
+    } catch (error) {
+        console.log(`Error :${error.code},${error.message}`);
+    }
+}
+
+export const updateProjectStatus = async (project, def, status,user) => {
+    try {
+        const docRef = doc(db, project+'-'+user, def);
+        let data = {};
+        console.log(project, def, status,user);
+        if (status === 'COMPLETED') {
+            console.log('PENDING');
+            data = {
+                status: 'PENDING'
+            }
+        } else {
+            console.log('COMPLETED');
+            data = {
+                status: 'COMPLETED'
+            }
+        }
 
         await updateDoc(docRef, data);
     } catch (error) {
@@ -359,14 +382,14 @@ export const retrieveProjectLock = async (project, user) => {
 
     const docRef = doc(db, "ProjectList", project + '-' + user);
     const docSnap = await getDoc(docRef);
-    const lock  = docSnap.data().lock;
-    
-    if(lock){
+    const lock = docSnap.data().lock;
+
+    if (lock) {
         return 1;
-    }else{
+    } else {
         return 0;
     }
-    
+
 }
 
 export const retrieveDefectSummary = async (project, flr, user) => {
@@ -408,7 +431,7 @@ export const retrieveDefectSummary = async (project, flr, user) => {
                         element: doc.get('element'),
                         floor: doc.get('floor'),
                         url: doc.get('url'),
-                        status:doc.get('status'),
+                        status: doc.get('status'),
 
                     };
                     newArrDefects.push(data);
@@ -476,7 +499,8 @@ export const retrievePDFSummary = async (project, user) => {
                         element: doc.get('element'),
                         floor: doc.get('floor'),
                         url: doc.get('url'),
-                        layouturl: layouturl
+                        layouturl: layouturl,
+                        status:doc.get('status'),
                     };
                     newArrDefects.push(data);
 

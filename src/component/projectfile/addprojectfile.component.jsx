@@ -88,6 +88,8 @@ const AddProjectFile = () => {
             }
         } catch (e) {
             alert(e.message);
+        }finally{
+            gridHandler();
         }
 
     }

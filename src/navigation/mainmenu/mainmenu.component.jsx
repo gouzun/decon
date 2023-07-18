@@ -40,10 +40,11 @@ const MainMenu = () => {
             <div className='grid grid-flow-row auto-rows-max  items-center'>
                 <Header headerText={{ title: 'HOW TO USE' }} />
 
-                <div className=' px-24 text-center py-8'>To begin a new project, firstly you need to complete Step 1 and Step 2.
+                <div className=' px-16 text-center py-8'>To begin a new project, firstly you need to complete Step 1 and Step 2.
                 <br /><br /> Once these initial steps are finished, you can proceed with Step 3 repeatedly until all defects are added into the system.
                 </div>
-                <div className=' px-24'>  <Fragment >
+                <div className=' px-16'>  <Fragment >
+                
                     <Accordion open={open === 1} >
                         <AccordionHeader onClick={() => handleOpen(1)} className='flex justify-start'>
                             1.Add a project.
