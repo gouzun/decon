@@ -268,9 +268,22 @@ const AddLayout = () => {
 
 
                 </Select></div>
-            <div className="flex flex-row items-center justify-center p-2"><label><img className='drop-shadow-lg shadow-lg' width={25} height={25} src={cam} alt='' /><input accept="image/png,image/jpeg" type='file' className="filetype" capture='environment' onChange={onImgLayoutChange} style={{ display: 'none' }} /></label></div>
-
-            {loader ? <Loader /> : <div className="flex justify-center p-2 my-2"><img id='photo' className='drop-shadow-lg shadow-lg' height='400' width='300' src={imgLayoutDisplay ? imgLayoutDisplay : layout} alt='' /></div>}
+                <div className="flex flex-row items-center justify-center p-2">
+                <label >
+                  <img className='drop-shadow-lg shadow-lg' width={25} height={25} src={cam} alt='' />
+                  <input
+                    accept="image/png,image/jpeg"
+                    type='file'
+                    className="filetype"
+                    onChange={onImgLayoutChange}
+                    style={{ display: 'none' }}
+                    onClick={() => document.querySelector('.filetype').click()}
+                  />
+                </label>
+                
+              </div>
+              
+            {loader ? <Loader /> : <div className="flex justify-center p-2 my-2"><img id='photo' className='drop-shadow-lg shadow-lg' style={{ height: '400px', width: '300px' }} src={imgLayoutDisplay ? imgLayoutDisplay : layout} alt='' /></div>}
             {isLoading}
             <div className="w-72 flex justify-center p-2 my-2 gap-2">
                 <Button className={`drop-shadow-lg shadow-lg ${BUTTONCOLOR} ${LABELCOLOR} ${LABELHOVERCOLOR}`} variant="gradient" type="submit" onClick={handleAddFlrLayout}>ADD</Button>
@@ -357,3 +370,4 @@ const AddLayout = () => {
 }
 
 export default AddLayout;
+// <div className="flex flex-row items-center justify-center p-2"><label><img className='drop-shadow-lg shadow-lg' width={25} height={25} src={cam} alt='' /><input accept="image/png,image/jpeg" type='file' className="filetype" capture='environment' onChange={onImgLayoutChange} style={{ display: 'none' }} /></label></div>

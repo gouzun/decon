@@ -557,8 +557,15 @@ const CreateDefectPage1 = () => {
                     <Select label="ELEMENT [*required]" onChange={handleElementDD} onClick={handleElementIndex} value={curElement}>
                         {ELEMENTDD.sort().map((item) => (<Option key={item} value={item}>{item}</Option>))}
                     </Select></div>
-                <Header headerText={{ title: 'CLICK BELOW TO TAKE IMAGE' }} />
-                <div className="flex justify-center p-2 my-2"><label><img className='drop-shadow-lg shadow-lg' height='400' width='300' src={imgDefectDisplay ? imgDefectDisplay : defect} alt='' /><input accept='image/*”' type='file' className="filetype" capture='environment' onChange={onImgDefectChange} style={{ display: 'none' }} /></label></div>
+                <Header headerText={{ title: 'CLICK BELOW TO TAKE IMAGE[4:3]' }} />
+                <div className="flex justify-center p-2 my-2"><label><img className='drop-shadow-lg shadow-lg' style={{ height: '400px', width: '300px' }} src={imgDefectDisplay ? imgDefectDisplay : defect} alt='' /><input
+                accept="image/png,image/jpeg"
+                type='file'
+                className="filetype"
+                onChange={onImgDefectChange}
+                style={{ display: 'none' }}
+                onClick={() => document.querySelector('.filetype').click()}
+              /></label></div>
 
                 <Header headerText={{ title: 'SELECT OR KEY IN A DEFECT [*chose one]' }} />
 
