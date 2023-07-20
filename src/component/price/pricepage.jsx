@@ -146,7 +146,7 @@ const PricePage = () => {
                             className="mt-6 flex justify-center gap-1 text-7xl font-normal"
                         >
                             <span className="mt-2 text-4xl">RM</span>20{" "}
-                            <span className="self-end text-2xl">/project</span>
+                            <span className="self-end text-2xl">/property unit</span>
                         </Typography>
                     </CardHeader>
                     <CardBody className="p-0">
@@ -162,13 +162,37 @@ const PricePage = () => {
                                 <span className="rounded-full border border-white/20 bg-white/20 p-1">
                                     <CheckIcon strokeWidth={2} className="h-3 w-3" />
                                 </span>
+                                <Typography className="font-normal">Defect layout identification.</Typography>
+                            </li>
+                            <li className="flex items-center gap-4">
+                                <span className="rounded-full border border-white/20 bg-white/20 p-1">
+                                    <CheckIcon strokeWidth={2} className="h-3 w-3" />
+                                </span>
                                 <Typography className="font-normal">Defect summary graph</Typography>
                             </li>
                             <li className="flex items-center gap-4">
                                 <span className="rounded-full border border-white/20 bg-white/20 p-1">
                                     <CheckIcon strokeWidth={2} className="h-3 w-3" />
                                 </span>
+                                <Typography className="font-normal">Defect status tracking function</Typography>
+                            </li>
+                            <li className="flex items-center gap-4">
+                                <span className="rounded-full border border-white/20 bg-white/20 p-1">
+                                    <CheckIcon strokeWidth={2} className="h-3 w-3" />
+                                </span>
+                                <Typography className="font-normal">Suitable for 1st/re-inspection</Typography>
+                            </li>
+                            <li className="flex items-center gap-4">
+                                <span className="rounded-full border border-white/20 bg-white/20 p-1">
+                                    <CheckIcon strokeWidth={2} className="h-3 w-3" />
+                                </span>
                                 <Typography className="font-normal">A4 size pdf report</Typography>
+                            </li>
+                            <li className="flex items-center gap-4">
+                                <span className="rounded-full border border-white/20 bg-white/20 p-1">
+                                    <CheckIcon strokeWidth={2} className="h-3 w-3" />
+                                </span>
+                                <Typography className="font-normal">Receive report ON THE SPOT</Typography>
                             </li>
                             <li className="flex items-center gap-4">
                                 <span className="rounded-full border border-white/20 bg-white/20 p-1">
@@ -245,7 +269,7 @@ const PricePage = () => {
                             color="white"
                             className="font-normal uppercase"
                         >
-                            FOR DEFECT INSPECTOR/CONTRACTOR/PROPERTY AGENT
+                            FOR DEFECT INSPECTOR / CONTRACTOR / PROPERTY AGENT / OTHERS
                         </Typography>
                         <Typography
                             variant="h1"
@@ -275,7 +299,7 @@ const PricePage = () => {
                                 <span className="rounded-full border border-white/20 bg-white/20 p-1">
                                     <CheckIcon strokeWidth={2} className="h-3 w-3" />
                                 </span>
-                                <Typography className="font-normal">Multiple users</Typography>
+                                <Typography className="font-normal">Multiple concurrent users</Typography>
                             </li>
                             <li className="flex items-center gap-4">
                                 <span className="rounded-full border border-white/20 bg-white/20 p-1">
@@ -287,13 +311,38 @@ const PricePage = () => {
                                 <span className="rounded-full border border-white/20 bg-white/20 p-1">
                                     <CheckIcon strokeWidth={2} className="h-3 w-3" />
                                 </span>
+                                <Typography className="font-normal">Defect layout identification.</Typography>
+                            </li>
+                            <li className="flex items-center gap-4">
+                                <span className="rounded-full border border-white/20 bg-white/20 p-1">
+                                    <CheckIcon strokeWidth={2} className="h-3 w-3" />
+                                </span>
                                 <Typography className="font-normal">Defect summary graph</Typography>
                             </li>
                             <li className="flex items-center gap-4">
                                 <span className="rounded-full border border-white/20 bg-white/20 p-1">
                                     <CheckIcon strokeWidth={2} className="h-3 w-3" />
                                 </span>
+                                <Typography className="font-normal">Defect status tracking function</Typography>
+                            </li>
+                            <li className="flex items-center gap-4">
+                                <span className="rounded-full border border-white/20 bg-white/20 p-1">
+                                    <CheckIcon strokeWidth={2} className="h-3 w-3" />
+                                </span>
+                                <Typography className="font-normal">Cater multiple time inspection </Typography>
+                            </li>
+
+                            <li className="flex items-center gap-4">
+                                <span className="rounded-full border border-white/20 bg-white/20 p-1">
+                                    <CheckIcon strokeWidth={2} className="h-3 w-3" />
+                                </span>
                                 <Typography className="font-normal">A4 size pdf report</Typography>
+                            </li>
+                            <li className="flex items-center gap-4">
+                                <span className="rounded-full border border-white/20 bg-white/20 p-1">
+                                    <CheckIcon strokeWidth={2} className="h-3 w-3" />
+                                </span>
+                                <Typography className="font-normal">Receive report ON THE SPOT</Typography>
                             </li>
 
                             <li className="flex items-center gap-4">

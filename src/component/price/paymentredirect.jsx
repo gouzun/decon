@@ -97,7 +97,7 @@ const PaymentRedirect = () => {
     }
 
     const handleClick = ()=>{
-        <Link to='/account' className={`${NAVBARTEXTHOVER}`}>BACK TO ACCOUNT</Link>
+        <Link to='/' className={`${NAVBARTEXTHOVER}`}>BACK TO ACCOUNT</Link>
     }
 
 

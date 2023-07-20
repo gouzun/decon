@@ -4,7 +4,7 @@ import Header from '../header/header.component';
 import Footer from '../footer/footer.component';
 
 import { Button } from "@material-tailwind/react";
-import { generateProjectList, retrieveLayoutImg, storeImg, addProjectFlrUrl, retrieveDefectSummary,retrieveProjectLock } from '../../utils/firebase/firebase.utils';
+import { generateProjectList, retrieveLayoutImg, storeImg, addProjectFlrUrl, retrieveDefectSummary, retrieveProjectLock } from '../../utils/firebase/firebase.utils';
 import { useContext, useState, useEffect } from "react";
 import { GeneralContext } from "../../context/generalcontext.component";
 import { NAVBARCOLOR, BUTTONCOLOR, LABELCOLOR, LABELHOVERCOLOR } from '../../utils/theme.js';
@@ -24,6 +24,7 @@ import {
     DialogBody,
     DialogFooter,
 } from "@material-tailwind/react";
+
 
 const AddLayout = () => {
     const {
@@ -45,7 +46,7 @@ const AddLayout = () => {
     const navigate = useNavigate();
     const [rowCount, setRowCount] = useState(0);
     const [ele, setEle] = useState([]);
- 
+
     let RowBgStyle = '';
     let row = 0;
 
@@ -134,7 +135,7 @@ const AddLayout = () => {
         //check if layout already exisit
         const img = await retrieveLayoutImg(curProject, currentUser, curFloor);
         let count = await retrieveProjectLock(curProject, currentUser);
-      
+
         if (img !== null && count > 0) {
             console.log('img exist');
             handleOpen();
@@ -253,13 +254,13 @@ const AddLayout = () => {
                 <Header headerText={{ title: 'ADD LAYOUT IMAGE' }} />
             </div>
 
-            <div id='pdd' className='w-80 flex justify-center p-2  my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-20'>
+            {projectList ? <div id='pdd' className='w-80 flex justify-center p-2  my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-20'>
                 <Select id='projectDD' label="SELECT PROJECT [*required]" onChange={handlePDD} value={curProject}  >
                     {projectList.map((item) => {
                         return (<Option key={item} value={item}>{item}</Option>);
                     })}
                 </Select>
-            </div>
+            </div> : <Loader />}
 
             <div id='fdd' className="w-80 flex justify-center p-2  my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-10">
                 <Select label="FLOOR [*required]" value={curFloor} onChange={handleFloorDD}>
@@ -268,21 +269,21 @@ const AddLayout = () => {
 
 
                 </Select></div>
-                <div className="flex flex-row items-center justify-center p-2">
+            <div className="flex flex-row items-center justify-center p-2">
                 <label >
-                  <img className='drop-shadow-lg shadow-lg' width={25} height={25} src={cam} alt='' />
-                  <input
-                    accept="image/png,image/jpeg"
-                    type='file'
-                    className="filetype"
-                    onChange={onImgLayoutChange}
-                    style={{ display: 'none' }}
-                    onClick={() => document.querySelector('.filetype').click()}
-                  />
+                    <img className='drop-shadow-lg shadow-lg' width={25} height={25} src={cam} alt='' />
+                    <input
+                        accept="image/png,image/jpeg"
+                        type='file'
+                        className="filetype"
+                        onChange={onImgLayoutChange}
+                        style={{ display: 'none' }}
+                        onClick={() => document.querySelector('.filetype').click()}
+                    />
                 </label>
-                
-              </div>
-              
+
+            </div>
+
             {loader ? <Loader /> : <div className="flex justify-center p-2 my-2"><img id='photo' className='drop-shadow-lg shadow-lg' style={{ height: '400px', width: '300px' }} src={imgLayoutDisplay ? imgLayoutDisplay : layout} alt='' /></div>}
             {isLoading}
             <div className="w-72 flex justify-center p-2 my-2 gap-2">

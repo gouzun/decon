@@ -455,15 +455,20 @@ const PdfReport = () => {
                     //perform sorting of ele here
 
                     ele.sort((a, b) => {
-                        if (a.floor !== b.floor) {
-                            return a.floor - b.floor; // Sort by floor in ascending order
+                        const floorOrder = { "GROUND FLOOR": 0, "FIRST FLOOR": 1, "SECOND FLOOR": 2, "THIRD FLOOR": 3, "ROOF": 4 };
+                        const aFloorOrder = floorOrder[a.floor];
+                        const bFloorOrder = floorOrder[b.floor];
+
+                        if (aFloorOrder !== bFloorOrder) {
+                            return aFloorOrder - bFloorOrder; // Sort by floor order
                         }
+
                         if (a.area !== b.area) {
                             return a.area.localeCompare(b.area); // Sort by area in ascending order
                         }
+
                         return a.rowcount - b.rowcount; // Sort by element in ascending order
                     });
-
 
 
                     ele.forEach((rec, index) => {
@@ -615,11 +620,11 @@ const PdfReport = () => {
         <div className='flex flex-col justify-center place-items-center items-center bg-gray-300 w-full min-h-screen'>
             <Header headerText={{ title: 'PDF SUMMARY' }} />
 
-            <div className='w-80 flex justify-center p-2  my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-50'>
+            {projectList ? <div className='w-80 flex justify-center p-2  my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-50'>
                 <Select id='projectDD' label="SELECT PROJECT [*required]" onChange={handlePDD} onClick={generateDropDown}>
                     {projectList.map((item) => (<Option key={item} value={item}>{item}</Option>))}
                 </Select>
-            </div>
+            </div> : <Loader />}
 
             {isLoading}
 
@@ -670,7 +675,7 @@ const PdfReport = () => {
                 </DialogFooter>
             </Dialog>
             <Fragment>
-                <Dialog open={openPayment} handler={handleOpenPayment}>
+                <Dialog open={openPayment} handler={handleOpenPayment} size='xl'>
                     <DialogHeader>Access Limited</DialogHeader>
                     <DialogBody divider>
                         Please proceed with purchase in order to generate defect report.

@@ -92,7 +92,7 @@ const AreaChart = (ele) => {
       x: {
         ticks: {
           font: {
-            size: xsize,
+            size: 9,
           }
         }
       },

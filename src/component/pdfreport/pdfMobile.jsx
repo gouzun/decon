@@ -14,11 +14,11 @@ const PdfMobile = (result) => {
     let row = 0;
 
     return (<>
-        <div id='floorChart' className='w-3/4'>{result.ele.length ? <FloorCountChart table={result.ele} /> : ''}</div>
-        <div id='areaChart' className='w-3/4'>{result.ele.length ? <AreaChart table={result.ele} /> : ''}</div>
-        <div id='elementChart' className='w-3/4'>{result.ele.length ? <ElementChart table={result.ele} /> : ''}</div>
+        <div id='floorChart' className='w-11/12'>{result.ele.length ? <FloorCountChart table={result.ele} /> : ''}</div>
+        <div id='areaChart' className='w-11/12'>{result.ele.length ? <AreaChart table={result.ele} /> : ''}</div>
+        <div id='elementChart' className='w-11/12'>{result.ele.length ? <ElementChart table={result.ele} /> : ''}</div>
 
-        <div className='text-base flex justify-center my-2 text-gray-600'>Scroll right to view more defect infos.</div>
+        {result.ele.length > 0 ? <div className='text-base flex justify-center my-2 text-gray-600'>Scroll right to view more defect infos.</div> : ''}
         <div className={`flex items-top w-full drop-shadow-lg shadow-lg overflow-x-auto shrink-0 `}>
 
 

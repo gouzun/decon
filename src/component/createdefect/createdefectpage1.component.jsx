@@ -13,7 +13,7 @@ import {
 } from "@material-tailwind/react";
 import Header from '../header/header.component';
 import Footer from '../footer/footer.component';
-import { addDefect, retrieveDefectListForProject, updateDefectListForProject, storeImg, generateProjectList,addProjectLock } from '../../utils/firebase/firebase.utils';
+import { addDefect, retrieveDefectListForProject, updateDefectListForProject, storeImg, generateProjectList, addProjectLock } from '../../utils/firebase/firebase.utils';
 import { FLOORDD, AREADD, ELEMENTDD, FLOORDEFECTS, INTERNALWALLDEFECTS, CEILINGDEFECTS, DOORDEFECTS, WINDOWSDEFECTS, INTERNALFIXTURESDEFECTS, ROOFDEFECTS, EXTERNALWALLDEFECTS, PERIMETREDEFECTS, CARPARKDEFECTS, MEDEFECTS, FENCINGANDDATEDEFECTS } from '../../utils/theme';
 import Compressor from 'compressorjs';
 import { retrieveLayoutImg } from '../../utils/firebase/firebase.utils';
@@ -281,7 +281,7 @@ const CreateDefectPage1 = () => {
                         await addDefect(curProject, curFloor, curArea, curElement, defCount, curDefectDesc.toUpperCase(), xpos, ypos + 2, urlDefect, currentUser)
                     })
                     .then(handleSetCurDefList(curProject, currentUser, defCount))
-                    .then(addProjectLock(curProject,curFloor,currentUser));
+                    .then(addProjectLock(curProject, curFloor, currentUser));
                 fieldreset();
                 setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-green-700 items-center bg-green-100 w-72  drop-shadow-md shadow-md'>Defect no. {defCount} Added.</div>);
 
@@ -489,13 +489,14 @@ const CreateDefectPage1 = () => {
             <div className='grid grid-flow-row auto-rows-max items-center bg-gray-300 place-items-center'>
                 <Header headerText={{ title: 'CREATE NEW DEFECT ITEM' }} />
 
-                <div id='pdd' className='w-80 flex justify-center p-2  my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-20'>
+                {projectList ? <div id='pdd' className='w-80 flex justify-center p-2  my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-20'>
                     <Select id='projectDD' label="SELECT PROJECT [*required]" onChange={handlePDD} onClick={handlePDDIndex} value={curProject}>
                         {projectList.map((item) => {
                             return (<Option key={item} value={item}>{item}</Option>);
                         })}
                     </Select>
-                </div>
+                </div> : <Loader />}
+
                 <div id='fdd' className="w-80 flex justify-center p-2  my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-10">
                     <Select label="FLOOR [*required]" onChange={handleFloorDD} value={curFloor} onClick={handleFDDIndex}>
 
@@ -559,13 +560,13 @@ const CreateDefectPage1 = () => {
                     </Select></div>
                 <Header headerText={{ title: 'CLICK BELOW TO TAKE IMAGE[4:3]' }} />
                 <div className="flex justify-center p-2 my-2"><label><img className='drop-shadow-lg shadow-lg' style={{ height: '400px', width: '300px' }} src={imgDefectDisplay ? imgDefectDisplay : defect} alt='' /><input
-                accept="image/png,image/jpeg"
-                type='file'
-                className="filetype"
-                onChange={onImgDefectChange}
-                style={{ display: 'none' }}
-                onClick={() => document.querySelector('.filetype').click()}
-              /></label></div>
+                    accept="image/png,image/jpeg"
+                    type='file'
+                    className="filetype"
+                    onChange={onImgDefectChange}
+                    style={{ display: 'none' }}
+                    onClick={() => document.querySelector('.filetype').click()}
+                /></label></div>
 
                 <Header headerText={{ title: 'SELECT OR KEY IN A DEFECT [*chose one]' }} />
 

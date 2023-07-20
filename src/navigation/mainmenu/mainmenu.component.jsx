@@ -3,9 +3,9 @@ import { Outlet, Link } from 'react-router-dom';
 import { Fragment, useContext, useEffect, useState } from "react";
 import Footer from "../../component/footer/footer.component";
 import { BUTTONCOLOR, LABELHOVERCOLOR, MAINMENU, MAINMENUBTN } from "../../utils/theme";
-
+import { generateProjectList } from '../../utils/firebase/firebase.utils';
 import { UserContext } from '../../context/user.context';
-
+import { GeneralContext } from "../../context/generalcontext.component";
 import { useNavigate } from 'react-router-dom';
 import {
     Accordion,
@@ -15,18 +15,37 @@ import {
 
 const MainMenu = () => {
 
-    const { setCurrentUser } = useContext(UserContext);
+    const { currentUser, setCurrentUser } = useContext(UserContext);
     const navigate = useNavigate();
     const [open, setOpen] = useState(1);
+    const {
+        projectList, setProjectList,
+        curProject, setCurProject,
+    } = useContext(GeneralContext);
 
     const handleOpen = (value) => {
         setOpen(open === value ? 0 : value);
     };
 
+    //to load list when first page load
+    const generateDropDown = async () => {
+        if (!curProject) {
+            const projectObj = await generateProjectList(currentUser);
+            let arrProject = [];
+
+            projectObj.forEach((project) => {
+                arrProject.push(project.propertyName + '-' + project.ownerName);
+            })
+            setProjectList(arrProject);
+        }
+    };
+
+
+
     useEffect(() => {
         if (sessionStorage.getItem('user')) {
             setCurrentUser(sessionStorage.getItem('user'));
-
+            generateDropDown();
         }
         else {
             navigate('/');
@@ -41,10 +60,10 @@ const MainMenu = () => {
                 <Header headerText={{ title: 'HOW TO USE' }} />
 
                 <div className=' px-16 text-center py-8'>To begin a new project, firstly you need to complete Step 1 and Step 2.
-                <br /><br /> Once these initial steps are finished, you can proceed with Step 3 repeatedly until all defects are added into the system.
+                    <br /><br /> Once these initial steps are finished, you can proceed with Step 3 repeatedly until all defects are added into the system.
                 </div>
                 <div className=' px-16'>  <Fragment >
-                
+
                     <Accordion open={open === 1} >
                         <AccordionHeader onClick={() => handleOpen(1)} className='flex justify-start'>
                             1.Add a project.
@@ -81,37 +100,37 @@ const MainMenu = () => {
                         </AccordionBody>
                     </Accordion>
                     <Accordion open={open === 4}>
-                    <AccordionHeader onClick={() => handleOpen(4)} className='flex justify-start'>
-                        4.View Defects.
-                    </AccordionHeader>
-                    <AccordionBody className='h-72 overflow-y-auto'>
-                    Users have the option to filter and display all defects associated with a specific project and floor.
-                    <br /><br /> The system will present a comprehensive list of available defects on the layout. 
-                    <br /><br />Users can also remove any unwanted defect records directly from this interface.
-                    </AccordionBody>
-                </Accordion>
-                <Accordion open={open === 5}>
-                    <AccordionHeader onClick={() => handleOpen(5)} className='flex justify-start'>
-                        5.PDF.
-                    </AccordionHeader>
-                    <AccordionBody className='h-72 overflow-y-auto'>
-                    
-                        In this section, users can conveniently search and filter all created defects based on the project name. 
-                        <br /><br /> The system will display a list of defect records along with statistical graph data related to the defect list. 
-                        <br /><br /> Users have the option to export the defect list as a PDF file and save it locally for submission. <br /><br /> 
-                        To proceed with the PDF export feature, users will be prompted to make a purchase based on the project name.
-                    </AccordionBody>
-                </Accordion>
-                <Accordion open={open === 6}>
-                    <AccordionHeader onClick={() => handleOpen(6)} className='flex justify-start'>
-                        6.To make purchase
-                    </AccordionHeader>
-                    <AccordionBody className='h-72 overflow-y-auto'>
-                    CLick on "PRICING", select project, key in your name for invoicing purposes and click "BUY NOW" button to proceed with purchase.
-                    You can then check the status of purchases by clicking icon "ACCOUNT".
-                        
-                    </AccordionBody>
-                </Accordion>
+                        <AccordionHeader onClick={() => handleOpen(4)} className='flex justify-start'>
+                            4.View Defects.
+                        </AccordionHeader>
+                        <AccordionBody className='h-72 overflow-y-auto'>
+                            Users have the option to filter and display all defects associated with a specific project and floor.
+                            <br /><br /> The system will present a comprehensive list of available defects on the layout.
+                            <br /><br />Users can also remove any unwanted defect records directly from this interface.
+                        </AccordionBody>
+                    </Accordion>
+                    <Accordion open={open === 5}>
+                        <AccordionHeader onClick={() => handleOpen(5)} className='flex justify-start'>
+                            5.PDF.
+                        </AccordionHeader>
+                        <AccordionBody className='h-72 overflow-y-auto'>
+
+                            In this section, users can conveniently search and filter all created defects based on the project name.
+                            <br /><br /> The system will display a list of defect records along with statistical graph data related to the defect list.
+                            <br /><br /> Users have the option to export the defect list as a PDF file and save it locally for submission. <br /><br />
+                            To proceed with the PDF export feature, users will be prompted to make a purchase based on the project name.
+                        </AccordionBody>
+                    </Accordion>
+                    <Accordion open={open === 6}>
+                        <AccordionHeader onClick={() => handleOpen(6)} className='flex justify-start'>
+                            6.To make purchase
+                        </AccordionHeader>
+                        <AccordionBody className='h-72 overflow-y-auto'>
+                            CLick on "PRICING", select project, key in your name for invoicing purposes and click "BUY NOW" button to proceed with purchase.
+                            You can then check the status of purchases by clicking icon "ACCOUNT".
+
+                        </AccordionBody>
+                    </Accordion>
                 </Fragment>
                 </div>
                 <Footer />

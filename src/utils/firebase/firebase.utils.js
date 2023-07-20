@@ -59,7 +59,6 @@ googleProvider.setCustomParameters({
 export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider);
 export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider);
-
 export const db = getFirestore();
 
 export const createUserDocumentFromAuth = async (userAuth, contactnumber) => {
@@ -334,18 +333,18 @@ export const addProjectLock = async (project, floor, user) => {
     }
 }
 
-export const updateProjectStatus = async (project, def, status,user) => {
+export const updateProjectStatus = async (project, def, status, user) => {
     try {
-        const docRef = doc(db, project+'-'+user, def);
+        const docRef = doc(db, project + '-' + user, def);
         let data = {};
-        console.log(project, def, status,user);
+
         if (status === 'COMPLETED') {
-            console.log('PENDING');
+
             data = {
                 status: 'PENDING'
             }
         } else {
-            console.log('COMPLETED');
+
             data = {
                 status: 'COMPLETED'
             }
@@ -507,7 +506,7 @@ export const retrievePDFSummary = async (project, user) => {
                         floor: doc.get('floor'),
                         url: doc.get('url'),
                         layouturl: layouturl,
-                        status:doc.get('status'),
+                        status: doc.get('status'),
                     };
                     newArrDefects.push(data);
 
