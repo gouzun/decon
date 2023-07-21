@@ -1,5 +1,5 @@
-import { useState, useContext, Fragment } from "react";
-import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase/firebase.utils";
+import { useState, useContext, Fragment, useEffect } from "react";
+import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth, verifyEmail } from "../../utils/firebase/firebase.utils";
 import {
     Input, Button, Dialog,
     DialogHeader,
@@ -15,7 +15,9 @@ import {
 } from "react-router-dom";
 import spinner from '../../assets/img/spinner.svg';
 import Footer from "../footer/footer.component";
-import ReCAPTCHA from 'react-recaptcha';
+
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 const defaultFormFields = {
     displayName: '',
@@ -37,10 +39,37 @@ const SignUpForm = () => {
     }
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(!open);
+    const { token } = useParams();
+    const [message, setMessage] = useState('');
+
+    // useEffect(() => {
+    //     fetch(`https://inspectmynode.onrender.com/api/v1/verifyemail/${token}`)
+    //         .then((response) => response.json())
+    //         .then((data) => {
+    //             setMessage(data.message);
+    //         })
+    //         .catch((error) => {
+    //             setMessage('Email verification failed. Please try again.');
+    //         });
+    // }, [token]);
 
     const handleUserAgreement = (event) => {
         event.preventDefault();
         handleOpen();
+    }
+
+    const handleTestEmail = async () => {
+        //     const data = new FormData();
+        //     data.append('email', email);
+
+        //     fetch('https://inspectmynode.onrender.com/api/v1/verifyemail/', {
+        //         method: 'post',
+        //         body: data,
+        //     }).then(response => console.log(response.json()))
+        console.log('handleTestEmail');
+        console.log(email);
+        verifyEmail(email);
+
     }
 
     const handleSubmit = async () => {
@@ -56,6 +85,7 @@ const SignUpForm = () => {
                     .then(setCurrentUser(email))
                     .then(sessionStorage.setItem('user', email))
                     .then(resetFormFields())
+                    .then(handleTestEmail())
                     .then(setTimeout(navigate('/menu'), 2000));
             } catch (error) {
                 if (error.code === 'auth/email-already-in-use') {
@@ -103,7 +133,7 @@ const SignUpForm = () => {
 
                 <div className="w-72 flex justify-center p-2 my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100"><Input label="Password*" type="password" required onChange={handleChange} name='password' value={password} /></div>
                 <div className="w-72 flex justify-center p-2 my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100"><Input label="Confirm Password*" type="password" required onChange={handleChange} name='confirmPassword' value={confirmPassword} /></div>
-                {isLoading}
+                {isLoading}{message}
 
                 <div className="flex justify-center items-center mx-2 py-3 gap-2"><Button className={`drop-shadow-lg shadow-lg ${BUTTONCOLOR} ${LABELCOLOR} ${LABELHOVERCOLOR} `} variant="gradient" onClick={() => navigate('/signin')}>Back to Sign In</Button>
 

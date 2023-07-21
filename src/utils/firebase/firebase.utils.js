@@ -14,7 +14,7 @@ import {
 } from 'firebase/firestore';
 import 'firebase/storage';
 
-
+import { sendEmailVerification } from "firebase/auth";
 
 
 // Your web app's Firebase configuration
@@ -62,6 +62,14 @@ export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider)
 export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider);
 export const db = getFirestore();
 
+export const verifyEmail = () => {
+    try {
+        sendEmailVerification(auth.currentUser);
+    } catch (e) {
+        console.log(e);
+    }
+
+}
 export const createUserDocumentFromAuth = async (userAuth, contactnumber) => {
     if (!userAuth) return;
     const userDocRef = doc(db, 'USERS', userAuth.uid);
