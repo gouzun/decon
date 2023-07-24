@@ -14,7 +14,7 @@ import {
 } from 'firebase/firestore';
 import 'firebase/storage';
 
-import { sendEmailVerification } from "firebase/auth";
+import { sendEmailVerification, getIdTokenResult  } from "firebase/auth";
 
 
 // Your web app's Firebase configuration
@@ -27,13 +27,7 @@ const firebaseConfig = {
     storageBucket: "defixdb.appspot.com",
     messagingSenderId: "296756007223",
     appId: "1:296756007223:web:a7d43a196ef2b82b5dcab2"
-
-    // apiKey: process.env.REACT_APP_APIKEY,
-    // authDomain: process.env.REACT_APP_AUTHDOMAIN,
-    // projectId: process.env.REACT_APP_PROJECTID,
-    // storageBucket: process.env.REACT_APP_STORAGE,
-    // messagingSenderId: process.env.REACT_APP_SENDER,
-    // appId: process.env.REACT_APP_APP
+   
 };
 
 // Initialize Firebase
@@ -45,43 +39,81 @@ googleProvider.setCustomParameters({
     prompt: "select_account"
 });
 
-// function getCurrentDateTime() {
-//     let currentdate = new Date();
-//     let datetime = currentdate.getDate() + "/"
-//         + (currentdate.getMonth() + 1) + "/"
-//         + currentdate.getFullYear() + " "
-//         + currentdate.getHours() + ":"
-//         + currentdate.getMinutes() + ":"
-//         + currentdate.getSeconds();
-
-//     return datetime;
-// }
 
 export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider);
 export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider);
 export const db = getFirestore();
 
-export const verifyEmail = () => {
+
+const updateUser = async (email) => {
     try {
-        sendEmailVerification(auth.currentUser);
+        console.log(email);
+        const dbPL = db;
+        //create new doc with custom id;
+        const docRef = doc(dbPL, "USERS", email);
+        const docSnap = await getDoc(docRef);
+        let newData = {};
+
+        if (docSnap.exists()) {
+            const existingData = docSnap.data();
+            newData = {
+                ...existingData, verifiedstatus: 'VERIFIED',
+                verifiedDate: new Date(),
+            }
+            await updateDoc(docRef, newData);
+            console.log(`User with email ${email} updated successfully.`);
+
+        } else {            // If no document with the matching email found, handle this case
+            console.log(`No user found with email: ${email}`);
+
+        }
+
     } catch (e) {
         console.log(e);
-    }
 
+    }
 }
+
+export const verifyEmail = async () => {
+    let verifiedstatus = false;
+    try {
+        const user = auth.currentUser;
+                    
+        if (user.emailVerified) {
+            // Email is already verified, proceed with your app logic
+            console.log('Email verification completed.');
+            await updateUser(user.email);
+            verifiedstatus = true;
+            return verifiedstatus;
+        } else {
+            console.log('Email verification false.');
+            verifiedstatus = false;
+            return verifiedstatus;
+        }
+
+
+    } catch (e) {
+        console.log(e);
+        return false;
+    }
+}
+
+export const sendVerifyEmail = async () => {
+    await sendEmailVerification(auth.currentUser);
+}
+
+
 export const createUserDocumentFromAuth = async (userAuth, contactnumber) => {
     if (!userAuth) return;
-    const userDocRef = doc(db, 'USERS', userAuth.uid);
+    const userDocRef = doc(db, 'USERS', userAuth.email);
     const userSnapshot = await getDoc(userDocRef);
 
     if (!userSnapshot.exists()) {
         const { email } = userAuth;
         const createAt = new Date();
         const contact = contactnumber;
-        // const substatus = false;
-        // const subtype = "none";
-        // const subdate = '';
+
         try {
             await setDoc(userDocRef, { email, createAt, contact })
         } catch (error) {

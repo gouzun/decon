@@ -17,7 +17,7 @@ const MainMenu = () => {
 
     const { currentUser, setCurrentUser } = useContext(UserContext);
     const navigate = useNavigate();
-    const [open, setOpen] = useState(1);
+    const [open, setOpen] = useState(0);
     const {
         projectList, setProjectList,
         curProject, setCurProject,
@@ -39,8 +39,6 @@ const MainMenu = () => {
             setProjectList(arrProject);
         }
     };
-
-
 
     useEffect(() => {
         if (sessionStorage.getItem('user')) {
@@ -70,6 +68,7 @@ const MainMenu = () => {
                         </AccordionHeader>
                         <AccordionBody className='h-72 overflow-y-auto'>
                             "Project" refers to the property for which you require defect inspection. <br /><br /> A project can have multiple defects.<br /><br /> To proceed, please click on 'ADD PROJECT' icon and provide the project name, owner's name, contact number, and property address. <br /><br />These details will be included in the defect report to enable the defect team to contact you for rectification purposes.
+                            
                         </AccordionBody>
                     </Accordion>
                     <Accordion open={open === 2}>
@@ -130,7 +129,7 @@ const MainMenu = () => {
                             You can then check the status of purchases by clicking icon "ACCOUNT".
 
                         </AccordionBody>
-                    </Accordion>
+                    </Accordion>                    
                 </Fragment>
                 </div>
                 <Footer />

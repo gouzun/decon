@@ -1,5 +1,5 @@
-import { useState, useContext, Fragment, useEffect } from "react";
-import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth, verifyEmail } from "../../utils/firebase/firebase.utils";
+import { useState, useContext, Fragment, useEffect, useRef, useLayoutEffect } from "react";
+import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth, sendVerifyEmail } from "../../utils/firebase/firebase.utils";
 import {
     Input, Button, Dialog,
     DialogHeader,
@@ -16,7 +16,7 @@ import {
 import spinner from '../../assets/img/spinner.svg';
 import Footer from "../footer/footer.component";
 
-import axios from 'axios';
+
 import { useParams } from 'react-router-dom';
 
 const defaultFormFields = {
@@ -26,6 +26,8 @@ const defaultFormFields = {
     confirmPassword: '',
     contact: '',
 }
+
+
 
 const SignUpForm = () => {
     const [isLoading, setIsLoading] = useState(null);
@@ -41,6 +43,7 @@ const SignUpForm = () => {
     const handleOpen = () => setOpen(!open);
     const { token } = useParams();
     const [message, setMessage] = useState('');
+
 
     // useEffect(() => {
     //     fetch(`https://inspectmynode.onrender.com/api/v1/verifyemail/${token}`)
@@ -58,19 +61,6 @@ const SignUpForm = () => {
         handleOpen();
     }
 
-    const handleTestEmail = async () => {
-        //     const data = new FormData();
-        //     data.append('email', email);
-
-        //     fetch('https://inspectmynode.onrender.com/api/v1/verifyemail/', {
-        //         method: 'post',
-        //         body: data,
-        //     }).then(response => console.log(response.json()))
-        console.log('handleTestEmail');
-        console.log(email);
-        verifyEmail(email);
-
-    }
 
     const handleSubmit = async () => {
         handleOpen();
@@ -85,7 +75,7 @@ const SignUpForm = () => {
                     .then(setCurrentUser(email))
                     .then(sessionStorage.setItem('user', email))
                     .then(resetFormFields())
-                    .then(handleTestEmail())
+                    .then(sendVerifyEmail())
                     .then(setTimeout(navigate('/menu'), 2000));
             } catch (error) {
                 if (error.code === 'auth/email-already-in-use') {
@@ -120,6 +110,14 @@ const SignUpForm = () => {
         navigate('/');
     }
 
+    const contentRef = useRef(null);
+
+    useLayoutEffect(() => {
+        if (open) {
+            // Scroll the content to the top of the dialog
+            contentRef.current.scrollTo(0, 0);
+        }
+    }, [open]);
 
 
     return (<>
@@ -142,21 +140,23 @@ const SignUpForm = () => {
             <Footer />
         </div>
         <Fragment>
-            <Dialog open={open} handler={handleOpen} size='xl'>
+            <Dialog open={open} handler={handleOpen} size='xxl'>
                 <DialogHeader>User Agreement and Terms & Condition</DialogHeader>
-                <DialogBody divider className="h-[40rem] overflow-scroll">
-                    <Typography className="font-normal">
+                <DialogBody divider className="h-[40rem]">
+
+                    <Typography className="font-normal overflow-y-auto" ref={contentRef} >
+
                         Welcome to INSPECTMY Defect Inspection Web App (the "App"). Before you start using the App, please carefully read and agree to the following User Agreement (the "Agreement").
                         <br /><br /> This Agreement governs your use of the App and establishes the legal terms and conditions between you ("User," "you," or "your company") and INSPECTMY ("we," "us," "our," or "INSPECTMY"). By accessing or using the App, you acknowledge that you have read, understood, and agreed to be bound by this Agreement. If you do not agree with these terms, you must not use the App.
 
                         <br /><br />
-                        Definitions
+                        <b>Definitions</b>
                         <br /><br />
                         a. "App" refers to INSPECYMY's Defect Inspection Web Application, including any updates, enhancements, and modifications made from time to time.
                         <br /><br />
                         b. "User Content" means any content, data, or information submitted by you while using the App, including but not limited to inspection reports, images, and text.
                         <br /><br />
-                        Use of the App
+                        <b>Use of the App</b>
                         <br /><br />
                         a. Eligibility: By using the App, you represent and warrant that you are at least 18 years old and have the legal capacity to enter into this Agreement.
                         <br /><br />
@@ -181,47 +181,50 @@ const SignUpForm = () => {
                         <br /><br />
                         Use at Your Own Risk: You acknowledge and agree that the use of the App is solely at your own risk. We advise exercising caution and diligence while using the App and taking appropriate measures to safeguard your data and device.
                         <br /><br />
-                        Disclaimer of Warranties
+                        <b>Disclaimer of Warranties</b>
                         <br /><br />
                         The app is provided "as is" and without warranties of any kind, express or implied. InspectMy makes no representations or warranties of any kind, whether express, implied, statutory, or otherwise, including but not limited to the implied warranties of merchantability, fitness for a particular purpose, and non-infringement.
                         <br /><br />
-                        Limitation of Liability
+                        <b>Limitation of Liability</b>
                         <br /><br />
                         In no event shall InspectMy be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible losses, arising out of or in connection with your use of the app.
                         <br /><br />
-                        Indemnification
+                        <b>Indemnification</b>
                         <br /><br />
                         You agree to indemnify, defend, and hold harmless INSPECTMY, its officers, directors, employees, and agents from and against any and all claims, liabilities, damages, losses, costs, expenses, or fees (including reasonable attorneys' fees) arising from your use of the App or your violation of this Agreement.
 
                         <br /><br />
-                        Modifications to the Agreement
+                        <b>Modifications to the Agreement</b>
                         <br /><br />
                         We reserve the right to modify or update this Agreement at any time. You will be notified of any material changes to this Agreement. Continued use of the App after the notification of changes constitutes your acceptance of the revised Agreement.
                         <br /><br />
 
-                        Termination
+                        <b>Termination</b>
                         <br /><br />
                         We may, at our sole discretion, suspend or terminate your access to the App, without notice, for any reason, including but not limited to violations of this Agreement.
                         <br /><br />
 
-                        Contact Information
+                        <b>Contact Information</b>
                         <br /><br />
                         If you have any questions or concerns about this Agreement or the App, please contact us at checkandinspectmy@gmail.com
                         <br /><br />
                         By using the App, you acknowledge that you have read, understood, and agreed to be bound by this Agreement.
                         <br /><br />
-                        <div className='flex flex-row justify-center gap-3 pb-8'>
-                            <Button variant="outlined" color="red" onClick={handleNotAgree}>
-                                No i do not agree
-                            </Button>
-                            <Button variant="gradient" color="green" onClick={handleSubmit}>
-                                I Agree
-                            </Button>
-                        </div>
+
+
                     </Typography>
+
                 </DialogBody>
                 <DialogFooter className="space-x-2">
-                    Please read the User Agreement and Terms & Condition to proceed.
+                    <div className='flex flex-row justify-center gap-3 pb-8'>
+                    <div style={{ fontSize: 'x-small' }}>By clicking the "Agree" button, you confirm that you have read and understood the User Agreement and Terms & Conditions.</div>
+                        <Button variant="outlined" color="red" onClick={handleNotAgree}>
+                            No i do not agree
+                        </Button>
+                        <Button variant="gradient" color="green" onClick={handleSubmit}>
+                            I Agree
+                        </Button>
+                    </div>
                 </DialogFooter>
             </Dialog>
         </Fragment ></>

@@ -52,7 +52,7 @@ const PricePage = () => {
                 let obj = {
                     email: sessionStorage.getItem('user'),
                     project: selectedProject,
-                    name: buyerName,
+                    name: buyerName.toUpperCase(),
                 }
 
                 const response = await fetch('https://inspectmynode.onrender.com/api/v1/createbill', {
@@ -174,7 +174,7 @@ const PricePage = () => {
                                 <span className="rounded-full border border-white/20 bg-white/20 p-1">
                                     <CheckIcon strokeWidth={2} className="h-3 w-3" />
                                 </span>
-                                <Typography className="font-normal">Defect status tracking function</Typography>
+                                <Typography className="font-normal">Defect status tracking</Typography>
                             </li>
                             <li className="flex items-center gap-4">
                                 <span className="rounded-full border border-white/20 bg-white/20 p-1">
@@ -193,6 +193,12 @@ const PricePage = () => {
                                     <CheckIcon strokeWidth={2} className="h-3 w-3" />
                                 </span>
                                 <Typography className="font-normal">Receive report ON THE SPOT</Typography>
+                            </li>
+                            <li className="flex items-center gap-4">
+                                <span className="rounded-full border border-white/20 bg-white/20 p-1">
+                                    <CheckIcon strokeWidth={2} className="h-3 w-3" />
+                                </span>
+                                <Typography className="font-normal">Ensure accurate documentation</Typography>
                             </li>
                             <li className="flex items-center gap-4">
                                 <span className="rounded-full border border-white/20 bg-white/20 p-1">
@@ -323,7 +329,7 @@ const PricePage = () => {
                                 <span className="rounded-full border border-white/20 bg-white/20 p-1">
                                     <CheckIcon strokeWidth={2} className="h-3 w-3" />
                                 </span>
-                                <Typography className="font-normal">Defect status tracking function</Typography>
+                                <Typography className="font-normal">Defect status tracking</Typography>
                             </li>
                             <li className="flex items-center gap-4">
                                 <span className="rounded-full border border-white/20 bg-white/20 p-1">
@@ -343,6 +349,12 @@ const PricePage = () => {
                                     <CheckIcon strokeWidth={2} className="h-3 w-3" />
                                 </span>
                                 <Typography className="font-normal">Receive report ON THE SPOT</Typography>
+                            </li>
+                            <li className="flex items-center gap-4">
+                                <span className="rounded-full border border-white/20 bg-white/20 p-1">
+                                    <CheckIcon strokeWidth={2} className="h-3 w-3" />
+                                </span>
+                                <Typography className="font-normal">Ensure accurate documentation</Typography>
                             </li>
 
                             <li className="flex items-center gap-4">

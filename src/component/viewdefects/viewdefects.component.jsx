@@ -155,6 +155,9 @@ const ViewDefects = () => {
 
                 });
 
+            }else{
+                setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-red-700 items-center bg-red-100 w-72  drop-shadow-md shadow-md'>Please select a project and floor.</div>);
+            
             }
 
         }

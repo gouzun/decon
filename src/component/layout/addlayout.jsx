@@ -131,18 +131,24 @@ const AddLayout = () => {
     };
 
     const handleAddFlrLayout = async () => {
+        if (curProject && curFloor) {
+      
+            //check if layout already exisit
+            const img = await retrieveLayoutImg(curProject, currentUser, curFloor);
+            let count = await retrieveProjectLock(curProject, currentUser);
 
-        //check if layout already exisit
-        const img = await retrieveLayoutImg(curProject, currentUser, curFloor);
-        let count = await retrieveProjectLock(curProject, currentUser);
-
-        if (img !== null && count > 0) {
-            console.log('img exist');
-            handleOpen();
-        } else {
-            console.log('img null');
-            addLayout();
-            fieldReset();
+            if (img !== null && count > 0) {
+                console.log('img exist');
+                handleOpen();
+            } else {
+                console.log('img null');
+                addLayout();
+                fieldReset();
+            }
+        }else{
+            setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-red-700 items-center bg-red-100 w-72  drop-shadow-md shadow-md'>Please input project and floor.</div>);
+        
+        
         }
 
     }
