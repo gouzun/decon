@@ -92,7 +92,7 @@ const AddProjectFile = () => {
                     await addProject(propertyName, ownerName, propertyAdd, currentUser)
                         .then(
                             setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-green-700 items-center bg-green-100 w-72  drop-shadow-md shadow-md'>Record Added/Updated.</div>)
-                        ).then(gridAfterAdd()).then(gridHandler());
+                        ).then(gridAfterAdd());
 
                 } else {
 
@@ -228,7 +228,7 @@ const AddProjectFile = () => {
                     </tbody>
                 </table>
 
-                <Footer /></div></div>0
+                <Footer /></div></div>
         <Dialog open={open} handler={handleOpen} size='xl'>
             <DialogHeader>ACCOUNT NOT VERIFIED</DialogHeader>
             <DialogBody divider>

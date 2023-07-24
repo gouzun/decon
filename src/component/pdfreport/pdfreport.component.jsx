@@ -209,11 +209,7 @@ const PdfReport = () => {
 
 
     const pdf = async () => {
-
-        //retrieve user status
-        // const status = await retrieveUserStatus(currentUser);
-        // //if user true then
-        // console.log(status);
+       
         try {
             setSpinner(true);
             const status = await getProjectPaymentStatus();

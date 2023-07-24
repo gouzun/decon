@@ -378,43 +378,43 @@ const CreateDefectPage1 = () => {
     let eleX = 0;
     let eleY = 0;
 
-    const showCoords = (event) => {
+    // const showCoords = (event) => {
 
-        x = event.pageX;
-        y = event.pageY;
-        eleX = document.getElementById('photo').offsetLeft;
-        eleY = document.getElementById('photo').offsetTop;
-        corX = x - eleX;
-        corY = y - eleY;
+    //     x = event.pageX;
+    //     y = event.pageY;
+    //     eleX = document.getElementById('photo').offsetLeft;
+    //     eleY = document.getElementById('photo').offsetTop;
+    //     corX = x - eleX;
+    //     corY = y - eleY;
 
-        console.log('corX:', corX);
-        console.log('corY:', corY);
+    //     console.log('corX:', corX);
+    //     console.log('corY:', corY);
 
-        setMarker(<div><div style={{ position: "absolute", top: y - 37, left: x - 17 }} ><Draggable bounds={{ top: -100, left: -100, right: 100, bottom: 100 }} {...dragHandlers}
-        >
-            <Resizable
-                defaultSize={{
-                    width: 35,
-                    height: 35
-                }}
-                style={{
-                    background: `url(${pin})`,
-                    backgroundSize: 'contain',
-                    backgroundRepeat: 'no-repeat'
-                }}
-                lockAspectRatio={true}
-                enable={{ top: false, right: false, bottom: false, left: false, topRight: false, bottomRight: false, bottomLeft: false, topLeft: false }}
-            >
-            </Resizable>
+    //     setMarker(<div><div style={{ position: "absolute", top: y - 37, left: x - 17 }} ><Draggable bounds={{ top: -100, left: -100, right: 100, bottom: 100 }} {...dragHandlers}
+    //     >
+    //         <Resizable
+    //             defaultSize={{
+    //                 width: 35,
+    //                 height: 35
+    //             }}
+    //             style={{
+    //                 background: `url(${pin})`,
+    //                 backgroundSize: 'contain',
+    //                 backgroundRepeat: 'no-repeat'
+    //             }}
+    //             lockAspectRatio={true}
+    //             enable={{ top: false, right: false, bottom: false, left: false, topRight: false, bottomRight: false, bottomLeft: false, topLeft: false }}
+    //         >
+    //         </Resizable>
 
-        </Draggable></div>
-        </div>);
+    //     </Draggable></div>
+    //     </div>);
 
-        setXpos(corX);
-        setYpos(corY);
+    //     setXpos(corX);
+    //     setYpos(corY);
 
 
-    }
+    // }
 
 
     const handleInputDesc = (e) => {

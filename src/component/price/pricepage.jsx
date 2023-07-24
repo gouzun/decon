@@ -41,12 +41,11 @@ const PricePage = () => {
     } = useContext(GeneralContext);
 
     const handleCreatePayment = async () => {
-        if (buyerName === '' || selectedProject === '') {
+        if (buyerName === '' || selectedProject === ''||sessionStorage.getItem('user')==='') {
             handleOpen();
         }
         else {
-            console.log('in');
-
+           
             try {
                 //node
                 let obj = {
@@ -162,7 +161,7 @@ const PricePage = () => {
                                 <span className="rounded-full border border-white/20 bg-white/20 p-1">
                                     <CheckIcon strokeWidth={2} className="h-3 w-3" />
                                 </span>
-                                <Typography className="font-normal">Defect layout identification.</Typography>
+                                <Typography className="font-normal">Defect layout identification</Typography>
                             </li>
                             <li className="flex items-center gap-4">
                                 <span className="rounded-full border border-white/20 bg-white/20 p-1">
@@ -198,7 +197,13 @@ const PricePage = () => {
                                 <span className="rounded-full border border-white/20 bg-white/20 p-1">
                                     <CheckIcon strokeWidth={2} className="h-3 w-3" />
                                 </span>
-                                <Typography className="font-normal">Ensure accurate documentation</Typography>
+                                <Typography className="font-normal">Ensure accurate info</Typography>
+                            </li>
+                            <li className="flex items-center gap-4">
+                                <span className="rounded-full border border-white/20 bg-white/20 p-1">
+                                    <CheckIcon strokeWidth={2} className="h-3 w-3" />
+                                </span>
+                                <Typography className="font-normal">Ease of traceability</Typography>
                             </li>
                             <li className="flex items-center gap-4">
                                 <span className="rounded-full border border-white/20 bg-white/20 p-1">
@@ -317,7 +322,7 @@ const PricePage = () => {
                                 <span className="rounded-full border border-white/20 bg-white/20 p-1">
                                     <CheckIcon strokeWidth={2} className="h-3 w-3" />
                                 </span>
-                                <Typography className="font-normal">Defect layout identification.</Typography>
+                                <Typography className="font-normal">Defect layout identification</Typography>
                             </li>
                             <li className="flex items-center gap-4">
                                 <span className="rounded-full border border-white/20 bg-white/20 p-1">
@@ -354,7 +359,13 @@ const PricePage = () => {
                                 <span className="rounded-full border border-white/20 bg-white/20 p-1">
                                     <CheckIcon strokeWidth={2} className="h-3 w-3" />
                                 </span>
-                                <Typography className="font-normal">Ensure accurate documentation</Typography>
+                                <Typography className="font-normal">Ensure accurate info</Typography>
+                            </li>
+                            <li className="flex items-center gap-4">
+                                <span className="rounded-full border border-white/20 bg-white/20 p-1">
+                                    <CheckIcon strokeWidth={2} className="h-3 w-3" />
+                                </span>
+                                <Typography className="font-normal">Ease of traceability</Typography>
                             </li>
 
                             <li className="flex items-center gap-4">

@@ -48,7 +48,7 @@ export const db = getFirestore();
 
 const updateUser = async (email) => {
     try {
-        console.log(email);
+        
         const dbPL = db;
         //create new doc with custom id;
         const docRef = doc(dbPL, "USERS", email);
@@ -81,13 +81,12 @@ export const verifyEmail = async () => {
         const user = auth.currentUser;
                     
         if (user.emailVerified) {
-            // Email is already verified, proceed with your app logic
-            console.log('Email verification completed.');
+          
             await updateUser(user.email);
             verifiedstatus = true;
             return verifiedstatus;
         } else {
-            console.log('Email verification false.');
+         
             verifiedstatus = false;
             return verifiedstatus;
         }

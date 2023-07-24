@@ -63,9 +63,9 @@ const SignUpForm = () => {
 
 
     const handleSubmit = async () => {
-        handleOpen();
-        if (password === confirmPassword) {
 
+        if (password === confirmPassword) {
+            handleOpen();
             try {
                 setIsLoading(<div className='flex justify-center text-sm py-2 h-5 text-red-700 items-center bg-red-100 w-72  drop-shadow-md shadow-md'>Creating account. Please wait. <img src={spinner} alt='' /></div>);
 
@@ -144,7 +144,7 @@ const SignUpForm = () => {
                 <DialogHeader>User Agreement and Terms & Condition</DialogHeader>
                 <DialogBody divider className="h-[40rem]">
 
-                    <Typography className="font-normal overflow-y-auto" ref={contentRef} >
+                    <Typography className="font-normal overflow-y-auto pt-8" ref={contentRef} >
 
                         Welcome to INSPECTMY Defect Inspection Web App (the "App"). Before you start using the App, please carefully read and agree to the following User Agreement (the "Agreement").
                         <br /><br /> This Agreement governs your use of the App and establishes the legal terms and conditions between you ("User," "you," or "your company") and INSPECTMY ("we," "us," "our," or "INSPECTMY"). By accessing or using the App, you acknowledge that you have read, understood, and agreed to be bound by this Agreement. If you do not agree with these terms, you must not use the App.
@@ -211,13 +211,12 @@ const SignUpForm = () => {
                         By using the App, you acknowledge that you have read, understood, and agreed to be bound by this Agreement.
                         <br /><br />
 
-
+                        By clicking the "Agree" button, you confirm that you have read and understood the User Agreement and Terms & Conditions.
                     </Typography>
 
                 </DialogBody>
                 <DialogFooter className="space-x-2">
                     <div className='flex flex-row justify-center gap-3 pb-8'>
-                    <div style={{ fontSize: 'x-small' }}>By clicking the "Agree" button, you confirm that you have read and understood the User Agreement and Terms & Conditions.</div>
                         <Button variant="outlined" color="red" onClick={handleNotAgree}>
                             No i do not agree
                         </Button>

@@ -56,7 +56,7 @@ const AddLayout = () => {
         try {
 
             if (curProject) {
-                // console.log('handleFloorDD :', curProject + '-' + currentUser + '-' + value);
+         
                 const img = await retrieveLayoutImg(curProject, currentUser, value);
                 if (img !== null) {
                     // setTimeout(() => { }, 2000);
@@ -84,12 +84,9 @@ const AddLayout = () => {
         // handleGetCurDefList(value, currentUser);
         try {
             if (curFloor) {
-                // console.log('handlePDD :', value + '-' + currentUser + '-' + curFloor);
+               
                 const img = await retrieveLayoutImg(value, currentUser, curFloor);
-
-                // let count =await handleSearchDefectCount();
-
-                // setLock(prevLock => count);
+             
                 setImgLayout(img);
                 setImgLayoutDisplay(img);
 
