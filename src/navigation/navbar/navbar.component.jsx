@@ -36,12 +36,11 @@ const NavBar = () => {
         <Fragment>
             <div className={`flex ${LABELCOLOR}font-bold text-xs uppercase items-center w-full h-16 drop-shadow-lg shadow-lg ${NAVBARCOLOR} overflow-x-auto`} style={{ pointerEvents: disableNavBar }}>
                 <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/menu'><img alt='' className='w-32 h-14 pl-3' src={logo} /></Link>
-                <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/menu'><img alt='' className='w-15 h-8 ' src={menu} /><div>HOW TO USE</div></Link>
-                <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/addprojectfile'><img alt='' className='w-15 h-8 ' src={project} /><div>ADD PROJECT</div></Link>
-                <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/addlayout'><img alt='' className='w-15 h-8 ' src={layout} /><div>ADD LAYOUT</div></Link>
-                <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/adddefect'><img alt='' className='w-15 h-8 ' src={defect} /><div>ADD DEFECT</div></Link>
-                <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/viewdefects'><img alt='' className='w-15 h-8 ' src={summary} /><div>VIEW DEFECTS</div></Link>
-                <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/pdf'><img alt='' className='w-15 h-8 px-3' src={pdf} /><div>PDF</div></Link>
+                <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/addprojectfile'><img alt='' className='w-15 h-8 ' src={project} /><div> 1. ADD PROJECT</div></Link>
+                <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/addlayout'><img alt='' className='w-15 h-8 ' src={layout} /><div> 2. ADD LAYOUT</div></Link>
+                <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/adddefect'><img alt='' className='w-15 h-8 ' src={defect} /><div> 3. ADD DEFECT</div></Link>
+                <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/viewdefects'><img alt='' className='w-15 h-8 ' src={summary} /><div>4. VIEW DEFECTS</div></Link>
+                <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/pdf'><img alt='' className='w-15 h-8 px-3' src={pdf} /><div>5. PDF</div></Link>
                 <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/info'><img alt='' className='w-15 h-8 px-3' src={manual} /><div>INFORMATION</div></Link>
                 <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/pricing'><img alt='' className='w-15 h-8 px-3' src={pricing} /><div>PRICING</div></Link>
                 <Link className={`${LABELHOVERCOLOR} ${NAVBARLINK}`} to='/account'><img alt='' className='w-15 h-8 px-3' src={account} /><div>ACCOUNT</div></Link>

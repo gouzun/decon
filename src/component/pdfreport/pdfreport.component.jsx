@@ -614,7 +614,7 @@ const PdfReport = () => {
     return (
 
         <div className='flex flex-col justify-center place-items-center items-center bg-gray-300 w-full min-h-screen'>
-            <Header headerText={{ title: 'PDF SUMMARY' }} />
+            <Header headerText={{ title: '5. PDF SUMMARY' }} />
 
             {projectList ? <div className='w-80 flex justify-center p-2  my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-50'>
                 <Select id='projectDD' label="SELECT PROJECT [*required]" onChange={handlePDD} onClick={generateDropDown}>

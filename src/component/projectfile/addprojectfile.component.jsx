@@ -150,7 +150,7 @@ const AddProjectFile = () => {
         <div className='flex justify-center w-full items-center bg-gray-300 min-h-screen'>
 
             <div className='grid grid-flow-row auto-rows-max  items-center bg-gray-300 place-items-center' >
-                <Header headerText={{ title: 'ADD PROJECT FILE' }} />
+                <Header headerText={{ title: '1. ADD PROJECT FILE' }} />
 
 
                 <div className="w-72 flex justify-center p-2 my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100">

@@ -266,7 +266,7 @@ const ViewDefects = () => {
     return (
         <div className='grid grid-flow-row auto-rows-max w-full min-h-screen flex flex-col place-items-center items-center bg-gray-300 place-items-center' >
             <div className='grid place-items-center items-center bg-gray-300 place-items-center w-full flex overflow-x-auto'>
-                <Header headerText={{ title: 'VIEW DEFECTS SUMMARY' }} />
+                <Header headerText={{ title: '4. VIEW DEFECTS SUMMARY' }} />
 
                 {projectList ? <div id='projectDD' className='w-80 flex justify-center p-2  my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100'>
                     <Select label="SELECT PROJECT [*required]" onChange={handlePDD} onClick={handleProjectIndex} value={projectDisplay}>

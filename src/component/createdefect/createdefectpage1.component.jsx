@@ -461,20 +461,24 @@ const CreateDefectPage1 = () => {
         };
 
         const imageElement = imageRef.current;
+      
         if (imageElement && imageElement.complete) {
             // Image is already loaded, call getImageStartPosition immediately
             getImageStartPosition();
-        } else {
-            // Image is not loaded yet, set onload event
-            imageElement.onload = () => {
-                getImageStartPosition();
-            };
+        }
+        else {
+            if (imageElement !== null) {
+                // Image is not loaded yet, set onload event
+                imageElement.onload = () => {
+                    getImageStartPosition();
+                };
+            }
         }
 
         window.addEventListener('resize', updateSize);
 
         return () => window.removeEventListener('resize', updateSize);
-    }, []);
+    }, [imgLayoutDisplay]);
 
 
     // useEffect(() => {
@@ -484,10 +488,10 @@ const CreateDefectPage1 = () => {
 
     return (
 
-        <div className='flex justify-center w-full items-center bg-gray-300'>
+        <div className='flex justify-center w-full bg-gray-300 h-auto'>
 
             <div className='grid grid-flow-row auto-rows-max items-center bg-gray-300 place-items-center'>
-                <Header headerText={{ title: 'CREATE NEW DEFECT ITEM' }} />
+                <Header headerText={{ title: '3. CREATE NEW DEFECT ITEM' }} />
 
                 {projectList ? <div id='pdd' className='w-80 flex justify-center p-2  my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-20'>
                     <Select id='projectDD' label="SELECT PROJECT [*required]" onChange={handlePDD} onClick={handlePDDIndex} value={curProject}>
@@ -504,95 +508,98 @@ const CreateDefectPage1 = () => {
 
                     </Select></div>
 
-                <Header headerText={{ title: 'DRAG PIN ON DEFECT POSITION' }} />
-                {loader ? <Loader /> : (<>
-                    {imgLayoutDisplay ? (<><div className='z-10' style={{ position: 'absolute', left: position.left - 27.5, top: position.top - 55 }}>
-                        <Draggable {...dragHandlers} bounds={{ top: 0, left: 0, right: 299, bottom: 399 }}
-                        >
-                            <Resizable
-                                defaultSize={{
-                                    width: 55,
-                                    height: 55
-                                }}
-                                style={{
-                                    background: `url(${pin})`,
-                                    backgroundSize: 'contain',
-                                    backgroundRepeat: 'no-repeat'
-                                }}
-                                lockAspectRatio={true}
-                                enable={{ top: false, right: false, bottom: false, left: false, topRight: false, bottomRight: false, bottomLeft: false, topLeft: false }}
+               
+                {imgLayoutDisplay ? (
+                    <div className='w-80 flex flex-col justify-center bg-gray-300'>
+                    <Header headerText={{ title: 'DRAG PIN ON DEFECT POSITION' }} />
+                    {loader ? <Loader /> : (<>
+                        {imgLayoutDisplay ? (<>
+                            <div className='z-10' style={{ position: 'absolute', left: position.left - 27.5, top: position.top - 55 }}>
+                            <Draggable {...dragHandlers} bounds={{ top: 0, left: 0, right: 299, bottom: 399 }}
                             >
-                            </Resizable>
+                                <Resizable
+                                    defaultSize={{
+                                        width: 55,
+                                        height: 55
+                                    }}
+                                    style={{
+                                        background: `url(${pin})`,
+                                        backgroundSize: 'contain',
+                                        backgroundRepeat: 'no-repeat'
+                                    }}
+                                    lockAspectRatio={true}
+                                    enable={{ top: false, right: false, bottom: false, left: false, topRight: false, bottomRight: false, bottomLeft: false, topLeft: false }}
+                                >
+                                </Resizable>
 
-                        </Draggable>
+                            </Draggable>
+                        </div>
+                            <div className="flex justify-center p-2 my-2">
+                                <img id='photo' className='drop-shadow-lg shadow-lg' style={{ height: '400px', width: '300px' }} src={imgLayoutDisplay ? imgLayoutDisplay : layout} alt='' ref={imageRef} /></div></>) :
+                            (<>
+                                <div className="flex justify-center p-2 my-2">
+                              
+                                    <img id='photo' className='drop-shadow-lg shadow-lg' style={{ height: '300px', width: '300px' }} src={layout} alt='' ref={imageRef} /></div></>)}
+                    </>)}
+
+
+                    <Header headerText={{ title: 'SELECT OR KEY IN AREA [*chose either one]' }} />
+
+                    <div id='area' className="w-80 flex justify-center p-2 my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-50">
+                        {selectAreaColor === 'success' ? (<Select label="SELECT FROM AREA LIST[*]" onChange={handleAreaDD} onClick={handleAreaIndex} value={curArea} success>
+                            {AREADD.sort().map((item) => (<Option key={item} value={item}>{item}</Option>))}
+                        </Select>) : (selectAreaColor === '' ? (<Select label="SELECT FROM AREA LIST[*]" onChange={handleAreaDD} onClick={handleAreaIndex} value={curArea}>
+                            {AREADD.sort().map((item) => (<Option key={item} value={item}>{item}</Option>))}
+                        </Select>) : (<Select label="SELECT FROM AREA LIST[*]" onChange={handleAreaDD} onClick={handleAreaIndex} value={curArea} error>
+                            {AREADD.sort().map((item) => (<Option key={item} value={item}>{item}</Option>))}
+                        </Select>))}
+                    </div>
+
+                    <div id='area' className="w-80 flex justify-center p-2 my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100">
+                        {areaAreaColor === 'success' ? (<Textarea label="KEY IN AREA [*]" onChange={handleAreaArea} value={areaArea} success>
+                        </Textarea>) : (areaAreaColor === '' ? (<Textarea label="KEY IN AREA [*]" onChange={handleAreaArea} value={areaArea}>
+                        </Textarea>) : (<Textarea label="KEY IN AREA [*]" onChange={handleAreaArea} value={areaArea} error>
+                        </Textarea>))}
+                    </div>
+                    <div id='element' className="w-80 flex justify-center p-2 my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-40">
+                        <Select label="ELEMENT [*required]" onChange={handleElementDD} onClick={handleElementIndex} value={curElement}>
+                            {ELEMENTDD.sort().map((item) => (<Option key={item} value={item}>{item}</Option>))}
+                        </Select></div>
+                    <Header headerText={{ title: 'CLICK BELOW TO TAKE IMAGE[4:3]' }} />
+                    <div className="flex justify-center p-2 my-2"><label><img className='drop-shadow-lg shadow-lg' style={{ height: '400px', width: '300px' }} src={imgDefectDisplay ? imgDefectDisplay : defect} alt='' /><input
+                        accept="image/png,image/jpeg"
+                        type='file'
+                        className="filetype"
+                        onChange={onImgDefectChange}
+                        style={{ display: 'none' }}
+                        onClick={() => document.querySelector('.filetype').click()}
+                    /></label></div>
+
+                    <Header headerText={{ title: 'SELECT OR KEY IN A DEFECT [*chose one]' }} />
+
+
+                    <div className="w-80 flex justify-center p-2 my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-40">
+                        {selectColor === 'success' ? (<Select label="SELECT FROM DEFECT LIST [*]" onChange={handleDefectDesc} size="lg" success defaultValue={curDefectDesc} >
+                            {defects.map((item) => (<Option className='text-sm' key={item} value={item.toUpperCase()}>{item.toUpperCase()}</Option>))}
+                        </Select>) : (selectColor === '' ? (<Select label="SELECT FROM DEFECT LIST [*]" onChange={handleDefectDesc} size="lg" defaultValue={curDefectDesc}>
+                            {defects.map((item) => (<Option className='text-sm' key={item} value={item.toUpperCase()}>{item.toUpperCase()}</Option>))}
+                        </Select>) : (<Select label="SELECT FROM DEFECT LIST [*]" onChange={handleDefectDesc} size="lg" error defaultValue={curDefectDesc}>
+                            {defects.map((item) => (<Option className='text-sm' key={item} value={item.toUpperCase()}>{item.toUpperCase()}</Option>))}
+                        </Select>))}
 
                     </div>
-                        <div className="flex justify-center p-2 my-2">
-                            <img id='photo' className='drop-shadow-lg shadow-lg' style={{ height: '400px', width: '300px' }} src={imgLayoutDisplay ? imgLayoutDisplay : layout} alt='' ref={imageRef} /></div></>) :
 
-                        (<>
-                            <div className="flex justify-center p-2 my-2">
-                                <img id='photo' className='drop-shadow-lg shadow-lg' style={{ height: '300px', width: '300px' }} src={imgLayoutDisplay ? imgLayoutDisplay : layout} alt='' ref={imageRef} /></div></>)}
-                </>)}
+                    <div className="w-80 flex justify-center p-2 my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-30">
+                        {textareColor === 'success' ? <Textarea label="KEY IN DEFECT DESCRIPTION [*]" value={inputDesc} onChange={handleInputDesc} success>
+                        </Textarea > : (textareColor === '' ? (<Textarea label="KEY IN DEFECT DESCRIPTION [*]" value={inputDesc} onChange={handleInputDesc} ></Textarea >) : (<Textarea label="KEY IN DEFECT [*]" value={inputDesc} onChange={handleInputDesc} error></Textarea>)
+                        )}
+                    </div>
 
-
-                <Header headerText={{ title: 'SELECT OR KEY IN AREA [*chose either one]' }} />
-
-                <div id='area' className="w-80 flex justify-center p-2 my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-50">
-                    {selectAreaColor === 'success' ? (<Select label="SELECT FROM AREA LIST[*]" onChange={handleAreaDD} onClick={handleAreaIndex} value={curArea} success>
-                        {AREADD.sort().map((item) => (<Option key={item} value={item}>{item}</Option>))}
-                    </Select>) : (selectAreaColor === '' ? (<Select label="SELECT FROM AREA LIST[*]" onChange={handleAreaDD} onClick={handleAreaIndex} value={curArea}>
-                        {AREADD.sort().map((item) => (<Option key={item} value={item}>{item}</Option>))}
-                    </Select>) : (<Select label="SELECT FROM AREA LIST[*]" onChange={handleAreaDD} onClick={handleAreaIndex} value={curArea} error>
-                        {AREADD.sort().map((item) => (<Option key={item} value={item}>{item}</Option>))}
-                    </Select>))}
-                </div>
-
-                <div id='area' className="w-80 flex justify-center p-2 my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100">
-                    {areaAreaColor === 'success' ? (<Textarea label="KEY IN AREA [*]" onChange={handleAreaArea} value={areaArea} success>
-                    </Textarea>) : (areaAreaColor === '' ? (<Textarea label="KEY IN AREA [*]" onChange={handleAreaArea} value={areaArea}>
-                    </Textarea>) : (<Textarea label="KEY IN AREA [*]" onChange={handleAreaArea} value={areaArea} error>
-                    </Textarea>))}
-                </div>
-                <div id='element' className="w-80 flex justify-center p-2 my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-40">
-                    <Select label="ELEMENT [*required]" onChange={handleElementDD} onClick={handleElementIndex} value={curElement}>
-                        {ELEMENTDD.sort().map((item) => (<Option key={item} value={item}>{item}</Option>))}
-                    </Select></div>
-                <Header headerText={{ title: 'CLICK BELOW TO TAKE IMAGE[4:3]' }} />
-                <div className="flex justify-center p-2 my-2"><label><img className='drop-shadow-lg shadow-lg' style={{ height: '400px', width: '300px' }} src={imgDefectDisplay ? imgDefectDisplay : defect} alt='' /><input
-                    accept="image/png,image/jpeg"
-                    type='file'
-                    className="filetype"
-                    onChange={onImgDefectChange}
-                    style={{ display: 'none' }}
-                    onClick={() => document.querySelector('.filetype').click()}
-                /></label></div>
-
-                <Header headerText={{ title: 'SELECT OR KEY IN A DEFECT [*chose one]' }} />
-
-
-                <div className="w-80 flex justify-center p-2 my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-40">
-                    {selectColor === 'success' ? (<Select label="SELECT FROM DEFECT LIST [*]" onChange={handleDefectDesc} size="lg" success defaultValue={curDefectDesc} >
-                        {defects.map((item) => (<Option className='text-sm' key={item} value={item.toUpperCase()}>{item.toUpperCase()}</Option>))}
-                    </Select>) : (selectColor === '' ? (<Select label="SELECT FROM DEFECT LIST [*]" onChange={handleDefectDesc} size="lg" defaultValue={curDefectDesc}>
-                        {defects.map((item) => (<Option className='text-sm' key={item} value={item.toUpperCase()}>{item.toUpperCase()}</Option>))}
-                    </Select>) : (<Select label="SELECT FROM DEFECT LIST [*]" onChange={handleDefectDesc} size="lg" error defaultValue={curDefectDesc}>
-                        {defects.map((item) => (<Option className='text-sm' key={item} value={item.toUpperCase()}>{item.toUpperCase()}</Option>))}
-                    </Select>))}
-
-                </div>
-
-                <div className="w-80 flex justify-center p-2 my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-30">
-                    {textareColor === 'success' ? <Textarea label="KEY IN DEFECT DESCRIPTION [*]" value={inputDesc} onChange={handleInputDesc} success>
-                    </Textarea > : (textareColor === '' ? (<Textarea label="KEY IN DEFECT DESCRIPTION [*]" value={inputDesc} onChange={handleInputDesc} ></Textarea >) : (<Textarea label="KEY IN DEFECT [*]" value={inputDesc} onChange={handleInputDesc} error></Textarea>)
-                    )}
-                </div>
-
-                <div className="flex justify-center p-2 my-2 gap-2">{isLoading}</div>
-                <div className="flex justify-center p-2 my-2 gap-2">
-                    <Button className={`drop-shadow-lg shadow-lg ${BUTTONCOLOR} ${LABELHOVERCOLOR}`} variant="gradient" onClick={handleAddDefect}>ADD</Button>
-                    <Button className={`drop-shadow-lg shadow-lg ${BUTTONCOLOR} ${LABELHOVERCOLOR}`} variant="gradient" onClick={fieldreset}>RESET</Button>
-                </div>
+                    <div className="flex justify-center p-2 my-2 gap-2">{isLoading}</div>
+                    <div className="flex justify-center p-2 my-2 gap-2">
+                        <Button className={`drop-shadow-lg shadow-lg ${BUTTONCOLOR} ${LABELHOVERCOLOR}`} variant="gradient" onClick={handleAddDefect}>ADD</Button>
+                        <Button className={`drop-shadow-lg shadow-lg ${BUTTONCOLOR} ${LABELHOVERCOLOR}`} variant="gradient" onClick={fieldreset}>RESET</Button>
+                    </div></div>) : <><div className='h-96'></div></>}
                 <Footer />
             </div>
 

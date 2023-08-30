@@ -254,7 +254,7 @@ const AddLayout = () => {
         <div className='flex flex-col w-full items-center bg-gray-300 min-h-screen'>
 
             <div className='grid grid-flow-row auto-rows-max  items-center bg-gray-300 place-items-center' >
-                <Header headerText={{ title: 'ADD LAYOUT IMAGE' }} />
+                <Header headerText={{ title: '2. ADD LAYOUT IMAGE' }} />
             </div>
 
             {projectList ? <div id='pdd' className='w-80 flex justify-center p-2  my-2 rounded-lg drop-shadow-lg shadow-lg bg-gray-100 z-20'>
@@ -274,7 +274,7 @@ const AddLayout = () => {
                 </Select></div>
             <div className="flex flex-row items-center justify-center p-2">
                 <label >
-                    <img className='drop-shadow-lg shadow-lg' width={25} height={25} src={cam} alt='' />
+                    <div className='flex flex-row gap-4'><img className='drop-shadow-lg shadow-lg' width={25} height={25} src={cam} alt='' /><div className='text-gray-600'>Click here to take photo</div></div>
                     <input
                         accept="image/png,image/jpeg"
                         type='file'
