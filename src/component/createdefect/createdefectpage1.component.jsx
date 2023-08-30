@@ -599,7 +599,9 @@ const CreateDefectPage1 = () => {
                     <div className="flex justify-center p-2 my-2 gap-2">
                         <Button className={`drop-shadow-lg shadow-lg ${BUTTONCOLOR} ${LABELHOVERCOLOR}`} variant="gradient" onClick={handleAddDefect}>ADD</Button>
                         <Button className={`drop-shadow-lg shadow-lg ${BUTTONCOLOR} ${LABELHOVERCOLOR}`} variant="gradient" onClick={fieldreset}>RESET</Button>
-                    </div></div>) : <><div className='h-96'></div></>}
+                    </div></div>) : <><div className="flex justify-center p-2 my-2">
+                              
+                    <img id='photo' className='drop-shadow-lg shadow-lg' style={{ height: '300px', width: '300px' }} src={layout} alt='' ref={imageRef} /></div></>}
                 <Footer />
             </div>
 
